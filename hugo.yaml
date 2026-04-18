@@ -1,20 +1,39 @@
-# 1. 主题名称必须匹配
-theme: hugo-theme-next
+# hugo.yaml
+baseURL: "https://blog.ganzi.fun"  # ✅ 替换为你的真实域名
+languageCode: "zh-cn"
+title: "杆子博客"
 
-# 2. 内容目录设置（主题强制要求）
-contentDir: content
-mainSections: ["posts"]  # 文章必须放在 content/posts/ 下
+# 生产环境专属配置
+params:
+  # 启用 CDN（避免本地资源 404）
+  vendors:
+    enable: true
+    cdn: jsdelivr
+  
+  # 禁用开发功能
+  debug: false
+  # 启用 SEO 优化
+  seo:
+    enable: true
+  
+  # 评论系统（示例：Giscus）
+  comments:
+    enable: true
+    provider: giscus
+    giscus:
+      repo: "yourname/your-repo"
+      repoId: "R_xxx"  # 从 https://giscus.app 获取
+      category: "Announcements"
+      categoryId: "DIC_xxx"
 
-# 3. 构建输出目录（部署用）
-publishDir: public
-
-# 4. 启用草稿预览（开发时）
+# 构建优化
 build:
   writeStats: true
   cacheBusters:
     - source: ".*"
       target: "$1"
 
-# 5. 主题 Scheme 选择（4种风格）
-params:
-  scheme: Gemini  # 可选: Muse / Mist / Pisces / Gemini(默认)
+# 输出优化
+minify:
+  disableXML: true
+  minifyOutput: true
