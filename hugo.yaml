@@ -1,0 +1,20 @@
+# 1. 主题名称必须匹配
+theme: hugo-theme-next
+
+# 2. 内容目录设置（主题强制要求）
+contentDir: content
+mainSections: ["posts"]  # 文章必须放在 content/posts/ 下
+
+# 3. 构建输出目录（部署用）
+publishDir: public
+
+# 4. 启用草稿预览（开发时）
+build:
+  writeStats: true
+  cacheBusters:
+    - source: ".*"
+      target: "$1"
+
+# 5. 主题 Scheme 选择（4种风格）
+params:
+  scheme: Gemini  # 可选: Muse / Mist / Pisces / Gemini(默认)
