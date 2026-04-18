@@ -1,6 +1,11 @@
+---
+title: "免费 claude code、codex API 每日100 万 Tokens 免费用"
+date: 2026-04-18T23:54:45+08:00
+draft: false          # 🔥 生产环境必须为 false 或删掉这行
+categories: ["Hugo"]
+tags: ["博客", "教程"]
+---
 ![cover_image](https://wsrv.nl/?output=webp&url=https%3A%2F%2Fmmbiz.qpic.cn%2Fsz_mmbiz_jpg%2FJgLDtnLQIFfyu2RM6TskXsNsYmlicMoLlGPibxvuJuLw0AxQyZoGpUICJyedzzyzNFFib72icsOZ1JMvSEwAYkqovfFiaicNFyOTiaWAHjibX5mf3XY%2F0%3Fwx_fmt%3Djpeg) 
-
-# 免费 claude code、codex API 每日100 万 Tokens 免费用
 
 注册用户每日可获得免费调用额度，适合日常开发测试与轻量使用。
 
