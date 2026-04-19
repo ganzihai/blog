@@ -2,7 +2,7 @@
 .home-post-excerpt img { display: none !important; }
 
 /* 限制首页文章卡片高度 */
-.posts-expand .post-body {
+.home-posts-expand .post-body {
   max-height: 100px;
   overflow: hidden;
 }
