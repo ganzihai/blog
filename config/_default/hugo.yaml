@@ -53,6 +53,14 @@ markup:
     startLevel: 2
     endLevel: 4
 
+# 将仓库根目录 random/ 挂载到静态目录 static/random/
+module:
+  mounts:
+    - source: static
+      target: static
+    - source: random
+      target: static/random
+
 # 站点文章导航文件
 # Site map of all articles
 sitemap:
