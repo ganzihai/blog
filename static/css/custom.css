@@ -29,3 +29,44 @@
   background: linear-gradient(transparent, var(--content-bg-color));
   pointer-events: none;
 }
+/* --- 首页文章内容样式重置 --- */
+
+/* 1. 强制所有子元素继承基础字体样式 */
+.index .post-body * {
+  font-family: inherit !important;
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+  color: inherit !important;
+  font-weight: normal !important;
+  background: none !important;
+  border: none !important;
+  margin: 0 0 0.5em 0 !important;
+  padding: 0 !important;
+}
+
+/* 2. 特殊处理标题标签 */
+.index .post-body h1,
+.index .post-body h2,
+.index .post-body h3,
+.index .post-body h4,
+.index .post-body h5,
+.index .post-body h6 {
+  display: inline;
+  font-size: 1rem !important;
+  font-weight: bold !important;
+  margin: 0 0.2em 0 0 !important;
+}
+
+/* 3. 处理代码块和引用块 */
+.index .post-body pre,
+.index .post-body code,
+.index .post-body blockquote {
+  display: inline;
+  white-space: normal;
+  overflow: visible;
+}
+
+/* 4. 确保图片隐藏 */
+.index .post-body img {
+  display: none !important;
+}
