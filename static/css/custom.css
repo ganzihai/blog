@@ -1,6 +1,5 @@
 /* ============================================================
    首页文章卡片：左图右文紧凑布局
-   参考样式：缩略图左侧固定，右侧纯文字摘要，整体紧凑
    ============================================================ */
 
 /* 卡片容器 */
@@ -26,7 +25,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  display: block !important;  /* 强制显示缩略图，覆盖任何 none */
   transition: transform 0.3s ease;
 }
 
@@ -59,12 +58,15 @@
   flex: 1 1 100%;
 }
 
-/* 强制隐藏 post-body 内所有原始图片（防止 .Summary 里的图片漏出） */
-.posts-expand .post-block .post-body img:not(.home-post-thumb img) {
+/* ============================================================
+   只在首页隐藏 .home-post-excerpt 内部的图片
+   （即 .Summary 里可能残留的 img，不影响详情页）
+   ============================================================ */
+.home-post-excerpt img {
   display: none !important;
 }
 
-/* 整体压缩首页每篇文章的间距，让卡片更紧凑 */
+/* 首页卡片间距 */
 .posts-expand .post-block {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -78,7 +80,7 @@
   line-height: 1.4;
 }
 
-/* 首页 meta 信息（时间/分类等）紧凑 */
+/* 首页 meta 信息紧凑 */
 .posts-expand .post-block .post-header .post-meta {
   margin-bottom: 6px;
   font-size: 0.8rem;
