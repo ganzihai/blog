@@ -7,7 +7,7 @@
 
 /* 限制首页文章卡片高度 */
 .index .post-block {
-  max-height: 200px !important;
+  max-height: 150px !important;
   overflow: hidden !important;
 }
 
