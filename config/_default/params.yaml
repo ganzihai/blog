@@ -429,7 +429,7 @@ followMe:
 # Easily browse and edit blog source code online.
 postEdit:
   enable: true
-  url: https://github.com/ganzihai/blog/tree/main/content/post
+  url: https://github.com/ganzihai/blog/edit/main/content/post/
 
 
 # 设置文本的对齐方式
