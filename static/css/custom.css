@@ -1,10 +1,31 @@
 /* 首页文章列表隐藏图片 */
-.index .post-body img { 
-  display: none; 
+.index .post-body img,
+.index .post-body picture,
+.index .post-body figure {
+  display: none !important;
 }
 
 /* 限制首页文章卡片高度 */
+.index .post-block {
+  max-height: 200px !important;
+  overflow: hidden !important;
+}
+
+/* 或者限制 post-body 的高度 */
 .index .post-body {
-  max-height: 100px;
-  overflow: hidden;
+  max-height: 100px !important;
+  overflow: hidden !important;
+  position: relative;
+}
+
+/* 添加渐变遮罩效果（可选） */
+.index .post-body::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(transparent, var(--content-bg-color));
+  pointer-events: none;
 }
