@@ -52,7 +52,7 @@
 
 /* 确保阅读全文按钮完整显示 */
 .index .post-footer {
-  margin-top: 0px !important;
+  margin-top: -20px !important;
   padding-top: 0px !important;
   visibility: visible !important;
   opacity: 1 !important;
