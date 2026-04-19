@@ -1,0 +1,23 @@
+/* 固定首页文章卡片高度 */
+.home .post-block {
+  min-height: 400px; /* 根据需要调整最小高度 */
+  max-height: 500px; /* 根据需要调整最大高度 */
+  overflow: hidden; /* 超出部分隐藏 */
+  display: flex;
+  flex-direction: column;
+}
+
+.home .post-body {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* 隐藏首页文章摘要中的图片 */
+.home .post-body img {
+  display: none;
+}
+
+/* 确保"阅读更多"按钮可见 */
+.home .post-button {
+  margin-top: auto;
+}
