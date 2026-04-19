@@ -38,8 +38,3 @@ main:
     pageRef: /archives
     pre: archive
     weight: 5
-  - identifier: commonweal
-    name: Commonweal404
-    pageRef: /404.html
-    pre: heartbeat
-    weight: 6
