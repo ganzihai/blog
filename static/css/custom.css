@@ -1,0 +1,10 @@
+/* 首页不显示文章中的图片 */
+.posts-expand .post-body img {
+  display: none;
+}
+
+/* 限制首页文章摘要高度 */
+.posts-expand .post-block .post-body {
+  max-height: 300px;
+  overflow: hidden;
+}
