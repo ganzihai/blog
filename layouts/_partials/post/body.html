@@ -14,12 +14,14 @@
     {{ end }}
   {{ end }}
 
-  {{/* 2. 若没有图片，则从 params 配置的随机占位图列表中随机取一张 */}}
+  {{/* 2. 若没有图片，则从 params 配置的备用图列表中按时间戳取一张 */}}
   {{ if not $thumbSrc }}
     {{ $fallbacks := .Site.Params.fallbackThumbs }}
     {{ if $fallbacks }}
-      {{ $idx := mod .Date.Unix (len $fallbacks | int64) }}
-      {{ $thumbSrc = index $fallbacks (int $idx) }}
+      {{ $count := len $fallbacks }}
+      {{ $unix := .Date.Unix }}
+      {{ $idx := mod $unix $count }}
+      {{ $thumbSrc = index $fallbacks $idx }}
     {{ end }}
   {{ end }}
 
