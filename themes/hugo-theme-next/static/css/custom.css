@@ -1,0 +1,35 @@
+/* 仅在家园首页生效 */
+.home .post-block {
+    min-height: 350px !important;
+    max-height: 400px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+/* 文章主体部分占满剩余空间 */
+.home .post-body {
+    flex: 1 !important;
+    overflow: hidden !important;
+    min-height: 0 !important;
+}
+
+/* 隐藏文章正文中的第一张图片 */
+.home .post-body > p:first-child img,
+.home .post-body > img:first-child,
+.home .post-body figure:first-child {
+    display: none !important;
+}
+
+/* 确保"阅读更多"按钮在底部 */
+.home .post-button {
+    margin-top: auto !important;
+    padding-top: 15px !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+.home .post-header {
+    flex-shrink: 0 !important;
+}
