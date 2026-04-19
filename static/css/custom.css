@@ -1,39 +1,10 @@
-/* ============================================================
-   只在首页隐藏 .home-post-excerpt 内部的图片
-   （即 .Summary 里可能残留的 img，不影响详情页）
-   ============================================================ */
-.home-post-excerpt img {
-  display: none !important;
+/* 首页文章列表隐藏图片 */
+.posts-expand .post-block img {
+  display: none;
 }
 
-/* 首页卡片间距 */
-.posts-expand .post-block {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-/* 首页文章标题 */
-.posts-expand .post-block .post-header .post-title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-  line-height: 1.4;
-}
-
-/* 首页 meta 信息紧凑 */
-.posts-expand .post-block .post-header .post-meta {
-  margin-bottom: 6px;
-  font-size: 0.8rem;
-}
-
-/* 响应式：窄屏改为上图下文 */
-@media (max-width: 600px) {
-  .home-post-card {
-    flex-direction: column;
-  }
-  .home-post-thumb {
-    flex: none;
-    width: 100%;
-    height: 160px;
-  }
+/* 限制首页文章卡片高度 */
+.posts-expand .post-body {
+  max-height: 200px;
+  overflow: hidden;
 }
