@@ -29,34 +29,41 @@
   background: linear-gradient(transparent, var(--content-bg-color));
   pointer-events: none;
 }
-/* --- 首页文章摘要：单行截断 + 省略号 --- */
-
-.index .post-body {
-  /* 强制单行显示 */
-  white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  
-  /* 确保高度固定，防止内容撑开 */
-  max-height: 1.6em !important; /* 根据 line-height 调整，1.6em 约等于一行 */
-  line-height: 1.6;
-  display: block; /* 确保容器行为正确 */
+/* 首页文章列表隐藏图片 */
+.index .post-body img {
+  display: none !important;
 }
 
-/* 重置内部所有元素的样式，防止它们破坏单行布局 */
+/* 限制首页文章卡片高度并优化布局 */
+.index .post-body {
+  max-height: 1.6em !important;
+  line-height: 1.5 !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  display: block !important;
+}
+
+/* 重置内部元素样式，确保单行显示 */
 .index .post-body * {
-  display: inline !important; /* 强制所有子元素（如p, h1, div）变为行内元素 */
+  display: inline !important;
   white-space: nowrap !important;
   margin: 0 !important;
   padding: 0 !important;
-  border: none !important;
-  font-size: inherit !important;
-  font-weight: normal !important;
-  color: inherit !important;
-  background: none !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
 }
 
-/* 依然隐藏图片 */
-.index .post-body img {
-  display: none !important;
+/* 调整标题与正文间距 */
+.index .post-header {
+  margin-bottom: 5px !important;
+}
+
+/* 确保阅读全文按钮完整显示 */
+.index .post-footer {
+  margin-top: 5px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
