@@ -1025,35 +1025,3 @@ vendors:
     # The default CDN provider of third-party plugins.
     # Available values: local | cdnjs | unpkg | jsdelivr | staticfile | bootcdn | 7ed | zstatic | zeyao | custom
     plugins: local
-# 首页文章无封面图时的备用缩略图（按发布时间戳固定分配，不随机跳变）
-fallbackThumbs:
-  - /random/1.jpg
-  - /random/2.jpg
-  - /random/3.jpg
-  - /random/4.jpg
-  - /random/5.jpg
-  - /random/6.jpg
-  - /random/7.jpg
-  - /random/8.jpg
-  - /random/9.jpg
-  - /random/10.jpg
-  - /random/11.jpg
-  - /random/12.jpg
-  - /random/13.jpg
-  - /random/14.jpg
-  - /random/15.jpg
-  - /random/16.jpg
-  - /random/17.jpg
-  - /random/18.jpg
-  - /random/19.jpg
-  - /random/20.jpg
-  - /random/21.jpg
-  - /random/22.jpg
-  - /random/23.jpg
-  - /random/24.jpg
-  - /random/25.jpg
-  - /random/26.jpg
-  - /random/27.jpg
-  - /random/28.jpg
-  - /random/29.jpg
-  - /random/30.jpg
