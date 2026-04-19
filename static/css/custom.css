@@ -1,5 +1,7 @@
 /* 首页文章列表隐藏图片 */
-.home-post-excerpt img { display: none !important; }
+.home-post-excerpt img { 
+  display: none; 
+}
 
 /* 限制首页文章卡片高度 */
 .home-posts-expand .post-body {
