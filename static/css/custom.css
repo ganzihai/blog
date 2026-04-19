@@ -1,10 +1,8 @@
 /* 首页文章列表隐藏图片 */
-.posts-expand .post-block img {
-  display: none;
-}
+.home-post-excerpt img { display: none !important; }
 
 /* 限制首页文章卡片高度 */
 .posts-expand .post-body {
-  max-height: 200px;
+  max-height: 100px;
   overflow: hidden;
 }
