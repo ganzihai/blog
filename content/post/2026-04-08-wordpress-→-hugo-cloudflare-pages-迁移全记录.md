@@ -1,0 +1,333 @@
+---
+title: WordPress → Hugo + Cloudflare Pages 迁移全记录
+author: 杆子
+type: post
+date: 2026-04-08T04:33:11+00:00
+url: /wordpress-→-hugo-cloudflare-pages-迁移全记录.html
+views:
+  - 7
+categories:
+  - 教程
+
+---
+> 本文记录了我从 VPS 上的 WordPress 博客迁移到 Hugo + Cloudflare Pages 的完整过程，包括 n8n 自动推送文章的工作流改造。
+
+## 迁移背景
+
+  * **原架构**：VPS + WordPress + weisaygrace 主题 + n8n 自动推文
+  * **目标架构**：Hugo + GitHub + Cloudflare Pages（免费，无需 VPS）+ n8n 自动推文（新方案）
+  * **主要动机**：降低运维成本，摆脱 VPS 依赖，提升访问速度
+
+* * *
+
+## 一、准备工作
+
+### 1.1 安装 Hugo
+
+**macOS：**
+
+<pre><code class="" data-line="">brew install hugo</code></pre>
+
+**Windows（使用 Scoop）：**
+
+<pre><code class="" data-line="">scoop install hugo-extended</code></pre>
+
+**Linux：**
+
+<pre><code class="" data-line=""># 从 Hugo 官方 Release 页面下载最新版二进制
+wget https://github.com/gohugoio/hugo/releases/latest/download/hugo_extended_linux_amd64.tar.gz
+tar -xzf hugo_extended_linux_amd64.tar.gz
+sudo mv hugo /usr/local/bin/</code></pre>
+
+验证安装：
+
+<pre><code class="" data-line="">hugo version</code></pre>
+
+### 1.2 安装 Git 并配置 GitHub
+
+确保本地已安装 Git，并拥有一个 GitHub 账号。新建一个空仓库，例如 <code class="" data-line="">my-blog</code>。
+
+* * *
+
+## 二、初始化 Hugo 站点
+
+<pre><code class="" data-line=""># 创建新站点
+hugo new site my-blog
+cd my-blog
+
+# 初始化 Git
+git init
+git remote add origin https://github.com/你的用户名/my-blog.git</code></pre>
+
+### 2.1 选择并安装主题
+
+推荐与 weisaygrace 风格相近的主题：
+
+| 主题           | 风格             | 地址                                     |
+| ------------ | -------------- | -------------------------------------- |
+| **Stack**    | 卡片式，支持侧边栏，中文友好 | github.com/CaiJimmy/hugo-theme-stack   |
+| **PaperMod** | 极简，双栏，响应式      | github.com/adityatelange/hugo-PaperMod |
+| **Blowfish** | 现代，功能丰富        | github.com/nunocoracao/blowfish        |
+
+以 Stack 主题为例：
+
+<pre><code class="" data-line="">git submodule add https://github.com/CaiJimmy/hugo-theme-stack themes/stack</code></pre>
+
+### 2.2 基础配置
+
+编辑 <code class="" data-line="">hugo.toml</code>（或 <code class="" data-line="">config.toml</code>）：
+
+<pre><code class="" data-line="">baseURL = "https://你的域名.com/"
+languageCode = "zh-cn"
+title = "我的博客"
+theme = "stack"
+
+[params]
+  description = "博客描述"
+  author = "你的名字"
+
+[params.sidebar]
+  emoji = "🍥"
+  subtitle = "副标题文字"
+
+[pagination]
+  pagerSize = 10</code></pre>
+
+### 2.3 移植 weisaygrace 样式（可选）
+
+如果想保留 weisaygrace 的部分视觉风格，在 <code class="" data-line="">assets/scss/custom.scss</code>（或 <code class="" data-line="">static/css/custom.css</code>）中引入原主题的颜色变量和字体设置：
+
+<pre><code class="" data-line="">/* 从 weisaygrace/style.css 提取的核心变量 */
+:root {
+  /* 将原主题的 CSS 变量复制至此 */
+}</code></pre>
+
+* * *
+
+## 三、迁移 WordPress 文章内容
+
+### 3.1 导出 WordPress 文章
+
+**方法 A：使用官方插件（推荐）**
+
+在 WordPress 安装 [wordpress-to-hugo-exporter][1] 插件，一键导出所有文章为 Hugo 格式的 Markdown 文件（含 front matter）。
+
+**方法 B：手动转换**
+
+<pre><code class="" data-line=""># 安装转换工具
+npm install -g wordpress-export-to-markdown
+
+# 将 WordPress 导出的 XML 文件转换为 Markdown
+wordpress-export-to-markdown --path=export.xml --output=content/posts/</code></pre>
+
+### 3.2 文章 Front Matter 格式
+
+Hugo 文章头部格式示例：
+
+<pre><code class="" data-line="">---
+title: "文章标题"
+date: 2024-01-15T10:00:00+08:00
+description: "文章摘要"
+tags: ["标签1", "标签2"]
+categories: ["分类"]
+draft: false
+---
+
+正文内容...</code></pre>
+
+### 3.3 处理图片资源
+
+WordPress 的上传图片需要迁移：
+
+<pre><code class="" data-line=""># 将 WordPress 的 wp-content/uploads/ 目录
+# 复制到 Hugo 的 static/images/ 目录
+cp -r wp-content/uploads/ my-blog/static/images/
+
+# 批量替换文章中的图片路径（在 content/posts/ 目录下执行）
+find . -name "*.md" -exec sed -i &#039;s|https://旧域名/wp-content/uploads/|/images/|g&#039; {} +</code></pre>
+
+### 3.4 本地预览
+
+<pre><code class="" data-line="">hugo server -D
+# 访问 http://localhost:1313 预览效果</code></pre>
+
+* * *
+
+## 四、部署到 Cloudflare Pages
+
+### 4.1 推送到 GitHub
+
+<pre><code class="" data-line="">git add .
+git commit -m "init: 初始化 Hugo 博客"
+git push -u origin main</code></pre>
+
+### 4.2 连接 Cloudflare Pages
+
+  1. 登录 [Cloudflare Dashboard][2]
+  2. 进入 **Workers & Pages** → **Create application** → **Pages**
+  3. 选择 **Import an existing Git repository**，连接 GitHub 账号
+  4. 选择 <code class="" data-line="">my-blog</code> 仓库
+  5. 配置构建参数：
+
+| 配置项                                                                  | 值                                                          |
+| -------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Framework preset                                                     | Hugo                                                       |
+| Build command                                                        | <code class="" data-line="">hugo --minify</code>           |
+| Build output directory                                               | <code class="" data-line="">public</code>                  |
+| Environment variable <code class="" data-line="">HUGO_VERSION</code> | <code class="" data-line="">0.145.0</code>（填写你本地的 Hugo 版本） |
+
+  1. 点击 **Save and Deploy**
+
+> ⚠️ 必须设置 <code class="" data-line="">HUGO_VERSION</code> 环境变量，否则 Cloudflare 会使用旧版 Hugo 导致构建失败。
+
+### 4.3 绑定自定义域名
+
+在 Cloudflare Pages 项目设置 → **Custom domains** → 添加你的域名。如果域名已在 Cloudflare DNS 管理，会自动完成 CNAME 配置。
+
+### 4.4 设置 Deploy Hook（供 n8n 调用）
+
+在 Cloudflare Pages 项目设置 → **Builds & deployments** → **Deploy Hooks** → 新建一个 Hook，复制生成的 URL，格式如：
+
+<pre><code class="" data-line="">https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/xxxxxxxx</code></pre>
+
+* * *
+
+## 五、改造 n8n 自动发文工作流
+
+原来的 n8n 工作流是直接调用 WordPress REST API，迁移后改为通过 GitHub API 写入 Markdown 文件，触发 Cloudflare Pages 自动构建。
+
+### 5.1 新工作流架构
+
+<pre><code class="" data-line="">触发器（定时 / Webhook / 手动）
+  ↓
+生成文章内容（可接 AI 节点 / 直接填写）
+  ↓
+[Code 节点] 构建 Markdown 文本（含 front matter）
+  ↓
+[GitHub 节点] 创建文件到仓库
+  ↓
+Cloudflare Pages 检测到 push → 自动构建部署
+  ↓
+（可选）[HTTP Request 节点] 调用 Deploy Hook 强制触发构建</code></pre>
+
+### 5.2 关键节点配置
+
+**Code 节点 — 构建 Markdown 内容**
+
+<pre><code class="" data-line="">// 输入变量：title, content, tags, category
+const now = new Date().toISOString();
+const slug = $input.first().json.title
+  .toLowerCase()
+  .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, &#039;-&#039;)
+  .replace(/(^-|-$)/g, &#039;&#039;);
+
+const frontmatter = `---
+title: "${$input.first().json.title}"
+date: ${now}
+tags: [${$input.first().json.tags.map(t =&gt; `"${t}"`).join(&#039;, &#039;)}]
+categories: ["${$input.first().json.category}"]
+draft: false
+---
+
+`;
+
+return [{
+  json: {
+    filename: `content/posts/${slug}.md`,
+    content: frontmatter + $input.first().json.content,
+    message: `post: ${$input.first().json.title}`
+  }
+}];</code></pre>
+
+**GitHub 节点 — 创建/更新文件**
+
+<pre><code class="" data-line="">Resource:    File
+Operation:   Create or Update
+Owner:       你的GitHub用户名
+Repository:  my-blog
+File Path:   {{ $json.filename }}
+File Content: {{ $json.content }}（需 Base64 编码，勾选"Binary Data"或使用 Buffer.from(...).toString(&#039;base64&#039;)）
+Commit Message: {{ $json.message }}
+Branch:      main</code></pre>
+
+> 💡 GitHub 节点需要配置 Personal Access Token（在 GitHub Settings → Developer settings → Personal access tokens 生成，权限勾选 <code class="" data-line="">repo</code>）。
+
+**HTTP Request 节点 — 触发 Deploy Hook（可选）**
+
+<pre><code class="" data-line="">Method:  POST
+URL:     你的 Cloudflare Deploy Hook URL</code></pre>
+
+### 5.3 与旧 WordPress 工作流对比
+
+| 步骤   | 旧方案（WordPress REST API）                                      | 新方案（GitHub API）                                   |
+| ---- | ------------------------------------------------------------ | ------------------------------------------------- |
+| 认证   | WordPress 应用密码                                               | GitHub Personal Access Token                      |
+| 发布接口 | <code class="" data-line="">POST /wp-json/wp/v2/posts</code> | GitHub Create File API                            |
+| 内容格式 | HTML                                                         | Markdown + Front Matter                           |
+| 发布延迟 | 即时                                                           | 约 30-60 秒（构建时间）                                   |
+| 草稿支持 | ✅                                                            | ✅（<code class="" data-line="">draft: true</code>） |
+
+* * *
+
+## 六、SEO 与功能补充
+
+### 6.1 站点地图与 RSS
+
+Hugo 默认自动生成 <code class="" data-line="">/sitemap.xml</code> 和 <code class="" data-line="">/index.xml</code>（RSS），无需额外配置。
+
+### 6.2 搜索功能
+
+Hugo 静态站点可使用 [Pagefind][3] 实现本地搜索：
+
+<pre><code class="" data-line=""># 在构建命令中追加
+hugo --minify && npx pagefind --site public</code></pre>
+
+### 6.3 评论系统
+
+weisaygrace 的 PHP 评论系统迁移后失效，可替换为：
+
+  * **Giscus**（基于 GitHub Discussions，免费，无广告，推荐）
+  * **Waline**（可自托管，支持中文，功能完整）
+  * **Disqus**（功能强大，但有广告）
+
+以 Giscus 为例，在主题配置中添加：
+
+<pre><code class="" data-line="">[params.comments]
+  enabled = true
+  provider = "giscus"
+  giscus_repo = "你的用户名/my-blog"
+  giscus_repo_id = "xxxx"  # 从 giscus.app 获取</code></pre>
+
+* * *
+
+## 七、迁移检查清单
+
+  * Hugo 本地安装并能正常预览
+  * 所有 WordPress 文章已导出并转换为 Markdown
+  * 图片资源已迁移，文章内链接已更新
+  * 主题安装完成，基础配置正确
+  * GitHub 仓库已推送，Cloudflare Pages 已连接
+  * 自定义域名已绑定，HTTPS 正常
+  * <code class="" data-line="">HUGO_VERSION</code> 环境变量已设置
+  * n8n 工作流已改造，GitHub Token 已配置
+  * 评论系统已替换
+  * 旧域名 301 重定向已配置（如域名不变则跳过）
+  * Google Search Console / 百度站长 重新提交 sitemap
+
+* * *
+
+## 参考资源
+
+  * [Hugo 官方文档][4]
+  * [Cloudflare Pages Hugo 部署指南][5]
+  * [Stack 主题文档][6]
+  * [Giscus 评论配置][7]
+  * [wordpress-to-hugo-exporter][1] &#8221;&#8217;
+
+ [1]: https://github.com/SchumacherFM/wordpress-to-hugo-exporter
+ [2]: https://dash.cloudflare.com/
+ [3]: https://pagefind.app/
+ [4]: https://gohugo.io/documentation/
+ [5]: https://developers.cloudflare.com/pages/framework-guides/deploy-a-hugo-site/
+ [6]: https://stack.jimmycai.com/
+ [7]: https://giscus.app/zh-CN

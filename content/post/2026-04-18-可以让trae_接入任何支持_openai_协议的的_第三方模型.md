@@ -1,0 +1,48 @@
+---
+title: 可以让Trae_接入任何支持_openai_协议的的_第三方模型
+author: 杆子
+type: post
+date: 2026-04-18T07:52:08+00:00
+url: /可以让trae_接入任何支持_openai_协议的的_第三方模型.html
+views:
+  - 1
+categories:
+  - 教程
+
+---
+<img decoding="async" src="https://wsrv.nl/?output=webp&#038;url=https%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_jpg%2FFtbQDYODsUFzrTJuKHC4MBjosU3EdsScnhSiaKApqwIL75NFmMicdibElCHXVl87oq56icfUibBQzIcdemjWmPGolvpjjnSl19Ps3pHceF7YCaEY%2F0%3Fwx_fmt%3Djpeg" alt="cover_image" /> 
+
+# 可以让Trae 接入任何支持 openai 协议的的 第三方模型
+
+**Trae openai Switch 是一个专为 Trae IDE 设计的工具，可以让Trae 接入任何支持 openai 协议的的 第三方模型**，通过 DNS 劫持 + 本地反向代理，让 Trae IDE 支持第三方大模型服务商 API（如阿里百炼 Coding Plan、kimi coding plan等）。详细使用教程：
+
+## 🚀 功能特点
+
+<img decoding="async" src="https://wsrv.nl/?output=webp&#038;url=https%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_png%2FFtbQDYODsUFq0enEg4xF1jcQhiaCaj9achCIxXkxGV7G2mAdGxH0AGoSIeaFMQpic4k9AlDC5hNROzne03fyOoDurghcPVvtmQgOYUkjKibgbI%2F640%3Fwx_fmt%3Dpng" alt="alt text" /><img decoding="async" src="https://wsrv.nl/?output=webp&#038;url=https%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_png%2FFtbQDYODsUF4yGibIhCqsXVDk5LPnjaI2PtRib9DgLsrv06vlMWxMqOEeG9kcEGb2HqNiaxFBvuuLriaicGpurQiaAibXaOB9m71EunwUocKhaAefQ%2F640%3Fwx_fmt%3Dpng" alt="alt text" /><img decoding="async" src="https://wsrv.nl/?output=webp&#038;url=https%3A%2F%2Fmmbiz.qpic.cn%2Fsz_mmbiz_png%2FFtbQDYODsUHTMicDibmYYbkEI4QPo4yicEyKK1NWPtfCOYqDSiawVTicUycakGO9s9upU1W3LknWFB8tK5icJFJWB5mG29ZIgPX3gxsibZOrcGxF20%2F640%3Fwx_fmt%3Dpng" alt="alt text" /><img decoding="async" src="https://wsrv.nl/?output=webp&#038;url=https%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_png%2FFtbQDYODsUH8G6R5Qatgm9aVaXq65Abo7RO3ZlRJEcJFl4wHt56ZUD2sfErhkNMk5uNWCb3lvuZLeK5J4Ip6nQTlbzKah9sAQHHulOSribuo%2F640%3Fwx_fmt%3Dpng" alt="alt text" /> 
+
+<img decoding="async" src="https://wsrv.nl/?output=webp&#038;url=https%3A%2F%2Fmmbiz.qpic.cn%2Fsz_mmbiz_png%2FFtbQDYODsUH8ibHs6dTVceqc5yIgouTXCMlfbt0r0Z04QWCia53PQmpCZEHhRkck8VUmlfHt7XLX7GBTbxCxicCJiaJ3icemLbGPIvTOVDbnhDdk%2F640%3Fwx_fmt%3Dpng" alt="alt text" /> 
+
+  * **多服务商支持**  
+    ：可添加、编辑、删除多个服务商配置
+  * **本地模型管理**  
+    ：<code class="" data-line="">/v1/models</code> 请求返回本地配置的模型（因为第三方通常不支持此接口）
+  * **自动 Hosts 配置**  
+    ：将 <code class="" data-line="">api.openai.com</code> 重定向到 <code class="" data-line="">127.0.0.1</code>
+  * **CA 证书管理**  
+    ：生成并安装本地 CA 证书，用于 HTTPS 拦截
+  * **实时状态监控**  
+    ：显示代理运行状态和当前激活的服务商
+  * **不需要输入key**  
+    ：通过在trae中配置key，在本工具不需要输入任何apikey
+  * **智能路径转换**  
+    ：自动将 <code class="" data-line="">/v1</code> 请求转换为服务商的实际路径（如 <code class="" data-line="">/v2</code>）
+
+开源地址
+
+gitee:
+
+<https://gitee.com/xiaopeng666/trae-openai-switch>
+
+github:
+
+<https://github.com/xiaopeng1995n/trae-openai-switch>
