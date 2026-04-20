@@ -1,61 +1,74 @@
 /* ============================================================
-   hugo-ganzi 统一样式表 (细节完美对齐版)
+   hugo-ganzi 终极统一样式表 (模块化隔离版)
    ============================================================ */
 
-/* 1. 顶部条 (Top Bar) 垂直居中 */
-.top-bar { height: 2.75rem !important; background: #434a54 !important; }
-.top-bar .container { display: flex !important; justify-content: space-between !important; align-items: center !important; height: 100% !important; }
-.top-page .menu ul { display: flex !important; align-items: center !important; list-style: none !important; margin: 0 !important; }
-.top-page .menu ul li { margin-right: 18px !important; line-height: 1 !important; }
-.top-page .menu ul li a { color: #fff !important; font-size: 14px !important; }
-.rss-icon { display: block !important; width: 28px !important; height: 28px !important; background: url(/images/rss.gif) no-repeat 0 0 !important; border-radius: 50% !important; overflow: hidden; }
+/* --- 1. 顶部条 (Top Bar) 绝对锁定 --- */
+.top-bar { height: 45px !important; line-height: 45px !important; background: #434a54 !important; overflow: visible !important; }
+.top-bar .container { 
+    display: flex !important; justify-content: space-between !important; align-items: center !important; 
+    height: 45px !important; max-height: 45px !important; padding: 0 15px !important; 
+}
+.top-page, .top-social { display: flex !important; align-items: center !important; height: 45px !important; float: none !important; }
+.top-page .menu, .top-page .menu ul { display: flex !important; align-items: center !important; height: 100% !important; margin: 0 !important; list-style: none !important; }
+.top-page .menu ul li { display: flex !important; align-items: center !important; height: 100% !important; margin-right: 18px !important; float: none !important; }
+.top-page .menu ul li a { color: #fff !important; font-size: 14px !important; line-height: 1 !important; padding: 0 !important; text-decoration: none !important; }
+
+.rss-icon { 
+    display: block !important; width: 28px !important; height: 28px !important; 
+    background: url(/images/rss.gif) no-repeat 0 0 !important; 
+    border-radius: 50% !important; overflow: hidden; text-indent: -9999px !important; 
+}
 .rss-icon:hover { background-position: 0 -28px !important; }
 
-/* 2. 侧边栏内容边距修复 (解决热评日志太靠边) */
+/* --- 2. 导航栏层级 --- */
+.navigation { position: relative !important; z-index: 999 !important; }
+.navigation .menu-item a { display: block !important; cursor: pointer !important; }
+
+/* --- 3. NEXT 风格代码块 (全站统一) --- */
+.highlight { position: relative; margin: 30px 0 !important; border-radius: 8px; overflow: hidden; background: #21252b !important; border: 1px solid #181a1f; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+.highlight pre { margin: 38px 0 0 0 !important; padding: 15px 20px 15px !important; background: #282c34 !important; border-top: 1px solid #181a1f !important; color: #abb2bf !important; }
+.highlight code { background: transparent !important; }
+.highlight::before { content: ""; position: absolute; top: 13px; left: 15px; width: 12px; height: 12px; border-radius: 50%; background: #fc625d; box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b; z-index: 10; }
+.copy-btn { position: absolute; top: 8px; right: 12px; padding: 2px 10px; font-size: 11px; color: #5c6370; background: rgba(255,255,255,0.05); border: 1px solid #3e4451; border-radius: 4px; cursor: pointer; z-index: 11; }
+.copy-btn:hover { background: #ed5565; color: #fff; }
+
+/* --- 4. 侧边栏及彩色标签 --- */
 .sidebar .widget .tab-content { padding: 15px !important; }
-.sidebar .widget .tab-content ul li { height: 45px; display: flex; align-items: center; border-bottom: 1px dashed #eee; font-size: 16px; overflow: hidden; }
-.sidebar .widget .tab-content ul li a { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: inherit; width: 100%; }
+.sidebar .widget .tab-content ul li { height: 45px; display: flex; align-items: center; border-bottom: 1px dashed #eee; font-size: 16px; }
+.author-stats { display: flex !important; border-top: 1px solid #f2f2f2 !important; margin-top: 12px !important; background: #fafafa !important; width: 100% !important; }
+.author-stats .stat-item { text-align: center !important; flex: 1 !important; padding: 12px 0 !important; }
+.tag-cloud-link { display: inline-block !important; margin: 4px !important; padding: 6px 12px !important; border-radius: 4px !important; color: #fff !important; font-size: 14px !important; text-decoration: none !important; }
+.tag-link-0 { background: #f78da7 !important; } .tag-link-1 { background: #cf2e2e !important; } .tag-link-2 { background: #ff6900 !important; }
+.tag-link-3 { background: #fcb900 !important; } .tag-link-4 { background: #7bdcb5 !important; } .tag-link-5 { background: #00d084 !important; }
+.tag-link-6 { background: #8ed1fc !important; } .tag-link-7 { background: #0693e3 !important; } .tag-link-8 { background: #9b51e0 !important; } .tag-link-9 { background: #abb8c3 !important; }
 
-/* 3. 彩色标签强制样式 */
-.widget-tags { padding: 15px !important; text-align: center; }
-.tag-cloud-link { 
-    display: inline-block !important; margin: 4px !important; padding: 5px 12px !important; 
-    border-radius: 4px !important; color: #fff !important; font-size: 14px !important; 
-    text-decoration: none !important; font-weight: 500;
-}
-.tag-link-0 { background: #f78da7 !important; } .tag-link-1 { background: #cf2e2e !important; }
-.tag-link-2 { background: #ff6900 !important; } .tag-link-3 { background: #fcb900 !important; }
-.tag-link-4 { background: #7bdcb5 !important; } .tag-link-5 { background: #00d084 !important; }
-.tag-link-6 { background: #8ed1fc !important; } .tag-link-7 { background: #0693e3 !important; }
-.tag-link-8 { background: #9b51e0 !important; } .tag-link-9 { background: #abb8c3 !important; }
-
-/* 4. 作者卡片 (1:1 复刻 06.png) */
-.about-author .author-stats { display: flex !important; border-top: 1px solid #f2f2f2 !important; margin-top: 12px !important; background: #fafafa !important; }
-.about-author .stat-item { text-align: center !important; flex: 1 !important; padding: 12px 0 !important; }
-.about-author .stat-number { display: block !important; font-size: 18px !important; font-weight: bold !important; color: #333 !important; }
-.about-author .stat-label { display: block !important; font-size: 12px !important; color: #999 !important; }
-
-/* 5. 归档与友链页面细节 */
+/* --- 5. 归档与友链页面专有内容修复 --- */
+.archives-statistics { border: 1px solid #ddd; border-radius: 4px; padding: 45px 20px 25px; position: relative; margin-bottom: 30px; margin-top: 20px; background: #fff; }
 .archives-info { position: absolute; top: -14px; left: 20px; background: #ed5565; color: #fff !important; padding: 3px 12px; border-radius: 4px; font-size: 14px; font-weight: 300; z-index: 5; }
-#archive-selector { height: 34px !important; padding: 0 10px !important; border: 1px solid #ccc !important; border-radius: 4px !important; background: #fff !important; color: #333 !important; }
+.archives-counts { font-size: 32px; color: #999; margin-bottom: 5px; }
+.car-container { background: #fff; padding: 25px; border-radius: 4px; border: 1px solid #eee; }
+.car-days { color: #777; margin-right: 15px; font-size: 13px; background: #f5f5f5; padding: 2px 8px; border-radius: 4px; border: 1px solid #eee; min-width: 40px; text-align: center; }
+#archive-selector { height: 34px !important; padding: 0 10px !important; border: 1px solid #ccc !important; border-radius: 4px !important; background: #fff !important; }
 
-.flinks-container { background: #fff; padding: 25px 30px !important; border-radius: 4px; }
-.link-card-inner { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px; display: flex; align-items: center; transition: all 0.3s; }
-.link-card-item:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
+.flinks-container { background: #fff; padding: 25px 30px !important; border-radius: 4px; border: 1px solid #eee; }
+.link-card-inner { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px; display: flex; align-items: center; transition: 0.3s; }
+.link-avatar img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+.divider-line { text-align: center; margin: 50px 0 40px; border-top: 1px dashed #ddd; position: relative; }
+.divider-line span { background: #fff; padding: 0 15px; position: relative; top: -11px; color: #bbb; }
 
-/* 6. 强力暗黑模式适配 */
+/* --- 6. 强力暗黑模式适配 --- */
 .dark body, body.dark { background: #121212 !important; color: #bbb !important; }
-.dark .article, .dark .widget, .dark .car-container, .dark .flinks-container, .dark .archives-statistics { background: #1d1d1d !important; border-color: #333 !important; box-shadow: none !important; }
+.dark .archives-statistics, .dark .car-container, .dark .flinks-container, .dark .widget, .dark .article, .dark #footers { background: #1d1d1d !important; border-color: #333 !important; }
 .dark h1, .dark h2, .dark h3, .dark .post-title a, .dark .link-group-title { color: #eeeeee !important; }
 .dark .link-card-inner { background: #262626 !important; border-color: #333 !important; }
 .dark .link-name { color: #eee !important; }
 .dark .author-stats { background: #222 !important; border-top-color: #333 !important; }
-.dark .stat-item { border-left-color: #333 !important; }
-.dark .stat-number { color: #eee !important; }
 .dark .tab-content ul li { border-bottom-color: #2a2a2a !important; }
+.dark .car-days { background: #262626 !important; border-color: #333 !important; color: #777 !important; }
+.dark .divider-line span { background: #1d1d1d !important; }
 .dark #archive-selector { background: #333 !important; color: #ccc !important; border-color: #444 !important; }
-.dark .divider-line span { background: #1d1d1d !important; color: #555 !important; }
+.dark .top-bar { background: #1a1a1a !important; }
 
-/* 清除页脚浮动 */
+/* 修正页脚移位 */
 .clear-footer { clear: both !important; height: 1px !important; width: 100% !important; display: block !important; }
 #footers { clear: both !important; width: 100% !important; margin-top: 50px !important; }
