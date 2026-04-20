@@ -1,38 +1,49 @@
 {{ define "main" }}
 <style>
-    .archives-statistics { background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 35px 20px 25px; position: relative; margin-bottom: 30px; }
-    .archives-info { position: absolute; top: -12px; left: 25px; background: #ed5565; color: #fff !important; padding: 4px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; }
-    .archives-statistics ul { display: flex; justify-content: space-around; list-style: none; padding: 0; margin: 0; }
-    .archives-statistics li { flex: 1; text-align: center; border-right: 1px solid #f2f2f2; }
+    /* 1. 统计信息栏样式 */
+    .archives-statistics { background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 30px 20px 20px; position: relative; margin-bottom: 30px; }
+    .archives-info { position: absolute; top: -12px; left: 20px; background: #ed5565; color: #fff !important; padding: 2px 12px; border-radius: 12px; font-size: 13px; box-shadow: 0 2px 4px rgba(237,85,101,0.3); z-index: 1; }
+    .archives-statistics ul { display: flex; justify-content: space-between; list-style: none !important; padding: 0; margin: 0; }
+    .archives-statistics li { flex: 1; text-align: center; border-right: 1px solid #f0f0f0; }
     .archives-statistics li:last-child { border-right: none; }
-    .archives-counts { font-size: 28px; color: #999; margin-bottom: 8px; }
-    .archives-title { font-size: 15px; color: #666; }
+    .archives-counts { font-size: 26px; color: #777; margin-bottom: 5px; font-family: Arial; }
+    .archives-title { font-size: 14px; color: #666; }
     
-    .car-container { background: transparent; }
-    .car-yearmonth { cursor: pointer; color: #ed5565; font-size: 18px; display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f1f1; font-weight: bold; }
-    .car-monthlisting { padding: 10px 0 10px 20px; }
-    .car-monthlisting li { margin-bottom: 15px; font-size: 16px; display: flex; align-items: center; list-style: none; }
+    /* 2. 归档列表样式 */
+    .car-container { background: #fff; padding: 20px; border-radius: 4px; border: 1px solid #eee; }
+    .cy-title { font-size: 20px; color: #444; text-align: center; margin: 30px 0 15px; }
+    .car-yearmonth { cursor: pointer; color: #ed5565; font-size: 16px; display: block; padding: 8px 0; border-bottom: 1px solid #f9f9f9; font-weight: bold; }
+    .car-toggle-icon { font-weight: bold; margin-right: 8px; font-family: monospace; display: inline-block; width: 15px; }
+    .car-monthlisting { padding: 10px 0 10px 25px; list-style: none !important; }
+    .car-monthlisting li { margin-bottom: 12px; font-size: 14px; display: flex; align-items: center; }
     
-    /* 修正 16.png 中的日期方块对齐 */
+    /* 文章日期小方块 (对齐 34.png) */
     .car-days { 
-        background: #333; color: #fff; padding: 2px 8px; border-radius: 3px; 
-        font-size: 13px; margin-right: 12px; width: 40px; text-align: center; flex-shrink: 0;
+        color: #888; margin-right: 12px; font-family: Arial; font-size: 12px; 
+        background: #f2f2f2; padding: 1px 6px; border-radius: 3px; border: 1px solid #eee;
+        min-width: 35px; text-align: center; flex-shrink: 0;
     }
-    
-    /* 暗黑模式适配 */
-    body.dark .archives-statistics { background: #333; border-color: #444; }
-    body.dark .archives-statistics li { border-color: #444; }
-    body.dark .archives-title { color: #aaa; }
-    body.dark .archives-counts { color: #ddd; }
-    body.dark .car-yearmonth { border-color: #444; }
-    body.dark .car-days { background: #444; }
-    body.dark .cy-title { color: #ddd; }
+    .car-monthlisting a { color: #ed5565; text-decoration: none; }
+    .car-monthlisting a:hover { text-decoration: underline; }
+    .comm-count { color: #bbb; font-size: 12px; margin-left: 8px; }
+
+    /* 3. 强力暗黑模式适配 (对齐 34.png) */
+    .dark .archives-statistics { background: #1d1d1d !important; border-color: #333 !important; }
+    .dark .archives-statistics li { border-color: #333 !important; }
+    .dark .archives-counts { color: #ddd !important; }
+    .dark .archives-title { color: #888 !important; }
+    .dark .car-container { background: #1d1d1d !important; border-color: #333 !important; }
+    .dark .car-yearmonth { border-color: #333 !important; }
+    .dark .car-days { background: #2a2a2a !important; border-color: #333 !important; color: #777 !important; }
+    .dark .cy-title { color: #eee !important; }
+    .dark .comm-count { color: #555 !important; }
+    .dark .car-monthlisting a:hover { color: #ff6b81 !important; }
 </style>
 
 <div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; {{ .Title }}</div>
 
 <div class="article">
-    <h1 class="article-title" itemprop="headline">文章归档</h1>
+    <h1 class="article-title" itemprop="headline" style="margin-bottom: 30px;">文章归档</h1>
     
     <div class="archives-statistics">
         <div class="archives-info">博客统计信息</div>
@@ -53,28 +64,36 @@
 
     <div class="archives-content">
         <div class="car-container">
-            {{ range (.Site.RegularPages.GroupByDate "2006年") }}
-            <div class="car-year">
-                <h3 class="cy-title" style="text-align: center; margin: 40px 0 20px; font-size: 22px;">{{ .Key }}</h3>
-                <ul class="car-mon-list" style="list-style: none; padding: 0;">
-                    {{ range $index, $value := (.Pages.GroupByDate "1 月") }}
-                    <li>
-                        <span class="car-yearmonth" onclick="toggleMonth(this)">
-                            <span class="car-toggle-icon">{{ if eq $index 0 }}-{{ else }}+{{ end }}</span> {{ .Key }}
-                        </span>
-                        <ul class="car-monthlisting" style="{{ if ne $index 0 }}display:none;{{ end }}">
-                            {{ range .Pages }}
-                            <li>
-                                <span class="car-days">{{ .Date.Format "02日" }}</span>
-                                <a href="{{ .Permalink }}" style="color: #ed5565; text-decoration: none;">{{ .Title }}</a>
-                            </li>
-                            {{ end }}
-                        </ul>
-                    </li>
-                    {{ end }}
-                </ul>
+            <div style="margin-bottom: 20px; display: flex; align-items: center;">
+                <select id="archive-selector" style="padding: 4px 8px; border: 1px solid #ddd; border-radius: 3px; font-size: 13px; background: transparent; color: inherit;"><option>全部</option></select>
+                <a href="javascript:void(0)" class="car-toggler" id="archives-btn" style="margin-left: 20px; color:#c60; font-size:15px; text-decoration:none; font-weight:bold;">展开所有月份</a>
             </div>
-            {{ end }}
+            
+            <div class="car-list">
+                {{ range (.Site.RegularPages.GroupByDate "2006年") }}
+                <div class="car-year">
+                    <h3 class="cy-title">{{ .Key }} <span style="font-size:14px; font-weight:normal; color:#999;">（{{ len .Pages }} 篇文章）</span></h3>
+                    <ul class="car-mon-list" style="list-style: none; padding: 0;">
+                        {{ range $index, $value := (.Pages.GroupByDate "1 月") }}
+                        <li style="margin-bottom: 5px;">
+                            <span class="car-yearmonth" onclick="toggleMonth(this)">
+                                <span class="car-toggle-icon">{{ if eq $index 0 }}-{{ else }}+{{ end }}</span> {{ .Key }} <span style="color:#999; font-weight:normal; font-size:13px; margin-left:8px;">({{ len .Pages }} 篇文章)</span>
+                            </span>
+                            <ul class="car-monthlisting" style="{{ if ne $index 0 }}display:none;{{ end }}">
+                                {{ range .Pages }}
+                                <li>
+                                    <span class="car-days">{{ .Date.Format "02日" }}</span>
+                                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                                    <span class="comm-count">（暂无评论）</span>
+                                </li>
+                                {{ end }}
+                            </ul>
+                        </li>
+                        {{ end }}
+                    </ul>
+                </div>
+                {{ end }}
+            </div>
         </div>
     </div>
 </div>
@@ -91,5 +110,19 @@ function toggleMonth(el) {
         icon.innerText = '+';
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('archives-btn');
+    if (!btn) return;
+    let isAllOpen = false;
+    btn.addEventListener('click', function() {
+        const lists = document.querySelectorAll('.car-monthlisting');
+        const icons = document.querySelectorAll('.car-toggle-icon');
+        isAllOpen = !isAllOpen;
+        lists.forEach(l => l.style.display = isAllOpen ? 'block' : 'none');
+        icons.forEach(i => i.innerText = isAllOpen ? '-' : '+');
+        this.innerText = isAllOpen ? '折叠所有月份' : '展开所有月份';
+    });
+});
 </script>
 {{ end }}
