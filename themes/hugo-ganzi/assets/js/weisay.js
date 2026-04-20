@@ -1,53 +1,72 @@
-//滚屏
+// 滚屏
 jQuery(document).ready(function(){
 jQuery('.roll-top').click(function(){jQuery('html,body').animate({scrollTop: '0px'}, 800);}); 
 });
 
-//手机版菜单展开（mmenu v9 新版 API）
+// 手机端菜单：左侧纯CSS抽屉 + 右侧mmenu
 document.addEventListener('DOMContentLoaded', function() {
-	var leftMenuApi = null;
-	var rightMenuApi = null;
 
-	if (document.querySelector('nav#menu')) {
-		var leftMenu = new Mmenu('nav#menu', {
-			offCanvas: {
-				position: 'left'
-			},
-			counters: {
-				add: true
-			},
-			navbar: {
-				title: '导航'
-			}
-		});
-		leftMenuApi = leftMenu.API;
-	}
-
+	// ===== 右侧侧边栏：使用 mmenu v9 =====
 	if (document.querySelector('nav#menu-right')) {
 		var rightMenu = new Mmenu('nav#menu-right', {
-			offCanvas: {
-				position: 'right'
-			},
-			navbar: {
-				title: '侧边栏'
-			}
+			offCanvas: { position: 'right' },
+			navbar: { title: '侧边栏' }
 		});
-		rightMenuApi = rightMenu.API;
+		// 暗黑模式下切换 mmenu 主题
+		function updateMmenuTheme() {
+			var el = document.querySelector('nav#menu-right');
+			if (!el) return;
+			if (document.body.classList.contains('dark')) {
+				el.classList.add('mm-menu--theme-dark');
+				el.classList.remove('mm-menu--theme-white');
+			} else {
+				el.classList.remove('mm-menu--theme-dark');
+				el.classList.add('mm-menu--theme-white');
+			}
+		}
+		updateMmenuTheme();
+		// 监听暗黑模式切换
+		var observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(m) {
+				if (m.attributeName === 'class') updateMmenuTheme();
+			});
+		});
+		observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 	}
 
-	// 绑定左侧菜单按钮（id="mobile-menu-btn"）
+	// ===== 左侧导航：纯CSS抽屉，不依赖mmenu =====
+	var drawer = document.getElementById('left-drawer');
+	var overlay = document.getElementById('left-drawer-overlay');
 	var menuBtn = document.getElementById('mobile-menu-btn');
-	if (menuBtn && leftMenuApi) {
+
+	function openDrawer() {
+		if (drawer) drawer.classList.add('is-open');
+		if (overlay) overlay.classList.add('is-open');
+		document.body.style.overflow = 'hidden';
+	}
+	function closeDrawer() {
+		if (drawer) drawer.classList.remove('is-open');
+		if (overlay) overlay.classList.remove('is-open');
+		document.body.style.overflow = '';
+	}
+
+	if (menuBtn) {
 		menuBtn.addEventListener('click', function(e) {
 			e.preventDefault();
-			leftMenuApi.open();
+			openDrawer();
 		});
 	}
-
-	// 右侧侧边栏由 mmenu 通过 href="#menu-right" 自动接管
+	if (overlay) {
+		overlay.addEventListener('click', closeDrawer);
+	}
+	// 点击抽屉内关闭按钮
+	var closeBtn = document.getElementById('left-drawer-close');
+	if (closeBtn) {
+		closeBtn.addEventListener('click', closeDrawer);
+	}
 });
 
-//侧边栏TAB效果
+// 侧边栏TAB效果
 jQuery(document).ready(function(){
 	jQuery('.tabnav li').click(function(){
 		jQuery(this).addClass("selected").siblings().removeClass();
@@ -55,12 +74,12 @@ jQuery(document).ready(function(){
 	});
 });
 
-//隐藏/显示侧边栏
+// 隐藏/显示侧边栏
 jQuery(document).ready( function ($) {
 	$( '.close-sidebar' ).click( function () {
 		$( '.close-sidebar,.sidebar' ).hide();
 		$( '.show-sidebar' ).show();
-		$(".main").addClass("main-all");				
+		$(".main").addClass("main-all");			
 	});
 	$( '.show-sidebar' ).click( function () {
 		$( '.show-sidebar' ).hide();
@@ -69,7 +88,7 @@ jQuery(document).ready( function ($) {
 	});
 });
 
-//图片渐隐
+// 图片渐隐
 jQuery(function () {
 	jQuery('.thumbnail img').hover(
 		function() {jQuery(this).fadeTo("fast", 0.5);},
@@ -77,7 +96,7 @@ jQuery(function () {
 	});
 });
 
-//手风琴
+// 手风琴
 jQuery(document).ready(function(){
 	  $('.accordion-box').on('click', '.accordion-head', function() {
 		  $(this).next().slideToggle('200', function() {
@@ -86,42 +105,32 @@ jQuery(document).ready(function(){
 	  });
 });
 
-//评论表情
+// 评论表情
 jQuery(document).ready(function(){
         $(".emoji").click(function() {
-            $(".emoji-smilies").animate({
-                opacity: "toggle"
-            },
-            300);
+            $(".emoji-smilies").animate({ opacity: "toggle" }, 300);
             return false
         });
         $(".emoji-smilies a").click(function() {
-            $(".emoji-smilies").animate({
-                opacity: "toggle",
-            },
-            300)
+            $(".emoji-smilies").animate({ opacity: "toggle" }, 300)
         });
 });
 
-//文章编辑hover
+// 文章编辑hover
 jQuery(document).ready(function(){
 	jQuery('.post').hover(
-		function() {
-			jQuery(this).find('.edit').stop(true,true).fadeIn();
-		},
-		function() {
-			jQuery(this).find('.edit').stop(true,true).fadeOut();
-		}
+		function() { jQuery(this).find('.edit').stop(true,true).fadeIn(); },
+		function() { jQuery(this).find('.edit').stop(true,true).fadeOut(); }
 	);
 });
 
-//新窗口打开
+// 新窗口打开
 jQuery(document).ready(function(){
 	jQuery("a[rel='external'],a[rel='external nofollow']").click(
 	function(){window.open(this.href);return false})
 });
 
-//赏弹层
+// 赏弹层
 jQuery(document).ready(function(){
 	jQuery('.zanzhu').click(function(){
 		jQuery('.shang-bg').fadeIn(200);
@@ -132,27 +141,20 @@ jQuery(document).ready(function(){
 	});
 });
 
-//顶部导航下拉菜单，包含延迟效果
+// 顶部导航下拉菜单（含延迟效果）
 (function($){
 $.fn.hoverDelay = function(selector, options) {
- var defaults = {
- hoverDuring: 200,
- outDuring: 150,
- hoverEvent: $.noop,
- outEvent: $.noop
- };
+ var defaults = { hoverDuring: 200, outDuring: 150, hoverEvent: $.noop, outEvent: $.noop };
  var sets = $.extend(defaults, options || {});
  return jQuery(document).on("mouseenter mouseleave", selector, function(event) {
- var that = this;
- if(event.type == "mouseenter"){
-clearTimeout(that.outTimer);
-that.hoverTimer = setTimeout(
-function(){sets.hoverEvent.apply(that)},sets.hoverDuring);
- }else {
-clearTimeout(that.hoverTimer);
-that.outTimer = setTimeout(
-function(){sets.outEvent.apply(that)},sets.outDuring);
- }
+  var that = this;
+  if(event.type == "mouseenter"){
+    clearTimeout(that.outTimer);
+    that.hoverTimer = setTimeout(function(){sets.hoverEvent.apply(that)},sets.hoverDuring);
+  } else {
+    clearTimeout(that.hoverTimer);
+    that.outTimer = setTimeout(function(){sets.outEvent.apply(that)},sets.outDuring);
+  }
  });
 }
 })(jQuery);
@@ -161,31 +163,24 @@ jQuery(".mainmenu li,.top-page li").each(function(){
 if($(this).find("ul").length!=0){$(this).find("a:first").addClass("hasmenu")};
 });
 jQuery(".mainmenu ul li,.top-page ul li").hoverDelay(".mainmenu ul li,.top-page ul li", {
-	hoverEvent: function(){
-	jQuery(this).children("ul").show();
-},
-	outEvent: function(){
-	jQuery(this).children("ul").hide();
-}
+	hoverEvent: function(){ jQuery(this).children("ul").show(); },
+	outEvent:   function(){ jQuery(this).children("ul").hide(); }
 });
 jQuery(".qrcode-scan").hoverDelay(".qrcode-scan", {
-	hoverEvent: function(){
-		jQuery(".qrcode-img").show();
-	},
-	outEvent: function(){
-		jQuery(".qrcode-img").hide();
-	}
+	hoverEvent: function(){ jQuery(".qrcode-img").show(); },
+	outEvent:   function(){ jQuery(".qrcode-img").hide(); }
 });
 });
 
-//检查是否是Windows11
-if(navigator.userAgentData){//判断当前环境是否支持
+// 检查是否是Windows11
+if(navigator.userAgentData){
 	navigator.userAgentData.getHighEntropyValues(["platformVersion"])
 	 .then(ua => {
-		if (navigator.userAgentData.platform === "Windows") {//判断是否是Windows系统
+		if (navigator.userAgentData.platform === "Windows") {
 		const majorPlatformVersion = parseInt(ua.platformVersion.split('.')[0]);
-		if (majorPlatformVersion >= 13) {//判断是否是win11或以上
-		document.cookie = "win11=true;path=/";//写入cookie
+		if (majorPlatformVersion >= 13) {
+			document.cookie = "win11=true;path=/";
 		}
 	}
-});}
+});
+}
