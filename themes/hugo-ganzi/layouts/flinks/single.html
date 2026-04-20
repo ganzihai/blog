@@ -35,63 +35,9 @@
         <div class="divider-line"><span>我可是有底线的哟</span></div>
 
         <!-- 说明文字 -->
-        <div class="instructions-wrap">
+        <div class="instructions-wrap" style="line-height: 1.8;">
             {{ .Content }}
         </div>
     </div>
 </div>
-
-<style>
-    /* 1. 结构布局 */
-    .flinks-container { background: #fff; padding: 15px 25px 30px !important; border-radius: 4px; }
-    .flinks-main-title { text-align: center; margin: 5px 0 0px !important; font-size: 28px; }
-    .link-group-section { margin-bottom: 10px; }
-    .link-group-title { font-size: 21px; color: #333; margin-bottom: 10px; font-weight: bold; border: none !important; }
-    .link-group-desc { color: #888; font-size: 14px; margin-bottom: 5px; }
-    
-    /* 2. 卡片视觉 (亮色模式) */
-    .link-grid { display: flex; flex-wrap: wrap; margin: 0 -8px; }
-    .link-card-item { width: calc(33.333% - 16px); margin: 8px; text-decoration: none !important; }
-    .link-card-inner { 
-        background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px; 
-        display: flex; align-items: center; transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    }
-    .link-card-item:hover .link-card-inner { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
-    .link-avatar { width: 50px; height: 50px; flex-shrink: 0; margin-right: 15px; }
-    .link-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 1px solid #f9f9f9; }
-    .link-info { overflow: hidden; display: flex; flex-direction: column; }
-    .link-name { font-size: 16px; color: #333; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .link-desc { font-size: 12px; color: #777; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .divider-line { text-align: center; margin: 50px 0 40px; border-top: 1px dashed #ddd; position: relative; }
-    .divider-line span { background: #fff; padding: 0 15px; position: relative; top: -11px; color: #bbb; font-size: 13px; }
-
-    /* --- 终极核心修复：暴力适配所有暗黑模式逻辑 --- */
-    /* 针对 html.dark 或 body.dark 或 [data-theme='dark'] */
-    .dark .flinks-container, 
-    [data-theme='dark'] .flinks-container { background: #1d1d1d !important; }
-    
-    .dark .link-group-title,
-    [data-theme='dark'] .link-group-title { color: #ffffff !important; opacity: 1 !important; } /* 解决 32.png 标题不可见 */
-    
-    .dark .link-card-inner,
-    [data-theme='dark'] .link-card-inner { background: #262626 !important; border-color: #333 !important; } /* 解决 32.png 白块 */
-    
-    .dark .link-name,
-    [data-theme='dark'] .link-name { color: #eeeeee !important; }
-    
-    .dark .link-desc,
-    [data-theme='dark'] .link-desc { color: #888888 !important; }
-    
-    .dark .divider-line,
-    [data-theme='dark'] .divider-line { border-color: #333 !important; }
-    
-    .dark .divider-line span,
-    [data-theme='dark'] .divider-line span { background: #1d1d1d !important; color: #555 !important; }
-    
-    .dark .link-avatar img,
-    [data-theme='dark'] .link-avatar img { border-color: #444 !important; }
-
-    @media (max-width: 992px) { .link-card-item { width: calc(50% - 16px); } }
-    @media (max-width: 650px) { .link-card-item { width: calc(100% - 16px); } }
-</style>
 {{ end }}

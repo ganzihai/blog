@@ -1,76 +1,8 @@
 {{ define "main" }}
-<style>
-    /* 1. 统计信息栏：对齐 39.png */
-    .archives-statistics { 
-        background: #fff; 
-        border: 1px solid #ddd; 
-        border-radius: 4px; 
-        padding: 40px 20px 20px; 
-        position: relative; 
-        margin-bottom: 30px; 
-        margin-top: 20px; /* 留出压线空间 */
-    }
-    
-    /* 博客统计信息：精准压在边框线上 */
-    .archives-info { 
-        position: absolute; 
-        top: 20px; /* 这个值确保正好压在边框中心线上 */
-        left: 1px; 
-        background: #ed5565; 
-        color: #fff !important; 
-        padding: 4px 14px; 
-        border-radius: 4px; 
-        font-size: 14px; 
-        font-weight: 300; /* 使用细体字 */
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-        z-index: 5;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    .archives-statistics ul { display: flex; justify-content: space-around; list-style: none !important; padding: 0; margin: 0; }
-    .archives-statistics li { flex: 1; text-align: center; border-right: 1px solid #f2f2f2; }
-    .archives-statistics li:last-child { border-right: none; }
-    .archives-counts { font-size: 32px; color: #999; margin-bottom: 5px; font-family: Arial, sans-serif; }
-    .archives-title { font-size: 14px; color: #666; }
-    
-    /* 2. 下拉菜单与列表 */
-    #archive-selector { 
-        height: 34px; 
-        padding: 0 10px; 
-        border: 1px solid #ccc; 
-        border-radius: 4px; 
-        font-size: 14px; 
-        background: #fff !important; /* 亮色模式强制白底 */
-        color: #333 !important; /* 亮色模式强制黑字 */
-        outline: none;
-        vertical-align: middle;
-    }
-    
-    .car-container { background: #fff; padding: 25px; border-radius: 4px; border: 1px solid #eee; }
-    .cy-title { font-size: 24px; color: #333; text-align: center; margin: 35px 0 20px; border-bottom: 1px dashed #eee; padding-bottom: 15px; }
-    .car-yearmonth { cursor: pointer; color: #ed5565; font-size: 18px; display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f5f5f5; font-weight: bold; }
-    .car-toggle-icon { font-size: 20px; width: 25px; display: inline-block; text-align: center; }
-    .car-monthlisting { padding: 12px 0 12px 30px; list-style: none !important; }
-    .car-monthlisting li { margin-bottom: 15px; font-size: 17px; display: flex; align-items: center; } 
-    .car-days { color: #777; margin-right: 15px; font-size: 13px; background: #f5f5f5; padding: 2px 8px; border-radius: 4px; border: 1px solid #eee; min-width: 40px; text-align: center; flex-shrink: 0; }
-    .car-monthlisting a { color: #ed5565; text-decoration: none; line-height: 1.5; font-weight: 400; }
-    .comm-count { color: #bbb; font-size: 12px; margin-left: 10px; }
-
-    /* 3. 强力暗黑模式适配 (对齐 39.png) */
-    .dark .archives-statistics { background: #1d1d1d !important; border-color: #333 !important; }
-    .dark .archives-statistics li { border-color: #2a2a2a !important; }
-    .dark .archives-counts { color: #eee !important; }
-    .dark .archives-title { color: #888 !important; }
-    .dark .car-container { background: #1d1d1d !important; border-color: #333 !important; }
-    .dark .car-days { background: #262626 !important; border-color: #333 !important; color: #777 !important; }
-    .dark .cy-title { color: #ddd !important; border-color: #333 !important; }
-    .dark #archive-selector { background: #333 !important; color: #ccc !important; border-color: #444 !important; }
-</style>
-
 <div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; {{ .Title }}</div>
 
 <div class="article">
-    <h1 class="article-title" itemprop="headline" style="margin-bottom: 45px;">文章归档</h1>
+    <h1 class="article-title" itemprop="headline" style="margin-bottom: 40px; font-size: 26px;">文章归档</h1>
     
     <div class="archives-statistics">
         <div class="archives-info">博客统计信息</div>
@@ -83,9 +15,7 @@
             </li>
             <li><p class="archives-counts">{{ len .Site.Taxonomies.categories }}+</p><p class="archives-title">分类</p></li>
             <li><p class="archives-counts">{{ len .Site.RegularPages }}+</p><p class="archives-title">文章</p></li>
-            <li><p class="archives-counts">{{ len .Site.Pages }}+</p><p class="archives-title">页面</p></li>
             <li><p class="archives-counts">1+</p><p class="archives-title">评论</p></li>
-            <li><p class="archives-counts">{{ len (index .Site.Data "flinks" "zh-cn" | default (slice)) }}+</p><p class="archives-title">友链</p></li>
         </ul>
     </div>
 

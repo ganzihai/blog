@@ -1,0 +1,94 @@
+/* ============================================================
+   hugo-ganzi 统一样式表 (整合复刻成果)
+   ============================================================ */
+
+/* 1. 全局暗黑模式基础补丁 */
+body.dark { background: #121212 !important; color: #bbb !important; }
+body.dark .article, body.dark .widget { background: #1d1d1d !important; border-color: #333 !important; }
+body.dark h1, body.dark h2, body.dark h3, body.dark .post-title a { color: #eeeeee !important; }
+body.dark .crumb { background: #1d1d1d !important; border-color: #333 !important; color: #888 !important; }
+
+/* 2. 顶部条 (Top Bar) 绝对垂直居中 */
+.top-bar { height: 2.75rem !important; }
+.top-bar .container { 
+    display: flex !important; 
+    justify-content: space-between !important; 
+    align-items: center !important; 
+    height: 100% !important;
+    padding: 0 15px !important;
+}
+.top-page { display: flex !important; align-items: center !important; float: none !important; margin: 0 !important; }
+.top-page .menu, .top-page .menu ul { display: flex !important; align-items: center !important; list-style: none !important; margin: 0 !important; }
+.top-page .menu ul li { margin-right: 15px !important; line-height: 1 !important; float: none !important; }
+.top-page .menu ul li a { line-height: 1 !important; font-size: 0.9rem !important; }
+
+.top-social { display: flex !important; align-items: center !important; float: none !important; margin: 0 !important; }
+.rss-icon { 
+    display: block; width: 28px; height: 28px; 
+    background: url(/images/rss.gif) no-repeat 0 0; 
+    text-indent: -9999px; border-radius: 50% !important; overflow: hidden; border: none; 
+}
+.rss-icon:hover { background-position: 0 -28px; }
+
+/* 3. NEXT 风格代码块 (全站统一) */
+.highlight { 
+    position: relative; margin: 30px 0 !important; border-radius: 8px; overflow: hidden; 
+    background: #21252b !important; border: 1px solid #181a1f; box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
+}
+.highlight pre { 
+    margin: 38px 0 0 0 !important; padding: 15px 20px 15px !important; 
+    background: #282c34 !important; border-top: 1px solid #181a1f !important; 
+}
+.highlight code, .highlight .chroma { background: transparent !important; color: #abb2bf !important; }
+.highlight::before {
+    content: ""; position: absolute; top: 13px; left: 15px; width: 12px; height: 12px;
+    border-radius: 50%; background: #fc625d; box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b; z-index: 10;
+}
+.copy-btn {
+    position: absolute; top: 8px; right: 12px; padding: 2px 10px; font-size: 11px; 
+    color: #5c6370; background: rgba(255,255,255,0.05); border: 1px solid #3e4451; 
+    border-radius: 4px; cursor: pointer; z-index: 11;
+}
+.copy-btn:hover { background: #ed5565; color: #fff; border-color: #ed5565; }
+
+/* 4. 侧边栏 (Sidebar) 深度美化 */
+.widget { background: #fff; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
+.tab-content { padding: 12px 15px; }
+.tab-content ul li { 
+    height: 48px; display: flex; align-items: center; 
+    border-bottom: 1px dashed #eee; font-size: 17px; list-style: none; overflow: hidden; 
+}
+.tab-content ul li a { display: block; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: inherit; }
+.tab-content ul li a:hover { color: #ed5565; }
+.dark .tab-content ul li { border-bottom-color: #2a2a2a !important; }
+
+/* 作者卡片统计 */
+.author-stats { display: flex; border-top: 1px solid #f2f2f2; margin-top: 10px; background: #fafafa; }
+.stat-item { text-align: center; flex: 1; padding: 12px 0; }
+.stat-number { display: block; font-size: 18px; font-weight: bold; color: inherit; }
+.stat-label { display: block; font-size: 12px; color: #999; }
+.dark .author-stats { background: #222 !important; border-top-color: #2a2a2a !important; }
+
+/* 彩色标签 */
+.tag-cloud-link { display: inline-block; margin: 5px; padding: 6px 12px; border-radius: 4px; color: #fff !important; font-size: 14px !important; font-weight: 500; }
+.tag-link-0 { background: #f78da7; } .tag-link-1 { background: #cf2e2e; } .tag-link-2 { background: #ff6900; }
+.tag-link-3 { background: #fcb900; } .tag-link-4 { background: #7bdcb5; } .tag-link-5 { background: #00d084; }
+.tag-link-6 { background: #8ed1fc; } .tag-link-7 { background: #0693e3; } .tag-link-8 { background: #9b51e0; } .tag-link-9 { background: #abb8c3; }
+
+/* 5. 归档页 (Archives) 特殊样式 */
+.archives-statistics { background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 45px 20px 25px; position: relative; margin-bottom: 30px; margin-top: 20px; }
+.archives-info { position: absolute; top: -14px; left: 20px; background: #ed5565; color: #fff !important; padding: 3px 12px; border-radius: 4px; font-size: 14px; font-weight: 300; z-index: 5; }
+.archives-counts { font-size: 32px; color: #999; margin-bottom: 5px; }
+.car-days { color: #777; margin-right: 15px; font-size: 13px; background: #f5f5f5; padding: 2px 8px; border-radius: 4px; border: 1px solid #eee; min-width: 40px; text-align: center; }
+
+/* 6. 友链页 (Flinks) NEXT 风格卡片 */
+.flinks-container { background: #fff; padding: 25px 30px !important; border-radius: 4px; }
+.link-card-inner { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px; display: flex; align-items: center; transition: all 0.3s; }
+.link-card-item:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
+.dark .flinks-container { background: #1d1d1d !important; }
+.dark .link-card-inner { background: #262626 !important; border-color: #333 !important; }
+.dark .link-group-title { color: #ffffff !important; }
+
+/* 清除页脚浮动 */
+.clear-footer { clear: both; height: 0; }
+#footers { clear: both; margin-top: 30px; }
