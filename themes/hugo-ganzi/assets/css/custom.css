@@ -195,6 +195,13 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   /* 隐藏桌面端侧边栏（内容通过右侧 mmenu 访问）*/
   .container > .sidebar { display: none !important; }
 
+  /* 调整手机端左右 mmenu 宽度，接近原 WordPress 主题比例 */
+  :root {
+    --mm-size: 78vw;
+    --mm-max-size: 26rem;
+    --mm-min-size: 16rem;
+  }
+
   /* 手机端顶栏 */
   .mobile-header {
     display: flex !important;
@@ -254,7 +261,7 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   #menu-right .sidebar .widget { margin-bottom: 15px; }
 
   /* mmenu 面板内隐藏多余 padding/margin */
-  #menu-right { padding: 0 !important; }
+  #menu-right, #menu { padding: 0 !important; }
 }
 
 /* 桌面端隐藏手机顶栏 */

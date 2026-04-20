@@ -6,7 +6,7 @@ jQuery('.roll-top').click(function(){jQuery('html,body').animate({scrollTop: '0p
 //手机版菜单展开（mmenu v9 新版 API）
 document.addEventListener('DOMContentLoaded', function() {
 	if (document.querySelector('nav#menu')) {
-		new Mmenu('nav#menu', {
+		const leftMenu = new Mmenu('nav#menu', {
 			offCanvas: {
 				position: 'left'
 			},
@@ -23,10 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (menuBtn) {
 			menuBtn.addEventListener('click', function(e) {
 				e.preventDefault();
-				var mmApi = document.querySelector('nav#menu').mmApi;
-				if (mmApi) {
-					mmApi.open ? mmApi.open() : null;
-				}
+				leftMenu.API.open();
 			});
 		}
 	}
