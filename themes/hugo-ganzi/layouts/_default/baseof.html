@@ -10,13 +10,14 @@
     {{ with resources.Get "css/dark.css" }}{{ $dark := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $dark.RelPermalink }}" />{{ end }}
     {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $mmenu.RelPermalink }}" />{{ end }}
     
-    {{ with resources.Get "js/jquery.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
-    {{ with resources.Get "js/jquery.mmenu.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
-    {{ with resources.Get "js/dark.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
-    {{ with resources.Get "js/weisay.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    <script type="text/javascript" src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/jquery.mmenu.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/dark.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/weisay.min.js").RelPermalink }}"></script>
 </head>
 <body>
     <div class="header">
+        <!-- 顶部深色条：固定放置 归档、友链 等 -->
         <div class="top-bar">
             <div class="container">
                 <div class="top-page">
@@ -48,11 +49,11 @@
         <a id="hamburger" onfocus="this.blur()" href="#menu" rel="nofollow"><span></span></a>{{ .Site.Title }}<a class="icon-right" href="#menu-right" rel="nofollow"><i class="iconfont righticon"></i></a>
     </div>
 
+    <!-- 主导航栏：固定放置 首页、教程、网络、软件、生活 -->
     <div class="navigation">
         <div class="container mainmenu">
             <div class="menu-ganzi-container">
                 <ul id="menu-ganzi" class="menu">
-                    <!-- 移除硬编码首页，完全由 hugo.toml 的 menu.main 控制 -->
                     {{ range .Site.Menus.main }}
                     <li class="menu-item {{ if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}current-menu-item{{ end }}"><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
                     {{ end }}
