@@ -18,10 +18,9 @@
 </head>
 <body>
     <div class="header">
-        <!-- 增加专属 ID: ganzi-top-bar -->
-        <div class="top-bar" id="ganzi-top-bar">
-            <div class="container" id="ganzi-top-container">
-                <div class="top-page" id="ganzi-top-menu-wrap">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-page">
                     <div class="menu"><ul>
                         <li><a href="/archives/">归档</a></li>
                         <li><a href="/flinks.html">链接</a></li>
@@ -43,10 +42,9 @@
         </div>
     </div>
 
-    <!-- 增加专属 ID: ganzi-main-nav -->
-    <div class="navigation" id="ganzi-main-nav">
+    <div class="navigation">
         <div class="container mainmenu">
-            <div class="menu-ganzi-container"><ul class="menu">
+            <div class="menu-ganzi-container"><ul id="menu-ganzi" class="menu">
                 <li class="menu-item {{ if .IsHome }}current-menu-item{{ end }}"><a href="/">首页</a></li>
                 <li class="menu-item"><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
                 <li class="menu-item"><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
@@ -62,7 +60,7 @@
         <div title="回到顶部" class="roll-top"><i class="iconfont rollicon">&#xe614;</i></div>
     </div>
 
-    <div class="container" id="ganzi-main-layout">
+    <div class="container">
         <div class="main">{{ block "main" . }}{{ end }}</div>
         {{ partial "sidebar.html" . }}
         <div class="clear-footer"></div>
@@ -72,17 +70,13 @@
         <div class="footer-info container"><div class="footer-left"><p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class="footer-hide">Theme by <a href="https://blog.zznuo.com/">Ganzi</a>.</span></p></div></div>
     </div>
 
-    <nav id="menu"><div class="menu-ganzi-container"><ul class="menu">
+    <nav id="menu"><div class="menu-ganzi-container"><ul id="menu-ganzi-1" class="menu">
         <li><a href="/">首页</a></li>
-        <li><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
-        <li><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
-        <li><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
-        <li><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
+        {{ range .Site.Menus.main }}<li><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}
     </ul></div></nav>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 复制脚本逻辑，限定在 highlight 容器内
             document.querySelectorAll('.highlight').forEach(function(container) {
                 if (container.querySelector('.copy-btn')) return;
                 const button = document.createElement('button');
