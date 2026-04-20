@@ -1,22 +1,23 @@
 <div class="sidebar">
+    <!-- 部件1：Tab 切换 -->
     <div class="widget">
         <div class="tab">
             <ul class="tabnav">
-                <li class="selected">最新日志</li>
-                <li>热评日志</li>
+                <li>最新日志</li>
+                <li class="selected">热评日志</li>
                 <li>随机日志</li>
             </ul>
         </div>
         <div class="clear"></div>
         <div class="tab-content">
             <!-- 最新日志 -->
-            <ul class="active">
+            <ul style="display:none;">
                 {{ range first 10 .Site.RegularPages }}
                 <li><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></li>
                 {{ end }}
             </ul>
-            <!-- 热评日志 (静态博客按日期展示最旧的或随机，这里用随机模拟) -->
-            <ul style="display:none;">
+            <!-- 热评日志 (默认显示) -->
+            <ul class="active">
                 {{ range first 10 (shuffle .Site.RegularPages) }}
                 <li><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></li>
                 {{ end }}
@@ -30,11 +31,12 @@
         </div>
     </div>
 
+    <!-- 部件2：作者信息卡片 -->
     <div class="widget">
         <div class="about-author">
             <div class="author-cover" style="background-image: url('{{ .Site.Params.author_cover | default "/images/cover.jpg" }}')"></div>
             <div class="author-avatar">
-                <img alt='{{ .Site.Params.author_name | default "众诺博客" }}' src='{{ .Site.Params.author_avatar | default "/images/avatar.jpg" }}' class='avatar avatar-70 photo' height='70' width='70' loading='lazy' />
+                <img alt='{{ .Site.Params.author_name }}' src='{{ .Site.Params.author_avatar | default "/images/avatar.jpg" }}' class='avatar avatar-70 photo' height='70' width='70' loading='lazy' />
             </div>
             <div class="author-info">
                 <h3 class="author-name">{{ .Site.Params.author_name | default "众诺博客" }}</h3>
@@ -59,6 +61,7 @@
         </div>
     </div>
 
+    <!-- 部件3：彩色标签云 -->
     <div class="widget">
         <div class="widget-tags">
             {{ range .Site.Taxonomies.tags }}
