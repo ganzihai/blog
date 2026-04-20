@@ -11,71 +11,52 @@
     {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel=stylesheet href="{{ $mmenu.RelPermalink }}">{{ end }}
     
     <style>
-        /* 全站暗黑模式深度补丁 */
+        /* 强力修复暗黑模式背景与文字 */
         body.dark { background: #121212 !important; color: #bbb !important; }
         body.dark .header, body.dark .footer { background: #1a1a1a !important; }
         body.dark .article, body.dark .widget { background: #1d1d1d !important; border-color: #333 !important; }
         body.dark h1, body.dark h2, body.dark h3, body.dark .post-title a { color: #eee !important; }
 
-        /* NEXT 风格代码块：终极合并版 */
+        /* NEXT 风格代码块 (无行号版) */
         .highlight, pre:not(.highlight pre) { 
             position: relative; 
             margin: 25px 0 !important; 
-            border-radius: 8px !important; 
-            overflow: hidden !important; 
+            border-radius: 10px !important; 
             background: #282c34 !important; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
             border: 1px solid #181a1f;
         }
-        .highlight pre { margin: 0 !important; padding: 40px 0 10px 0 !important; background: transparent !important; border: none !important; }
+        pre { padding: 45px 20px 20px !important; color: #abb2bf !important; line-height: 1.6; font-size: 14px; overflow-x: auto; }
         
-        /* 仅在最外层显示一套圆点 */
+        /* Mac 三色点 */
         .highlight::before, pre:not(.highlight pre)::before {
             content: "";
             position: absolute;
-            top: 15px;
-            left: 15px;
+            top: 18px;
+            left: 18px;
             width: 12px;
             height: 12px;
             border-radius: 50%;
             background: #fc625d;
             box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b;
-            z-index: 10;
+            z-index: 5;
         }
 
         /* 复制按钮 */
         .copy-btn {
             position: absolute;
-            top: 10px;
+            top: 12px;
             right: 15px;
             padding: 3px 10px;
-            font-size: 11px;
+            font-size: 12px;
             color: #5c6370;
             background: rgba(255,255,255,0.05);
             border: 1px solid #3e4451;
             border-radius: 4px;
             cursor: pointer;
-            z-index: 11;
-            transition: 0.2s;
+            z-index: 10;
         }
         .copy-btn:hover { background: #ed5565; color: #fff; border-color: #ed5565; }
-
-        /* 修复分裂显示：将行号与代码合并 */
-        .chroma table { border-spacing: 0; padding: 0; margin: 0; width: 100%; border-collapse: collapse; }
-        .chroma td { padding: 0; border: none; }
-        /* 行号列样式 */
-        .chroma .lntd:first-child { 
-            width: 40px; 
-            background: #21252b; 
-            text-align: right; 
-            padding: 0 10px; 
-            color: #4b5263; 
-            border-right: 1px solid #3e4451;
-            user-select: none; /* 防止手动选取到行号 */
-        }
-        /* 代码内容列样式 */
-        .chroma .lntd:last-child { padding-left: 15px; background: transparent; }
-        .chroma code { padding: 0 !important; background: transparent !important; color: #abb2bf !important; }
     </style>
 
     <script type=text/javascript src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
@@ -84,6 +65,7 @@
     <script type=text/javascript src="{{ (resources.Get "js/weisay.min.js").RelPermalink }}"></script>
 </head>
 <body>
+    <!-- (此处 HTML 结构保持不变...) -->
     <div class=header>
         <div class=top-bar>
             <div class=container>
@@ -102,7 +84,6 @@
             </div>
         </div>
     </div>
-
     <div class=navigation>
         <div class="container mainmenu">
             <div class=menu-ganzi-container><ul id=menu-ganzi class=menu>
@@ -115,27 +96,26 @@
             <div class=search><form class=search-form method=get action=/><input class=search-input required type=text name=s placeholder=搜索><button class="search-submit iconfont" type=submit>&#xe652;</button></form></div>
         </div>
     </div>
-
     <div class=roll>
         <div id=dark-mode-toggle-button onclick=applyCustomDarkModeSettings(toggleCustomDarkMode()) title=点击切换显示模式 class=roll-dark><i class="iconfont rollmodeicon"></i></div>
         <div title=回到顶部 class=roll-top><i class="iconfont rollicon">&#xe614;</i></div>
     </div>
-
     <div class=container>
         <div class=main>{{ block "main" . }}{{ end }}</div>
         {{ partial "sidebar.html" . }}
     </div>
-
     <div class=footer id=footers>
         <div class="footer-info container"><div class=footer-left><p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class=footer-hide>Theme by <a href=https://blog.zznuo.com/>Ganzi</a>.</span></p></div></div>
     </div>
-
     <nav id=menu><div class=menu-ganzi-container><ul id=menu-ganzi-1 class=menu>
         <li class=menu-item><a href=/>首页</a></li>
-        {{ range .Site.Menus.main }}<li class=menu-item><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}
+        <li class=menu-item><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
+        <li class=menu-item><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
+        <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
+        <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
     </ul></div></nav>
 
-    <!-- 复制按钮：仅提取代码内容，忽略行号 -->
+    <!-- 简化版复制脚本 -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.highlight, pre:not(.highlight pre)').forEach(function(container) {
@@ -145,15 +125,7 @@
                 button.type = 'button';
                 button.innerText = 'Copy';
                 button.addEventListener('click', function() {
-                    let code = "";
-                    // 如果 Hugo 生成了行号表格 (.lntd)
-                    const codeCell = container.querySelector('.lntd:last-child code');
-                    if (codeCell) {
-                        code = codeCell.innerText;
-                    } else {
-                        // 普通代码块
-                        code = container.querySelector('code') ? container.querySelector('code').innerText : container.innerText;
-                    }
+                    const code = container.querySelector('code') ? container.querySelector('code').innerText : container.innerText;
                     navigator.clipboard.writeText(code).then(function() {
                         button.innerText = 'Copied!';
                         setTimeout(function() { button.innerText = 'Copy'; }, 2000);
