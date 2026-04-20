@@ -1,90 +1,84 @@
 /* ============================================================
-   hugo-ganzi 核心统一样式表 (高优先级修正版)
+   hugo-ganzi 全站统一样式表 (终极完美对齐版)
    ============================================================ */
 
-/* --- 1. 全局暗黑模式强力对齐 --- */
-body.dark { background: #121212 !important; color: #bbb !important; }
-.dark .article, .dark .widget, .dark .car-container, .dark .flinks-container { background: #1d1d1d !important; border-color: #333 !important; }
-.dark h1, .dark h2, .dark h3, .dark .post-title a { color: #eeeeee !important; }
-.dark .link-group-title { color: #ffffff !important; }
-
-/* --- 2. 顶部条 (Top Bar) 垂直绝对居中锁定 --- */
-.top-bar { height: 45px !important; line-height: 45px !important; background: #434a54 !important; overflow: visible !important; }
+/* --- 1. 顶部条 (Top Bar) 垂直绝对居中锁定 --- */
+.top-bar { height: 2.75rem !important; background: #434a54 !important; }
 .top-bar .container { 
     display: flex !important; justify-content: space-between !important; align-items: center !important; 
-    height: 100% !important; max-height: 45px !important; padding: 0 15px !important; 
+    height: 100% !important; padding: 0 15px !important; 
 }
-.top-page, .top-social { display: flex !important; align-items: center !important; height: 100% !important; float: none !important; }
+.top-page { display: flex !important; align-items: center !important; height: 100% !important; float: none !important; }
 .top-page .menu, .top-page .menu ul { display: flex !important; align-items: center !important; height: 100% !important; list-style: none !important; margin: 0 !important; }
-.top-page .menu ul li { margin-right: 20px !important; float: none !important; display: flex !important; align-items: center !important; }
-.top-page .menu ul li a { color: #fff !important; font-size: 14px !important; line-height: 1 !important; display: inline-block !important; }
+.top-page .menu ul li { margin-right: 20px !important; height: 100% !important; display: flex !important; align-items: center !important; float: none !important; }
+.top-page .menu ul li a { color: #fff !important; font-size: 14px !important; line-height: 1 !important; display: block !important; text-decoration: none !important; }
 
 .rss-icon { 
-    display: block !important; width: 28px !important; height: 28px !important; 
-    background: url(/images/rss.gif) no-repeat 0 0 !important; border-radius: 50% !important; 
-    overflow: hidden; text-indent: -9999px !important; border: none !important; 
+    display: block !important; width: 26px !important; height: 26px !important; 
+    background: url(/images/rss.gif) no-repeat 0 0 !important; 
+    border-radius: 50% !important; overflow: hidden; text-indent: -9999px !important; border: none !important;
 }
-.rss-icon:hover { background-position: 0 -28px !important; }
+.rss-icon:hover { background-position: 0 -26px !important; }
 
-/* --- 3. 代码块复刻 (One Dark 分层结构) --- */
-.highlight { position: relative; margin: 30px 0 !important; border-radius: 8px; overflow: hidden; background: #21252b !important; border: 1px solid #181a1f; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
-.highlight pre { margin: 38px 0 0 0 !important; padding: 20px !important; background: #282c34 !important; border-top: 1px solid #181a1f !important; color: #abb2bf !important; }
-.highlight code { background: transparent !important; border: none !important; }
-.highlight::before { content: ""; position: absolute; top: 13px; left: 15px; width: 12px; height: 12px; border-radius: 50%; background: #fc625d; box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b; z-index: 10; }
-.copy-btn { position: absolute; top: 8px; right: 12px; padding: 2px 10px; font-size: 11px; color: #5c6370; background: rgba(255,255,255,0.05); border: 1px solid #3e4451; border-radius: 4px; cursor: pointer; z-index: 11; }
+/* --- 2. 导航栏修复 (解决首页点击灵敏度) --- */
+.navigation { position: relative !important; z-index: 9999 !important; } /* 极高层级 */
+.navigation .menu-item a { 
+    display: block !important; 
+    padding: 0 20px !important; 
+    height: 3.5rem; 
+    line-height: 3.5rem; 
+    position: relative !important; 
+    z-index: 10000 !important; /* 确保链接在最顶层 */
+}
+/* 防止标题区遮挡导航栏左侧 */
+.website.container { position: relative; z-index: 1; pointer-events: none !important; }
+.headline, .headline a { pointer-events: auto !important; }
 
-/* --- 4. 侧边栏及彩色标签 --- */
-.sidebar .widget { border-radius: 8px !important; overflow: hidden !important; }
+/* --- 3. 侧边栏及彩色标签 --- */
+.sidebar .widget { border-radius: 8px !important; overflow: hidden !important; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 20px; }
 .sidebar .widget .tab-content { padding: 15px !important; }
 .sidebar .widget .tab-content ul li { height: 48px; display: flex; align-items: center; border-bottom: 1px dashed #eee; font-size: 16px; overflow: hidden; }
-.sidebar .widget .tab-content ul li a { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; color: inherit; width: 100%; display: block; }
-.dark .tab-content ul li { border-bottom-color: #2a2a2a !important; }
+.sidebar .widget .tab-content ul li a { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; display: block; width: 100%; color: inherit; }
 
-/* 作者卡片统计 (06.png 复刻) */
-.about-author .author-stats { display: flex !important; border-top: 1px solid #f2f2f2 !important; margin-top: 12px !important; background: #fafafa !important; width: 100% !important; border-radius: 0 0 8px 8px; }
-.about-author .stat-item { text-align: center !important; flex: 1 !important; padding: 10px 0 !important; }
-.about-author .stat-number { display: block !important; font-size: 18px !important; font-weight: bold !important; color: #333 !important; }
-.dark .about-author .author-stats { background: #222 !important; border-top-color: #333 !important; }
-.dark .about-author .stat-number { color: #eee !important; }
+.about-author .author-stats { display: flex !important; border-top: 1px solid #f2f2f2 !important; margin-top: 10px !important; background: #fafafa !important; width: 100% !important; }
+.about-author .stat-item { text-align: center !important; flex: 1 !important; padding: 12px 0 !important; }
+.about-author .stat-number { display: block !important; font-size: 18px; font-weight: bold; color: #333 !important; }
 
-/* 彩色标签云 */
-.tag-cloud-link { display: inline-block !important; margin: 4px !important; padding: 6px 12px !important; border-radius: 4px !important; color: #fff !important; font-size: 14px !important; text-decoration: none !important; font-weight: 500; }
+.tag-cloud-link { display: inline-block !important; margin: 4px !important; padding: 5px 12px !important; border-radius: 4px !important; color: #fff !important; font-size: 14px !important; text-decoration: none !important; }
 .tag-link-0 { background: #f78da7 !important; } .tag-link-1 { background: #cf2e2e !important; } .tag-link-2 { background: #ff6900 !important; }
 .tag-link-3 { background: #fcb900 !important; } .tag-link-4 { background: #7bdcb5 !important; } .tag-link-5 { background: #00d084 !important; }
 .tag-link-6 { background: #8ed1fc !important; } .tag-link-7 { background: #0693e3 !important; } .tag-link-8 { background: #9b51e0 !important; } .tag-link-9 { background: #abb8c3 !important; }
 
-/* --- 5. 归档与友链页面终极适配 --- */
+/* --- 4. 友链页比例复刻 (对齐 11.png) --- */
+.link-grid { display: flex; flex-wrap: wrap; margin: 0 -8px; }
+.link-card-item { width: calc(25% - 16px); margin: 8px; text-decoration: none !important; display: block !important; } /* 一排4个，黄金比例 */
+.link-card-inner { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 12px; display: flex !important; align-items: center !important; transition: 0.3s; min-height: 70px; }
+.link-card-item:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
+.link-avatar img { width: 45px !important; height: 45px !important; border-radius: 50% !important; object-fit: cover !important; margin-right: 12px; border: 1px solid #f0f0f0 !important; }
+.link-info { overflow: hidden !important; display: flex !important; flex-direction: column !important; }
+.link-name { font-size: 15px !important; color: #333 !important; font-weight: bold !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+.link-desc { font-size: 11px !important; color: #888 !important; margin-top: 3px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+
+/* --- 5. 归档页细节 --- */
 .archives-statistics { border: 1px solid #ddd; border-radius: 4px; padding: 45px 20px 25px; position: relative; margin-bottom: 30px; margin-top: 20px; background: #fff; }
 .archives-info { position: absolute; top: -14px; left: 20px; background: #ed5565; color: #fff !important; padding: 3px 12px; border-radius: 4px; font-size: 14px; font-weight: 300; z-index: 5; }
-.archives-statistics ul { display: flex !important; justify-content: space-around !important; list-style: none !important; margin: 0 !important; }
-.archives-counts { font-size: 32px; color: #999; margin-bottom: 5px; }
-
-.car-container, .flinks-container { background: #fff !important; padding: 25px !important; border-radius: 8px !important; border: 1px solid #eee !important; }
-.car-yearmonth { cursor: pointer; color: #ed5565; font-size: 18px; display: block; padding: 12px 0; border-bottom: 1px solid #f5f5f5; font-weight: bold; }
+.car-container { background: #fff; padding: 25px; border-radius: 8px; border: 1px solid #eee; }
 .car-days { color: #777; margin-right: 15px; font-size: 13px; background: #f5f5f5; padding: 2px 8px; border-radius: 4px; border: 1px solid #eee; min-width: 40px; text-align: center; }
 
-#archive-selector { height: 34px !important; padding: 0 10px !important; border: 1px solid #ccc !important; border-radius: 4px !important; background: #fff !important; color: #333 !important; }
-.dark #archive-selector { background: #333 !important; color: #ccc !important; border-color: #444 !important; }
-
-/* 友链卡片强制 1:1 复刻 */
-.link-grid { display: flex; flex-wrap: wrap; margin: 0 -8px; }
-.link-card-item { width: calc(33.333% - 16px); margin: 8px; text-decoration: none !important; display: block !important; }
-.link-card-inner { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px; display: flex !important; align-items: center !important; transition: all 0.3s; min-height: 80px; }
-.link-card-item:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
-.link-avatar { width: 50px !important; height: 50px !important; margin-right: 15px !important; flex-shrink: 0 !important; }
-.link-avatar img { width: 50px !important; height: 50px !important; border-radius: 50% !important; object-fit: cover !important; border: 1px solid #f0f0f0 !important; }
-.link-info { overflow: hidden !important; display: flex !important; flex-direction: column !important; }
-.link-name { font-size: 16px !important; color: #333 !important; font-weight: bold !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.4 !important; }
-.link-desc { font-size: 12px !important; color: #777 !important; margin-top: 5px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.2 !important; }
-
+/* --- 6. 强力暗黑模式适配 --- */
+.dark body, body.dark { background: #121212 !important; color: #bbb !important; }
+.dark .article, .dark .widget, .dark .car-container, .dark .flinks-container, .dark .archives-statistics, .dark #footers { background: #1d1d1d !important; border-color: #333 !important; }
+.dark h1, .dark h2, .dark h3, .dark .post-title a, .dark .link-group-title { color: #eeeeee !important; }
 .dark .link-card-inner { background: #262626 !important; border-color: #333 !important; }
-.dark .link-name { color: #eeeeee !important; }
-.dark .link-desc { color: #999999 !important; }
+.dark .link-name { color: #eee !important; }
+.dark .link-desc { color: #999 !important; }
+.dark .author-stats { background: #222 !important; border-top-color: #333 !important; }
+.dark .stat-number { color: #eee !important; }
+.dark .tab-content ul li { border-bottom-color: #2a2a2a !important; }
+.dark .car-days { background: #262626 !important; border-color: #333 !important; color: #777 !important; }
+.dark #archive-selector { background: #333 !important; color: #ccc !important; border-color: #444 !important; }
+.dark .top-bar { background: #1a1a1a !important; }
 
-.divider-line { text-align: center; margin: 50px 0 40px; border-top: 1px dashed #ddd; position: relative; }
-.divider-line span { background: #fff; padding: 0 15px; position: relative; top: -11px; color: #bbb; }
-.dark .divider-line span { background: #1d1d1d !important; }
-
-/* 修正页脚浮动 */
+/* 修正页脚移位 */
 .clear-footer { clear: both !important; height: 1px !important; width: 100% !important; display: block !important; }
 #footers { clear: both !important; width: 100% !important; margin-top: 50px !important; }
