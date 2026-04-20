@@ -40,7 +40,7 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .sidebar .widget .tab-content ul li a { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; color: inherit; width: 100%; display: block; }
 .dark .tab-content ul li { border-bottom-color: #2a2a2a !important; }
 
-/* 作者卡片统计 (06.png 复刻) */
+/* 作者卡片统计 */
 .about-author .author-stats { display: flex !important; border-top: 1px solid #f2f2f2 !important; margin-top: 12px !important; background: #fafafa !important; width: 100% !important; border-radius: 0 0 8px 8px; }
 .about-author .stat-item { text-align: center !important; flex: 1 !important; padding: 10px 0 !important; }
 .about-author .stat-number { display: block !important; font-size: 18px !important; font-weight: bold !important; color: #333 !important; }
@@ -59,9 +59,22 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .archives-statistics ul { display: flex !important; justify-content: space-around !important; list-style: none !important; margin: 0 !important; }
 .archives-counts { font-size: 32px; color: #999; margin-bottom: 5px; }
 
+/* 归档页暗黑模式 */
+.dark .archives-statistics { background: #1d1d1d !important; border-color: #333 !important; }
+.dark .archives-statistics .archives-counts { color: #666 !important; }
+.dark .archives-statistics ul li span { color: #aaa !important; }
+
 .car-container, .flinks-container { background: #fff !important; padding: 25px !important; border-radius: 8px !important; border: 1px solid #eee !important; }
 .car-yearmonth { cursor: pointer; color: #ed5565; font-size: 18px; display: block; padding: 12px 0; border-bottom: 1px solid #f5f5f5; font-weight: bold; }
 .car-days { color: #777; margin-right: 15px; font-size: 13px; background: #f5f5f5; padding: 2px 8px; border-radius: 4px; border: 1px solid #eee; min-width: 40px; text-align: center; }
+
+/* 归档列表暗黑模式 */
+.dark .car-container { background: #1d1d1d !important; border-color: #333 !important; }
+.dark .car-yearmonth { border-bottom-color: #2a2a2a !important; }
+.dark .car-days { background: #2a2a2a !important; border-color: #3a3a3a !important; color: #999 !important; }
+.dark .car-container .post-list li { border-bottom-color: #2a2a2a !important; }
+.dark .car-container .post-list li a { color: #ccc !important; }
+.dark .car-container .post-list li a:hover { color: #ed5565 !important; }
 
 #archive-selector { height: 34px !important; padding: 0 10px !important; border: 1px solid #ccc !important; border-radius: 4px !important; background: #fff !important; color: #333 !important; }
 .dark #archive-selector { background: #333 !important; color: #ccc !important; border-color: #444 !important; }
@@ -91,7 +104,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 
 /* --- 6. 修复桌面端 mmenu 遮罩层挡住导航点击的问题 --- */
 @media screen and (min-width: 992px) {
-  /* mmenu 生成的透明遮罩，禁止拦截鼠标事件 */
   #mm-blocker,
   .mm-wrapper__blocker,
   .mm-blocker {
@@ -99,14 +111,12 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     pointer-events: none !important;
   }
 
-  /* mmenu 把 body 内容包裹进 .mm-slideout，还原其位置和尺寸 */
   .mm-page.mm-slideout {
     width: 100% !important;
     transform: none !important;
     left: 0 !important;
   }
 
-  /* 防止 mmenu 开启时 html/body 产生 overflow:hidden 锁定滚动 */
   html.mm-opened,
   html.mm-opening,
   html.mm-blocking {
@@ -117,7 +127,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     overflow: auto !important;
   }
 
-  /* 确保导航栏及其链接层级高于 mmenu 任何元素 */
   .header,
   .top-bar,
   .navigation {
