@@ -2,59 +2,47 @@
     <style>
         .widget { background: #fff; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
         .tab-content { padding: 12px 15px; }
-        
-        .tab-content ul li { 
-            height: 48px; 
-            display: flex;
-            align-items: center; 
-            border-bottom: 1px dashed #eee; 
-            font-size: 17px; 
-            list-style: none; 
-            overflow: hidden;
-        }
+        .tab-content ul li { height: 48px; display: flex; align-items: center; border-bottom: 1px dashed #eee; font-size: 17px; list-style: none; overflow: hidden; }
         .tab-content ul li a { display: block; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #444; text-decoration: none; }
         .tab-content ul li a:hover { color: #ed5565; }
-        .tab-content ul li:last-child { border-bottom: none; }
-
         .author-stats { display: flex; border-top: 1px solid #f2f2f2; margin-top: 10px; background: #fafafa; }
         .author-stats .stat-item { text-align: center; flex: 1; padding: 12px 0; }
         .author-stats .stat-number { display: block; font-size: 18px; font-weight: bold; color: #333; }
         .author-stats .stat-label { display: block; font-size: 13px; color: #999; margin-top: 2px; }
-        
         .tag-cloud-link { display: inline-block; margin: 5px; padding: 6px 12px; border-radius: 4px; color: #fff !important; font-size: 14px !important; font-weight: 500; text-decoration: none !important; }
-        .tag-link-0 { background: #f78da7; } .tag-link-1 { background: #cf2e2e; }
-        .tag-link-2 { background: #ff6900; } .tag-link-3 { background: #fcb900; }
-        .tag-link-4 { background: #7bdcb5; } .tag-link-5 { background: #00d084; }
-        .tag-link-6 { background: #8ed1fc; } .tag-link-7 { background: #0693e3; }
-        .tag-link-8 { background: #9b51e0; } .tag-link-9 { background: #abb8c3; }
+        .tag-link-0 { background: #f78da7; } .tag-link-1 { background: #cf2e2e; } .tag-link-2 { background: #ff6900; } .tag-link-3 { background: #fcb900; } .tag-link-4 { background: #7bdcb5; } .tag-link-5 { background: #00d084; } .tag-link-6 { background: #8ed1fc; } .tag-link-7 { background: #0693e3; } .tag-link-8 { background: #9b51e0; } .tag-link-9 { background: #abb8c3; }
 
-        /* NEXT 风格代码高亮补丁 */
+        /* NEXT 风格 Mac 代码高亮补丁 */
         pre {
-            background: #282c34;
-            color: #abb2bf;
-            padding: 15px;
-            border-radius: 6px;
+            background: #282c34 !important;
+            color: #abb2bf !important;
+            padding: 35px 15px 15px !important; /* 为顶部点预留位置 */
+            border-radius: 8px !important;
             overflow-x: auto;
             margin: 20px 0;
             line-height: 1.6;
-            font-family: 'Fira Code', 'Source Code Pro', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            font-family: 'Consolas', 'Monaco', monospace;
             font-size: 14px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        code {
-            background: rgba(237, 85, 101, 0.1);
-            color: #ed5565;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-family: inherit;
+        pre::before {
+            content: "";
+            position: absolute;
+            top: 12px;
+            left: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #fc625d;
+            box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b;
+            z-index: 2;
         }
-        pre code {
-            background: none;
-            color: inherit;
-            padding: 0;
-        }
+        pre code { background: none !important; color: inherit !important; padding: 0 !important; border: none !important; }
+        code { background: rgba(237, 85, 101, 0.1); color: #ed5565; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
     </style>
-    <!-- (此处保持原有的 Widget 内容不变...) -->
+
+    <!-- 部件1：选项卡 -->
     <div class="widget">
         <div class="tab">
             <ul class="tabnav">
@@ -70,6 +58,8 @@
             <ul style="display:none;">{{ range first 10 (shuffle .Site.RegularPages) }}<li><a href="{{ .Permalink }}">{{ .Title }}</a></li>{{ end }}</ul>
         </div>
     </div>
+
+    <!-- 部件2：关于作者 -->
     <div class="widget">
         <div class="about-author">
             <div class="author-cover" style="background-image: url('/images/cover.jpg'); background-position: center; background-size: cover; height: 130px;"></div>
@@ -87,6 +77,8 @@
             </div>
         </div>
     </div>
+
+    <!-- 部件3：彩色标签云 -->
     <div class="widget">
         <div class="widget-tags" style="padding: 15px; text-align: center;">
             {{ range $index, $term := .Site.Taxonomies.tags.Alphabetical }}<a href="{{ .Page.Permalink }}" class="tag-cloud-link tag-link-{{ (mod $index 10) }}">{{ .Page.Title }}</a>{{ end }}
