@@ -5,7 +5,7 @@
     </div>
 
     {{ range .Paginator.Pages }}
-    <div class="post-{{ .File.UniqueID }} post type-post status-publish format-standard hentry" id="post-{{ .File.UniqueID }}" itemscope itemtype="http://schema.org/Article">
+    <div class="post-{{ with .File }}{{ .UniqueID }}{{ else }}{{ .Title | urlize }}{{ end }} post type-post status-publish format-standard hentry" id="post-{{ with .File }}{{ .UniqueID }}{{ else }}{{ .Title | urlize }}{{ end }}" itemscope itemtype="http://schema.org/Article">
         <h2 class="post-title" itemprop="headline">
             <a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}" itemprop="url">{{ .Title }}</a>
             {{ if .Params.sticky }}<span class="new"><i class="iconfont newicon">&#xe610;</i></span>{{ end }}
@@ -37,7 +37,7 @@
         
         <div class="post-info">
             <span class="vcard author info-icon" itemprop="author" itemscope itemtype="https://schema.org/Person">
-                <span class="fn"><i class="iconfont posticon">&#xe603;</i>{{ .Site.Author.name | default "杆子" }}</span>
+                <span class="fn"><i class="iconfont posticon">&#xe603;</i>{{ $.Site.Params.author_name | default "杆子" }}</span>
             </span>
             <span class="date info-icon" itemprop="datePublished" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">
                 <i class="iconfont posticon">&#xe689;</i>{{ .Date.Format "2006-01-02" }}<span class="date-hi"> {{ .Date.Format "15:04" }}</span>

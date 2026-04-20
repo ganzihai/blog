@@ -11,12 +11,12 @@
         正文
     </div>
 
-    <div id="post-{{ .File.UniqueID }}" class="article" itemscope itemtype="http://schema.org/Article">
+    <div id="post-{{ with .File }}{{ .UniqueID }}{{ else }}{{ .Title | urlize }}{{ end }}" class="article" itemscope itemtype="http://schema.org/Article">
         <h1 class="post-title" itemprop="headline">{{ .Title }}</h1>
         <div class="article-info">
             <div class="article-infomation">
                 <span class="vcard author info-icon" itemprop="author" itemscope itemtype="https://schema.org/Person">
-                    <span class="fn"><i class="iconfont posticon">&#xe603;</i>{{ .Site.Author.name | default "杆子" }}</span>
+                    <span class="fn"><i class="iconfont posticon">&#xe603;</i>{{ $.Site.Params.author_name | default "杆子" }}</span>
                 </span>
                 <span class="date info-icon" itemprop="datePublished" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">
                     <i class="iconfont posticon">&#xe689;</i>{{ .Date.Format "2006-01-02" }}<span class="date-hi"> {{ .Date.Format "15:04" }}</span>
