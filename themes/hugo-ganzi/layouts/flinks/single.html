@@ -5,7 +5,7 @@
     <h1 class="article-title flinks-main-title">{{ .Title }}</h1>
     
     <div class="article-content">
-        <!-- 1. 优先显示友链卡片 (正确顺序) -->
+        <!-- 友链卡片 -->
         {{ $data := index .Site.Data.flinks "zh-cn" }}
         {{ if $data }}
             {{ range $data }}
@@ -34,7 +34,7 @@
         
         <div class="divider-line"><span>我可是有底线的哟</span></div>
 
-        <!-- 2. 说明文字区 (正确顺序) -->
+        <!-- 说明文字 -->
         <div class="instructions-wrap">
             {{ .Content }}
         </div>
@@ -42,47 +42,54 @@
 </div>
 
 <style>
-    /* 基础结构与间距 */
+    /* 1. 结构布局 */
     .flinks-container { background: #fff; padding: 15px 25px 30px !important; border-radius: 4px; }
     .flinks-main-title { text-align: center; margin: 15px 0 35px !important; font-size: 28px; }
     .link-group-section { margin-bottom: 40px; }
-    .link-group-title { font-size: 21px; color: #333; margin-bottom: 10px; font-weight: bold; border: none !important; padding: 0 !important; }
-    .link-group-desc { color: #888; font-size: 13px; margin: -10px 0 20px 0; }
+    .link-group-title { font-size: 21px; color: #333; margin-bottom: 10px; font-weight: bold; border: none !important; }
+    .link-group-desc { color: #888; font-size: 14px; margin-bottom: 25px; }
     
-    /* 卡片网格布局 */
+    /* 2. 卡片视觉 (亮色模式) */
     .link-grid { display: flex; flex-wrap: wrap; margin: 0 -8px; }
     .link-card-item { width: calc(33.333% - 16px); margin: 8px; text-decoration: none !important; }
     .link-card-inner { 
-        background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 12px; 
-        display: flex; align-items: center; transition: all 0.3s;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px; 
+        display: flex; align-items: center; transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     }
-    .link-card-item:hover .link-card-inner { 
-        transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
-        border-color: #ed5565; 
-    }
-    
+    .link-card-item:hover .link-card-inner { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
     .link-avatar { width: 50px; height: 50px; flex-shrink: 0; margin-right: 15px; }
-    .link-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-    
+    .link-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 1px solid #f9f9f9; }
     .link-info { overflow: hidden; display: flex; flex-direction: column; }
-    .link-name { font-size: 15px; color: #333; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .link-desc { font-size: 12px; color: #777; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    
+    .link-name { font-size: 16px; color: #333; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .link-desc { font-size: 12px; color: #777; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .divider-line { text-align: center; margin: 50px 0 40px; border-top: 1px dashed #ddd; position: relative; }
     .divider-line span { background: #fff; padding: 0 15px; position: relative; top: -11px; color: #bbb; font-size: 13px; }
 
-    /* --- 核心修复：复刻之前成功的颜色配置 --- */
-    body.dark .flinks-container { background: #1d1d1d !important; }
-    body.dark .link-group-title { color: #ffffff !important; } /* 强制加亮分类标题 */
-    body.dark .link-group-desc { color: #777 !important; }
-    body.dark .link-card-inner { background: #262626 !important; border-color: #333 !important; }
-    body.dark .link-name { color: #eeeeee !important; } /* 强制加亮文字 */
-    body.dark .link-desc { color: #999999 !important; }
-    body.dark .divider-line { border-color: #333 !important; }
-    body.dark .divider-line span { background: #1d1d1d !important; color: #555 !important; }
-    body.dark .link-card-item:hover .link-card-inner { border-color: #ed5565 !important; background: #2b2b2b !important; }
-    body.dark .instructions-wrap { color: #bbb !important; }
+    /* --- 终极核心修复：暴力适配所有暗黑模式逻辑 --- */
+    /* 针对 html.dark 或 body.dark 或 [data-theme='dark'] */
+    .dark .flinks-container, 
+    [data-theme='dark'] .flinks-container { background: #1d1d1d !important; }
+    
+    .dark .link-group-title,
+    [data-theme='dark'] .link-group-title { color: #ffffff !important; opacity: 1 !important; } /* 解决 32.png 标题不可见 */
+    
+    .dark .link-card-inner,
+    [data-theme='dark'] .link-card-inner { background: #262626 !important; border-color: #333 !important; } /* 解决 32.png 白块 */
+    
+    .dark .link-name,
+    [data-theme='dark'] .link-name { color: #eeeeee !important; }
+    
+    .dark .link-desc,
+    [data-theme='dark'] .link-desc { color: #888888 !important; }
+    
+    .dark .divider-line,
+    [data-theme='dark'] .divider-line { border-color: #333 !important; }
+    
+    .dark .divider-line span,
+    [data-theme='dark'] .divider-line span { background: #1d1d1d !important; color: #555 !important; }
+    
+    .dark .link-avatar img,
+    [data-theme='dark'] .link-avatar img { border-color: #444 !important; }
 
     @media (max-width: 992px) { .link-card-item { width: calc(50% - 16px); } }
     @media (max-width: 650px) { .link-card-item { width: calc(100% - 16px); } }
