@@ -71,7 +71,6 @@
     </div>
 
     <nav id="menu"><div class="menu-ganzi-container"><ul id="menu-ganzi-1" class="menu">
-        <li><a href="/">首页</a></li>
         {{ range .Site.Menus.main }}<li><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}
     </ul></div></nav>
 
