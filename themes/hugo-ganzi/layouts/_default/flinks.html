@@ -7,58 +7,56 @@
     <div class="article-content">
         {{ .Content }}
 
-        <!-- 针对 Next 主题结构的友链渲染 -->
-        {{ if .Site.Data.flinks }}
-            {{ range $key, $value := .Site.Data.flinks }}
-                <!-- 如果 $value 是数组，说明直接就是链接列表 -->
-                {{ if reflect.IsSlice $value }}
-                    <h3 class="link-title">{{ $key }}</h3>
-                    <div class="link-list">
-                        {{ range $value }}
-                        <a href="{{ .url }}" target="_blank" title="{{ .bio | default .name }}" class="link-item">
-                            <img src="{{ .avatar | default "/images/avatar.jpg" }}" alt="{{ .name }}" />
-                            <span class="link-name">{{ .name }}</span>
-                        </a>
-                        {{ end }}
+        <!-- 解析 data/flinks/zh-cn.yaml 结构 -->
+        {{ range .Site.Data.flinks }}
+            {{ range . }} <!-- 遍历 zh-cn 内部的列表 -->
+            <h3 class="link-title">{{ .FLinksTitle }}</h3>
+            {{ if .FLinksDesc }}<p class="link-group-desc" style="color:#888; font-size:13px; margin:-10px 0 15px 5px;">{{ .FLinksDesc }}</p>{{ end }}
+            
+            <div class="link-list">
+                {{ range .FLinksList }}
+                <a href="{{ .link }}" target="_blank" title="{{ .desc }}" class="link-item">
+                    <img src="{{ .avatar | default "/images/avatar.jpg" }}" alt="{{ .name }}" onerror="this.src='/images/avatar.jpg'" />
+                    <div class="link-info">
+                        <span class="link-name">{{ .name }}</span>
+                        <span class="link-desc">{{ .desc }}</span>
                     </div>
-                {{ else if reflect.IsMap $value }}
-                    <!-- 如果 $value 是对象，可能是更深一层的 Next 结构 -->
-                    <h3 class="link-title">{{ $key }}</h3>
-                    <div class="link-list">
-                        {{ range $value }}
-                        <a href="{{ .url }}" target="_blank" title="{{ .bio | default .name }}" class="link-item">
-                            <img src="{{ .avatar | default "/images/avatar.jpg" }}" alt="{{ .name }}" />
-                            <span class="link-name">{{ .name }}</span>
-                        </a>
-                        {{ end }}
-                    </div>
+                </a>
                 {{ end }}
-                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
             {{ end }}
         {{ end }}
     </div>
 </div>
 
 <style>
-    .link-title { border-left: 4px solid #ed5565; padding-left: 10px; margin: 25px 0 15px; font-size: 18px; text-transform: capitalize; }
-    .link-list { display: flex; flex-wrap: wrap; margin: 0 -10px; }
+    .link-title { border-left: 4px solid #ed5565; padding-left: 12px; margin: 30px 0 15px; font-size: 19px; font-weight: bold; }
+    .link-list { display: flex; flex-wrap: wrap; margin: 0 -8px; }
     .link-item { 
-        width: calc(25% - 20px); 
-        margin: 10px; 
-        padding: 10px; 
+        width: calc(33.333% - 16px); 
+        margin: 8px; 
+        padding: 12px; 
         background: #fff; 
         border: 1px solid #eee; 
-        border-radius: 4px; 
+        border-radius: 6px; 
         display: flex; 
         align-items: center; 
         text-decoration: none !important;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        transition: all 0.3s;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     }
-    .link-item:hover { background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-2px); border-color: #ed5565; }
-    .link-item img { width: 38px; height: 38px; border-radius: 50%; margin-right: 12px; border: 1px solid #f0f0f0; object-fit: cover; }
-    .link-name { font-size: 14px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; }
-    @media (max-width: 992px) { .link-item { width: calc(33.3% - 20px); } }
-    @media (max-width: 768px) { .link-item { width: calc(50% - 20px); } }
+    .link-item:hover { 
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
+        transform: translateY(-3px); 
+        border-color: #ed5565; 
+    }
+    .link-item img { width: 42px; height: 42px; border-radius: 50%; margin-right: 12px; border: 1px solid #f0f0f0; object-fit: cover; flex-shrink: 0; }
+    .link-info { display: flex; flex-direction: column; overflow: hidden; }
+    .link-name { font-size: 15px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
+    .link-desc { font-size: 12px; color: #999; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+    
+    @media (max-width: 1100px) { .link-item { width: calc(50% - 16px); } }
+    @media (max-width: 768px) { .link-item { width: calc(100% - 16px); } }
 </style>
 {{ end }}
