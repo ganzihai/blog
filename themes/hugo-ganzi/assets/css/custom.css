@@ -268,6 +268,7 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 @media screen and (min-width: 992px) {
   .mobile-header { display: none !important; }
 }
+
 /* --- 9. 左侧纯CSS抽屉（仅手机端，不影响桌面） --- */
 @media screen and (max-width: 991px) {
 
@@ -367,7 +368,7 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     background: rgba(0,0,0,0.05);
   }
 
-  /* 暗黑模式 */
+  /* 左侧抽屉暗黑模式 */
   body.dark #left-drawer {
     background: #333;
   }
@@ -392,5 +393,49 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   }
   body.dark .left-drawer-nav li a:hover {
     background: rgba(255,255,255,0.08);
+  }
+}
+
+/* --- 10. 右侧mmenu暗黑模式完整覆盖 --- */
+@media screen and (max-width: 991px) {
+
+  /* 暗黑模式下 mmenu 整体背景 */
+  body.dark #menu-right.mm-menu,
+  body.dark #menu-right {
+    background: #1a1a1a !important;
+    color: #ccc !important;
+  }
+
+  /* navbar 标题栏（"侧边栏"那一行）*/
+  body.dark #menu-right .mm-navbar {
+    background: #222 !important;
+    border-bottom: 1px solid #333 !important;
+  }
+  body.dark #menu-right .mm-navbar__title,
+  body.dark #menu-right .mm-navbar a {
+    color: #ccc !important;
+  }
+
+  /* 面板背景 */
+  body.dark #menu-right .mm-panel,
+  body.dark #menu-right .mm-panels > .mm-panel {
+    background: #1a1a1a !important;
+  }
+
+  /* 列表项 */
+  body.dark #menu-right .mm-listitem__text,
+  body.dark #menu-right .mm-listitem a {
+    color: #ccc !important;
+  }
+  body.dark #menu-right .mm-listitem {
+    border-bottom-color: #2a2a2a !important;
+  }
+  body.dark #menu-right .mm-listitem:after {
+    border-color: #2a2a2a !important;
+  }
+
+  /* 遮罩层 */
+  body.dark .mm-wrapper__blocker {
+    background: rgba(0,0,0,0.7) !important;
   }
 }
