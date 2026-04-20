@@ -1,5 +1,34 @@
 <div class="sidebar">
-    <!-- 部件1：选项卡 (热评日志默认显示) -->
+    <!-- 样式补丁：确保彩色标签和侧边栏边距生效 -->
+    <style>
+        .widget { background: #fff; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
+        .tab-content { padding: 10px 15px; }
+        .tab-content ul li { padding: 8px 0; border-bottom: 1px dashed #eee; line-height: 1.5; font-size: 14px; list-style: none; }
+        .tab-content ul li:last-child { border-bottom: none; }
+        .author-stats .stat-item { text-align: center; flex: 1; padding: 10px 0; }
+        .author-stats .stat-number { display: block; font-size: 18px; font-weight: bold; color: #333; line-height: 1.2; }
+        .author-stats .stat-label { display: block; font-size: 12px; color: #999; margin-top: 3px; }
+        
+        /* 彩色标签补丁 */
+        .tag-cloud-link { 
+            display: inline-block; 
+            margin: 4px; 
+            padding: 4px 10px; 
+            border-radius: 3px; 
+            color: #fff !important; 
+            font-size: 13px !important; 
+            text-decoration: none !important;
+        }
+        .tag-link-1 { background-color: #f78da7; } .tag-link-2 { background-color: #cf2e2e; }
+        .tag-link-3 { background-color: #ff6900; } .tag-link-4 { background-color: #fcb900; }
+        .tag-link-5 { background-color: #7bdcb5; } .tag-link-6 { background-color: #00d084; }
+        .tag-link-7 { background-color: #8ed1fc; } .tag-link-8 { background-color: #0693e3; }
+        .tag-link-9 { background-color: #9b51e0; } .tag-link-0 { background-color: #abb8c3; }
+        .tag-link-10 { background-color: #f1a50a; } .tag-link-11 { background-color: #1e73be; }
+        .tag-link-12 { background-color: #81d742; } .tag-link-13 { background-color: #eeee22; }
+    </style>
+
+    <!-- 部件1：选项卡 -->
     <div class="widget">
         <div class="tab">
             <ul class="tabnav">
@@ -12,17 +41,17 @@
         <div class="tab-content">
             <ul style="display:none;">
                 {{ range first 10 .Site.RegularPages }}
-                <li><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></li>
+                <li><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></li>
                 {{ end }}
             </ul>
             <ul class="active">
                 {{ range first 10 (shuffle .Site.RegularPages) }}
-                <li><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></li>
+                <li><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></li>
                 {{ end }}
             </ul>
             <ul style="display:none;">
                 {{ range first 10 (shuffle .Site.RegularPages) }}
-                <li><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></li>
+                <li><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></li>
                 {{ end }}
             </ul>
         </div>
@@ -31,25 +60,25 @@
     <!-- 部件2：关于作者 (对齐 06.png) -->
     <div class="widget">
         <div class="about-author">
-            <div class="author-cover" style="background-image: url('{{ .Site.Params.author_cover | default "/images/cover.jpg" }}'); background-position: center; background-size: cover; height: 110px; border-radius: 4px 4px 0 0;"></div>
+            <div class="author-cover" style="background-image: url('/images/cover.jpg'); background-position: center; background-size: cover; height: 120px;"></div>
             <div class="author-avatar" style="text-align: center; margin-top: -35px;">
-                <img alt='{{ .Site.Params.author_name }}' src='{{ .Site.Params.author_avatar | default "/images/avatar.jpg" }}' class='avatar avatar-70 photo' height='70' width='70' style="border: 3px solid #fff; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.1);" />
+                <img alt='头像' src='/images/ganzi.jpg' class='avatar avatar-70 photo' height='70' width='70' style="border: 3px solid #fff; border-radius: 50%; background: #fff;" />
             </div>
-            <div class="author-info" style="padding: 10px 15px 15px; text-align: center;">
+            <div class="author-info" style="padding: 10px 0; text-align: center;">
                 <h3 class="author-name" style="margin: 5px 0; font-size: 16px; font-weight: bold;">{{ .Site.Params.author_name | default "杆子" }}</h3>
-                <div class="author-description" style="font-size: 13px; color: #777; margin-bottom: 15px;">
+                <div class="author-description" style="font-size: 13px; color: #777; padding: 0 15px 10px;">
                     {{ .Site.Params.description | default "博采众长 一诺千金！" }}
                 </div>
-                <div class="author-stats" style="display: flex; justify-content: space-around; border-top: 1px solid #f0f0f0; padding-top: 15px;">
-                    <div class="stat-item" style="flex: 1;">
-                        <span class="stat-number" style="display: block; font-size: 16px; font-weight: bold; color: #333;">{{ len .Site.RegularPages }}</span>
-                        <span class="stat-label" style="display: block; font-size: 12px; color: #999;">文章</span>
+                <div class="author-stats" style="display: flex; border-top: 1px solid #f2f2f2; margin-top: 5px;">
+                    <div class="stat-item">
+                        <span class="stat-number">{{ len .Site.RegularPages }}</span>
+                        <span class="stat-label">文章</span>
                     </div>
-                    <div class="stat-item border-left" style="flex: 1; border-left: 1px solid #f0f0f0;">
+                    <div class="stat-item" style="border-left: 1px solid #f2f2f2;">
                         <span class="stat-number">1</span>
                         <span class="stat-label">评论</span>
                     </div>
-                    <div class="stat-item border-left" style="flex: 1; border-left: 1px solid #f0f0f0;">
+                    <div class="stat-item" style="border-left: 1px solid #f2f2f2;">
                         <span class="stat-number">{{ len .Site.Taxonomies.categories }}</span>
                         <span class="stat-label">分类</span>
                     </div>
@@ -58,11 +87,11 @@
         </div>
     </div>
 
-    <!-- 部件3：彩色标签云 (修正 add 报错) -->
+    <!-- 部件3：彩色标签云 -->
     <div class="widget">
-        <div class="widget-tags" style="padding: 15px;">
+        <div class="widget-tags" style="padding: 15px 10px; text-align: center;">
             {{ range $index, $term := .Site.Taxonomies.tags.Alphabetical }}
-            <a href="{{ .Page.Permalink }}" class="tag-cloud-link tag-link-{{ (mod (add $index 1) 20) }}" style="font-size: 13px; margin: 3px; display: inline-block;">{{ .Page.Title }}</a>
+            <a href="{{ .Page.Permalink }}" class="tag-cloud-link tag-link-{{ (mod (add $index 1) 14) }}">{{ .Page.Title }}</a>
             {{ end }}
         </div>
     </div>
