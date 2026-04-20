@@ -11,52 +11,74 @@
     {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel=stylesheet href="{{ $mmenu.RelPermalink }}">{{ end }}
     
     <style>
-        /* 强力修复暗黑模式背景与文字 */
+        /* 全局暗黑基础 */
         body.dark { background: #121212 !important; color: #bbb !important; }
         body.dark .header, body.dark .footer { background: #1a1a1a !important; }
         body.dark .article, body.dark .widget { background: #1d1d1d !important; border-color: #333 !important; }
-        body.dark h1, body.dark h2, body.dark h3, body.dark .post-title a { color: #eee !important; }
 
-        /* NEXT 风格代码块 (无行号版) */
-        .highlight, pre:not(.highlight pre) { 
-            position: relative; 
-            margin: 25px 0 !important; 
-            border-radius: 10px !important; 
-            background: #282c34 !important; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            border: 1px solid #181a1f;
-        }
-        pre { padding: 45px 20px 20px !important; color: #abb2bf !important; line-height: 1.6; font-size: 14px; overflow-x: auto; }
+        /* NEXT 代码块终极版：解决 29.png 的 6圆点和嵌套问题 */
+        .highlight { position: relative; margin: 25px 0 !important; border-radius: 8px; overflow: hidden; background: #282c34 !important; border: 1px solid #181a1f; }
         
-        /* Mac 三色点 */
-        .highlight::before, pre:not(.highlight pre)::before {
+        /* 1. 仅为 highlight 容器设置圆点 */
+        .highlight::before {
             content: "";
             position: absolute;
-            top: 18px;
-            left: 18px;
+            top: 15px;
+            left: 15px;
             width: 12px;
             height: 12px;
             border-radius: 50%;
             background: #fc625d;
             box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b;
-            z-index: 5;
+            z-index: 10;
         }
 
-        /* 复制按钮 */
+        /* 2. 内部 pre 标签彻底透明化，移除所有边框和重复样式 */
+        .highlight pre { 
+            margin: 0 !important; 
+            padding: 45px 20px 20px !important; 
+            background: transparent !important; 
+            border: none !important; 
+            box-shadow: none !important; 
+        }
+
+        /* 3. 复制按钮 */
         .copy-btn {
             position: absolute;
-            top: 12px;
+            top: 10px;
             right: 15px;
             padding: 3px 10px;
-            font-size: 12px;
+            font-size: 11px;
             color: #5c6370;
             background: rgba(255,255,255,0.05);
             border: 1px solid #3e4451;
             border-radius: 4px;
             cursor: pointer;
-            z-index: 10;
+            z-index: 11;
         }
         .copy-btn:hover { background: #ed5565; color: #fff; border-color: #ed5565; }
+
+        /* 针对没有 highlight 包装的独立 pre */
+        pre:not(.highlight pre) {
+            position: relative;
+            background: #282c34 !important;
+            padding: 45px 20px 20px !important;
+            border-radius: 8px;
+            margin: 25px 0;
+            border: 1px solid #181a1f;
+        }
+        pre:not(.highlight pre)::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #fc625d;
+            box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b;
+            z-index: 10;
+        }
     </style>
 
     <script type=text/javascript src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
@@ -65,7 +87,6 @@
     <script type=text/javascript src="{{ (resources.Get "js/weisay.min.js").RelPermalink }}"></script>
 </head>
 <body>
-    <!-- (此处 HTML 结构保持不变...) -->
     <div class=header>
         <div class=top-bar>
             <div class=container>
@@ -114,8 +135,6 @@
         <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
         <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
     </ul></div></nav>
-
-    <!-- 简化版复制脚本 -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.highlight, pre:not(.highlight pre)').forEach(function(container) {
