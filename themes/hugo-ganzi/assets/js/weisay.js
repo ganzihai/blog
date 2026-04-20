@@ -5,8 +5,11 @@ jQuery('.roll-top').click(function(){jQuery('html,body').animate({scrollTop: '0p
 
 //手机版菜单展开（mmenu v9 新版 API）
 document.addEventListener('DOMContentLoaded', function() {
+	var leftMenuApi = null;
+	var rightMenuApi = null;
+
 	if (document.querySelector('nav#menu')) {
-		const leftMenu = new Mmenu('nav#menu', {
+		var leftMenu = new Mmenu('nav#menu', {
 			offCanvas: {
 				position: 'left'
 			},
@@ -17,19 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				title: '导航'
 			}
 		});
-
-		// 绑定左侧菜单按钮
-		var menuBtn = document.querySelector('a[href="#menu"]');
-		if (menuBtn) {
-			menuBtn.addEventListener('click', function(e) {
-				e.preventDefault();
-				leftMenu.API.open();
-			});
-		}
+		leftMenuApi = leftMenu.API;
 	}
 
 	if (document.querySelector('nav#menu-right')) {
-		new Mmenu('nav#menu-right', {
+		var rightMenu = new Mmenu('nav#menu-right', {
 			offCanvas: {
 				position: 'right'
 			},
@@ -37,7 +32,19 @@ document.addEventListener('DOMContentLoaded', function() {
 				title: '侧边栏'
 			}
 		});
+		rightMenuApi = rightMenu.API;
 	}
+
+	// 绑定左侧菜单按钮（id="mobile-menu-btn"）
+	var menuBtn = document.getElementById('mobile-menu-btn');
+	if (menuBtn && leftMenuApi) {
+		menuBtn.addEventListener('click', function(e) {
+			e.preventDefault();
+			leftMenuApi.open();
+		});
+	}
+
+	// 右侧侧边栏由 mmenu 通过 href="#menu-right" 自动接管
 });
 
 //侧边栏TAB效果
