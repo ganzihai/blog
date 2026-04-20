@@ -54,8 +54,36 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .tag-link-6 { background: #8ed1fc !important; } .tag-link-7 { background: #0693e3 !important; } .tag-link-8 { background: #9b51e0 !important; } .tag-link-9 { background: #abb8c3 !important; }
 
 /* --- 5. 归档与友链页面终极适配 --- */
-.archives-statistics { border: 1px solid #ddd; border-radius: 4px; padding: 45px 20px 25px; position: relative; margin-bottom: 30px; margin-top: 20px; background: #fff; }
-.archives-info { position: absolute; top: 22px; left: 1px; background: #ed5565; color: #fff !important; padding: 3px 12px; border-radius: 4px; font-size: 14px; font-weight: 300; z-index: 5; }
+.archives-statistics {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 45px 20px 25px;
+    position: relative;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    background: #fff;
+    overflow: visible !important;
+}
+
+/* 「博客统计信息」标签：
+   top:0 将元素顶部对齐到盒子上边框线，
+   translateY(-50%) 将其向上移动自身高度的5成，
+   无论字体大小或窗口宽度如何变化，边框线始终穿过标签正中间 */
+.archives-info {
+    position: absolute !important;
+    top: 0 !important;
+    left: 20px !important;
+    transform: translateY(-50%) !important;
+    background: #ed5565;
+    color: #fff !important;
+    padding: 3px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 300;
+    z-index: 5;
+    white-space: nowrap;
+}
+
 .archives-statistics ul { display: flex !important; justify-content: space-around !important; list-style: none !important; margin: 0 !important; }
 .archives-counts { font-size: 32px; color: #999; margin-bottom: 5px; }
 
