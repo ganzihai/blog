@@ -11,20 +11,13 @@
     {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel=stylesheet href="{{ $mmenu.RelPermalink }}">{{ end }}
     
     <style>
-        /* 全站颜色变量定义 */
-        :root { --main-bg: #fff; --text-color: #444; --card-bg: #fff; --card-border: #eee; }
-        .dark, [data-theme='dark'] { --main-bg: #121212; --text-color: #bbb; --card-bg: #262626; --card-border: #333; }
-
-        /* 暗黑模式强力补丁 (覆盖所有可能的情况) */
-        body.dark, html.dark body { background: #121212 !important; color: #bbb !important; }
-        .dark .article, .dark .widget { background: #1d1d1d !important; border-color: #333 !important; }
-        .dark h1, .dark h2, .dark h3 { color: #eeeeee !important; }
+        body.dark { background: #121212 !important; color: #bbb !important; }
+        body.dark .article, body.dark .widget { background: #1d1d1d !important; border-color: #333 !important; }
+        body.dark h1, body.dark h2, body.dark h3 { color: #eee !important; }
         
-        /* 强制页脚到底部 */
         .clear-footer { clear: both; display: block; height: 0; overflow: hidden; }
         #footers { clear: both; width: 100%; position: relative; margin-top: 30px; }
 
-        /* 代码块全站统一 */
         .highlight { position: relative; margin: 25px 0 !important; border-radius: 8px; overflow: hidden; background: #282c34 !important; }
         .highlight::before {
             content: ""; position: absolute; top: 15px; left: 15px; width: 12px; height: 12px;
@@ -32,6 +25,10 @@
         }
         .highlight pre { margin: 0 !important; padding: 45px 20px 20px !important; background: transparent !important; }
         .copy-btn { position: absolute; top: 10px; right: 15px; padding: 3px 10px; font-size: 11px; color: #5c6370; background: rgba(255,255,255,0.05); border: 1px solid #3e4451; border-radius: 4px; cursor: pointer; z-index: 11; }
+
+        /* RSS 图标样式 */
+        .rss-icon img { vertical-align: middle; width: 24px; height: 24px; border: none; }
+        .top-social { float: right; margin-top: 8px; }
     </style>
 
     <script type=text/javascript src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
@@ -47,7 +44,14 @@
                     <li class=page_item><a href="/archives/">归档</a></li>
                     <li class=page_item><a href="/flinks.html">链接</a></li>
                 </ul></div></div>
-                <div class=top-social><ul class=social-bookmarks><li><a class=rss-icon href=/index.xml target=_blank><i class="iconfont socialicon">&#xe8e7;</i></a></li></ul></div>
+                <div class=top-social>
+                    <ul class="social-bookmarks" style="list-style: none;">
+                        <!-- 接入 RSS 功能，并使用 rss.gif 图标 -->
+                        <li><a class="rss-icon" href="{{ .Site.RSSLink | default "/index.xml" }}" target="_blank" title="欢迎订阅{{ .Site.Title }}">
+                            <img src="/images/rss.gif" alt="RSS订阅">
+                        </a></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class=clear></div>
@@ -58,6 +62,7 @@
             </div>
         </div>
     </div>
+
     <div class=navigation>
         <div class="container mainmenu">
             <div class=menu-ganzi-container><ul id=menu-ganzi class=menu>
@@ -70,25 +75,27 @@
             <div class=search><form class=search-form method=get action=/><input class=search-input required type=text name=s placeholder=搜索><button class="search-submit iconfont" type=submit>&#xe652;</button></form></div>
         </div>
     </div>
+
     <div class=roll>
         <div id=dark-mode-toggle-button onclick=applyCustomDarkModeSettings(toggleCustomDarkMode()) title=点击切换显示模式 class=roll-dark><i class="iconfont rollmodeicon"></i></div>
         <div title=回到顶部 class=roll-top><i class="iconfont rollicon">&#xe614;</i></div>
     </div>
+
     <div class=container>
         <div class=main>{{ block "main" . }}{{ end }}</div>
         {{ partial "sidebar.html" . }}
         <div class="clear-footer"></div>
     </div>
+
     <div class=footer id=footers>
         <div class="footer-info container"><div class=footer-left><p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class=footer-hide>Theme by <a href=https://blog.zznuo.com/>Ganzi</a>.</span></p></div></div>
     </div>
+
     <nav id=menu><div class=menu-ganzi-container><ul id=menu-ganzi-1 class=menu>
         <li class=menu-item><a href=/>首页</a></li>
-        <li class=menu-item><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
-        <li class=menu-item><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
-        <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
-        <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
+        {{ range .Site.Menus.main }}<li class=menu-item><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}
     </ul></div></nav>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.highlight, pre:not(.highlight pre)').forEach(function(container) {

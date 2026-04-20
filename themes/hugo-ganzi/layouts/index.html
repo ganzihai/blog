@@ -3,7 +3,15 @@
     <div class="post-{{ with .File }}{{ .UniqueID }}{{ else }}{{ .Title | urlize }}{{ end }} post type-post status-publish format-standard hentry" id="post-{{ with .File }}{{ .UniqueID }}{{ else }}{{ .Title | urlize }}{{ end }}" itemscope itemtype="http://schema.org/Article">
         <h2 class="post-title" itemprop="headline">
             <a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}" itemprop="url">{{ .Title }}</a>
-            {{ if .Params.sticky }}<span class="new"><i class="iconfont newicon">&#xe610;</i></span>{{ end }}
+            
+            <!-- 怀旧复刻：今天新发的文章显示 new.gif -->
+            {{ if gt .Date (now.AddDate 0 0 -1) }}
+                <span class="new-icon-wrap" style="margin-left: 5px; vertical-align: middle;">
+                    <img src="/images/new.gif" alt="New Post" style="border: none;">
+                </span>
+            {{ else if .Params.sticky }}
+                <span class="new"><i class="iconfont newicon">&#xe610;</i></span>
+            {{ end }}
         </h2>
         
         {{ $content := .Content }}
