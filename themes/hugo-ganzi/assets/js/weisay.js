@@ -6,13 +6,15 @@ jQuery('.roll-top').click(function(){jQuery('html,body').animate({scrollTop: '0p
 // 手机端菜单：左侧纯CSS抽屉 + 右侧mmenu
 document.addEventListener('DOMContentLoaded', function() {
 
-	// ===== 右侧侧边栏：使用 mmenu v9 =====
-	if (document.querySelector('nav#menu-right')) {
+	// ===== 右侧侧边栏：仅手机端初始化 mmenu v9 =====
+	var isMobile = window.innerWidth < 992;
+
+	if (isMobile && document.querySelector('nav#menu-right')) {
 		var rightMenu = new Mmenu('nav#menu-right', {
 			offCanvas: { position: 'right' },
 			navbar: { title: '侧边栏' }
 		});
-		// 暗黑模式下切换 mmenu 主题
+
 		function updateMmenuTheme() {
 			var el = document.querySelector('nav#menu-right');
 			if (!el) return;
@@ -25,13 +27,22 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		}
 		updateMmenuTheme();
-		// 监听暗黑模式切换
+
 		var observer = new MutationObserver(function(mutations) {
 			mutations.forEach(function(m) {
 				if (m.attributeName === 'class') updateMmenuTheme();
 			});
 		});
 		observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+		// 右侧按钮绑定 mmenu API
+		var sidebarBtn = document.getElementById('mobile-sidebar-btn');
+		if (sidebarBtn && rightMenu.API) {
+			sidebarBtn.addEventListener('click', function(e) {
+				e.preventDefault();
+				rightMenu.API.open();
+			});
+		}
 	}
 
 	// ===== 左侧导航：纯CSS抽屉，不依赖mmenu =====
@@ -59,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	if (overlay) {
 		overlay.addEventListener('click', closeDrawer);
 	}
-	// 点击抽屉内关闭按钮
 	var closeBtn = document.getElementById('left-drawer-close');
 	if (closeBtn) {
 		closeBtn.addEventListener('click', closeDrawer);
