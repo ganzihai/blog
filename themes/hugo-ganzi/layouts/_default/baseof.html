@@ -26,9 +26,20 @@
         .highlight pre { margin: 0 !important; padding: 45px 20px 20px !important; background: transparent !important; }
         .copy-btn { position: absolute; top: 10px; right: 15px; padding: 3px 10px; font-size: 11px; color: #5c6370; background: rgba(255,255,255,0.05); border: 1px solid #3e4451; border-radius: 4px; cursor: pointer; z-index: 11; }
 
-        /* RSS 图标样式 */
-        .rss-icon img { vertical-align: middle; width: 24px; height: 24px; border: none; }
-        .top-social { float: right; margin-top: 8px; }
+        /* RSS 雪碧图悬停效果 */
+        .rss-icon { 
+            display: block; 
+            width: 24px; 
+            height: 24px; 
+            background: url(/images/rss.gif) no-repeat 0 0; 
+            text-indent: -9999px; 
+            overflow: hidden;
+            transition: none; /* 图标切换不需要渐变 */
+        }
+        .rss-icon:hover { 
+            background-position: 0 -24px; /* 向上移动 24px 显示下半部橘黄色 */
+        }
+        .top-social { float: right; margin-top: 10px; }
     </style>
 
     <script type=text/javascript src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
@@ -46,10 +57,7 @@
                 </ul></div></div>
                 <div class=top-social>
                     <ul class="social-bookmarks" style="list-style: none;">
-                        <!-- 修正：使用硬编码路径，避免 .Site.RSSLink 报错 -->
-                        <li><a class="rss-icon" href="/index.xml" target="_blank" title="欢迎订阅{{ .Site.Title }}">
-                            <img src="/images/rss.gif" alt="RSS订阅">
-                        </a></li>
+                        <li><a class="rss-icon" href="/index.xml" target="_blank" title="欢迎订阅{{ .Site.Title }}">RSS订阅</a></li>
                     </ul>
                 </div>
             </div>
@@ -93,10 +101,7 @@
 
     <nav id=menu><div class=menu-ganzi-container><ul id=menu-ganzi-1 class=menu>
         <li class=menu-item><a href=/>首页</a></li>
-        <li class=menu-item><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
-        <li class=menu-item><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
-        <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
-        <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
+        {{ range .Site.Menus.main }}<li class=menu-item><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}
     </ul></div></nav>
 
     <script>
