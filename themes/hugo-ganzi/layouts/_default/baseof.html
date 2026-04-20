@@ -26,16 +26,23 @@
         .highlight pre { margin: 0 !important; padding: 45px 20px 20px !important; background: transparent !important; }
         .copy-btn { position: absolute; top: 10px; right: 15px; padding: 3px 10px; font-size: 11px; color: #5c6370; background: rgba(255,255,255,0.05); border: 1px solid #3e4451; border-radius: 4px; cursor: pointer; z-index: 11; }
 
-        /* --- RSS 图标与顶部条垂直对齐优化 --- */
+        /* --- 顶部条全方位垂直居中优化 --- */
         .top-bar .container { 
             display: flex !important; 
             justify-content: space-between; 
             align-items: center; 
-            height: 100%;
+            height: 2.75rem; /* 固定高度与 style.css 对齐 */
         }
-        .top-page { float: none !important; }
-        .top-social { float: none !important; margin: 0 !important; }
-        .social-bookmarks { display: flex; align-items: center; margin: 0; padding: 0; }
+        .top-page, .top-social { float: none !important; margin: 0 !important; display: flex; align-items: center; }
+        .top-page .menu ul { 
+            display: flex !important; 
+            align-items: center; 
+            list-style: none !important; 
+            margin: 0 !important; 
+            padding: 0 !important; 
+        }
+        .top-page .menu ul li { margin: 0 10px 0 0 !important; padding: 0 !important; float: none !important; line-height: 1 !important; }
+        .top-page .menu ul li a { display: block; padding: 0 !important; line-height: 1.5 !important; }
 
         .rss-icon { 
             display: block; 
@@ -43,9 +50,8 @@
             height: 28px; 
             background: url(/images/rss.gif) no-repeat 0 0; 
             text-indent: -9999px; 
-            border-radius: 50% !important; /* 修正语法并增强权重 */
+            border-radius: 50% !important; 
             overflow: hidden;
-            transition: none;
             border: none;
         }
         .rss-icon:hover { 
