@@ -17,15 +17,14 @@
 </head>
 <body>
     <div class="header">
-        <!-- 顶部深色条：固定放置 归档、友链 等 -->
         <div class="top-bar">
             <div class="container">
                 <div class="top-page">
                     <div class="menu">
                         <ul>
-                            {{ range .Site.Menus.top }}
-                            <li class="page_item"><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
-                            {{ end }}
+                            <li class="page_item"><a href="/archives/">归档</a></li>
+                            <li class="page_item"><a href="/flinks.html">友链</a></li>
+                            <li class="page_item"><a href="/about.html">关于</a></li>
                         </ul>
                     </div>
                 </div>
@@ -49,14 +48,15 @@
         <a id="hamburger" onfocus="this.blur()" href="#menu" rel="nofollow"><span></span></a>{{ .Site.Title }}<a class="icon-right" href="#menu-right" rel="nofollow"><i class="iconfont righticon"></i></a>
     </div>
 
-    <!-- 主导航栏：固定放置 首页、教程、网络、软件、生活 -->
     <div class="navigation">
         <div class="container mainmenu">
             <div class="menu-ganzi-container">
                 <ul id="menu-ganzi" class="menu">
-                    {{ range .Site.Menus.main }}
-                    <li class="menu-item {{ if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}current-menu-item{{ end }}"><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
-                    {{ end }}
+                    <li class="menu-item {{ if .IsHome }}current-menu-item{{ end }}"><a href="/">首页</a></li>
+                    <li class="menu-item"><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
+                    <li class="menu-item"><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
+                    <li class="menu-item"><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
+                    <li class="menu-item"><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
                 </ul>
             </div>
             <div class="search">
@@ -92,9 +92,11 @@
     <nav id="menu">
         <div class="menu-ganzi-container">
             <ul id="menu-ganzi-1" class="menu">
-                {{ range .Site.Menus.main }}
-                <li class="menu-item"><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
-                {{ end }}
+                <li class="menu-item"><a href="/">首页</a></li>
+                <li class="menu-item"><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
+                <li class="menu-item"><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
+                <li class="menu-item"><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
+                <li class="menu-item"><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
             </ul>
         </div>
     </nav>
