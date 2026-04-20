@@ -119,35 +119,44 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     align-items: center !important;
     transition: all 0.3s;
     min-height: 80px;
+    overflow: hidden !important;
 }
 .link-card-item:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
 
-/*
- * 图标容器：必须同时设定固定宽高 + overflow:hidden + flex-shrink:0
- * overflow:hidden 是关键——如果没有它，即使 img 设了 border-radius:50%
- * 容器本身不裁切，寜宽不成正方形的图片会把容器撑高。
- */
 .link-avatar {
     width: 50px !important;
     height: 50px !important;
     min-width: 50px !important;
     min-height: 50px !important;
+    max-width: 50px !important;
+    max-height: 50px !important;
     margin-right: 15px !important;
     flex-shrink: 0 !important;
     border-radius: 50% !important;
     overflow: hidden !important;
     display: block !important;
 }
-.link-avatar img {
+
+/*
+ * 用 .link-card-inner .link-avatar img 提升特异性，
+ * 覆盖 style.css 中 .article-content img { height: auto; max-width: 80%; }
+ * 这条规则会把 img 的 height 重置为 auto 导致图片撑高卡片。
+ */
+.link-card-inner .link-avatar img {
     width: 50px !important;
     height: 50px !important;
+    max-width: 50px !important;
+    max-height: 50px !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
     border-radius: 50% !important;
     object-fit: cover !important;
     display: block !important;
     border: 1px solid #f0f0f0 !important;
+    flex-shrink: 0 !important;
 }
 
-.link-info { overflow: hidden !important; display: flex !important; flex-direction: column !important; }
+.link-info { overflow: hidden !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
 .link-name { font-size: 16px !important; color: #333 !important; font-weight: bold !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.4 !important; }
 .link-desc { font-size: 12px !important; color: #777 !important; margin-top: 5px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.2 !important; }
 
