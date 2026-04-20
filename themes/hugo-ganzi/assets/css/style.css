@@ -721,7 +721,7 @@ input,textarea,button{outline:none;}
 
 .article-content pre code {
     display: block !important;
-    padding: 1.2em !important;
+    padding: .1em !important;
     border-radius: 6px !important;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
     font-size: 0.9em !important;
