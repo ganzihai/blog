@@ -2,7 +2,8 @@
 <div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; {{ .Title }}</div>
 
 <div class="article flinks-container">
-    <h1 class="article-title" style="text-align: center; margin: 20px 0 30px; font-size: 26px;">友情连接</h1>
+    <!-- 进一步压缩顶部间距 -->
+    <h1 class="article-title flinks-main-title">{{ .Title }}</h1>
     
     <div class="article-content">
         <!-- 优先显示友链卡片 -->
@@ -34,42 +35,51 @@
         
         <div class="divider-line"><span>我可是有底线的哟</span></div>
 
-        <!-- 说明文字 -->
-        <div class="instructions-wrap" style="padding: 10px 0;">
+        <!-- 说明文字区 -->
+        <div class="instructions-wrap">
             {{ .Content }}
         </div>
     </div>
 </div>
 
 <style>
-    .flinks-container { background: #fff; padding: 25px 30px 30px; border-radius: 4px; }
-    .link-group-section { margin-bottom: 40px; }
-    .link-group-title { font-size: 22px; color: #333; margin-bottom: 10px; font-weight: bold; }
-    .link-group-desc { color: #888; font-size: 14px; margin-bottom: 25px; }
+    /* 1. 结构与间距优化 */
+    .flinks-container { background: #fff; padding: 15px 25px 25px !important; border-radius: 4px; }
+    .flinks-main-title { text-align: center; margin: 15px 0 25px !important; font-size: 26px; }
+    .link-group-section { margin-bottom: 35px; }
+    .link-group-title { font-size: 21px; color: #333; margin-bottom: 8px; font-weight: bold; border: none !important; padding: 0 !important; }
+    .link-group-desc { color: #888; font-size: 13px; margin-bottom: 15px; }
     
+    /* 2. 卡片样式 (亮色模式) */
     .link-grid { display: flex; flex-wrap: wrap; margin: 0 -8px; }
     .link-card-item { width: calc(33.333% - 16px); margin: 8px; text-decoration: none !important; }
-    .link-card-inner { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 12px; display: flex; align-items: center; transition: all 0.3s; }
+    .link-card-inner { 
+        background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 12px; 
+        display: flex; align-items: center; transition: all 0.3s;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
     .link-card-item:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
     
-    .link-avatar { width: 50px; height: 50px; flex-shrink: 0; margin-right: 12px; }
-    .link-avatar img { width: 100%; height: 100%; border-radius: 5px; object-fit: cover; border: 1px solid #eee; }
+    .link-avatar { width: 45px; height: 45px; flex-shrink: 0; margin-right: 12px; }
+    .link-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
     
     .link-info { overflow: hidden; display: flex; flex-direction: column; }
     .link-name { font-size: 15px; color: #333; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .link-desc { font-size: 12px; color: #777; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .divider-line { text-align: center; margin: 50px 0 30px; color: #bbb; font-size: 14px; border-top: 1px dashed #ddd; padding-top: 25px; position: relative; }
-    .divider-line span { background: #fff; padding: 0 15px; position: relative; top: -11px; }
+    
+    .divider-line { text-align: center; margin: 50px 0 30px; border-top: 1px dashed #ddd; position: relative; }
+    .divider-line span { background: #fff; padding: 0 15px; position: relative; top: -11px; color: #bbb; font-size: 13px; }
 
-    /* 暗黑模式深度对齐 */
+    /* 3. 强力暗黑模式适配 (强制覆盖 style.css 逻辑) */
     body.dark .flinks-container { background: #1d1d1d !important; }
+    body.dark .link-group-title { color: #eeeeee !important; } /* 强制加亮分类标题 */
+    body.dark .link-group-desc { color: #777 !important; }
     body.dark .link-card-inner { background: #262626 !important; border-color: #333 !important; }
-    body.dark .link-name { color: #eee !important; }
-    body.dark .link-desc { color: #999 !important; }
-    body.dark .link-group-title { color: #ddd !important; }
+    body.dark .link-name { color: #ffffff !important; }
+    body.dark .link-desc { color: #999999 !important; }
     body.dark .divider-line { border-color: #333 !important; }
-    body.dark .divider-line span { background: #1d1d1d !important; }
-    body.dark .link-card:hover .link-card-inner { border-color: #ed5565 !important; }
+    body.dark .divider-line span { background: #1d1d1d !important; color: #555 !important; }
+    body.dark .link-card-item:hover .link-card-inner { border-color: #ed5565 !important; background: #2b2b2b !important; }
 
     @media (max-width: 992px) { .link-card-item { width: calc(50% - 16px); } }
     @media (max-width: 600px) { .link-card-item { width: calc(100% - 16px); } }
