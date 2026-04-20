@@ -43,7 +43,7 @@ h2{font-size:1.375rem;font-weight:normal;}
 h3{font-size:1.125rem;font-weight:normal;}
 body{background:#eef1f4;color:#444;font-family:"Joe Font", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, "sans-serif";}
 input,textarea{appearance:none;-moz-appearance:none;-webkit-appearance:none;}
-.header{height:9rem;background-color:#f5f7f8;min-width:71rem;}
+.header{height:8rem;background-color:#f5f7f8;min-width:71rem;}
 .container{margin:0 auto;}
 .top-bar{height:2.75rem;background:#434a54;}
 .top-page{float:left;font-size:1rem;}
