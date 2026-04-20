@@ -46,8 +46,8 @@
                 </ul></div></div>
                 <div class=top-social>
                     <ul class="social-bookmarks" style="list-style: none;">
-                        <!-- 接入 RSS 功能，并使用 rss.gif 图标 -->
-                        <li><a class="rss-icon" href="{{ .Site.RSSLink | default "/index.xml" }}" target="_blank" title="欢迎订阅{{ .Site.Title }}">
+                        <!-- 修正：使用硬编码路径，避免 .Site.RSSLink 报错 -->
+                        <li><a class="rss-icon" href="/index.xml" target="_blank" title="欢迎订阅{{ .Site.Title }}">
                             <img src="/images/rss.gif" alt="RSS订阅">
                         </a></li>
                     </ul>
@@ -93,7 +93,10 @@
 
     <nav id=menu><div class=menu-ganzi-container><ul id=menu-ganzi-1 class=menu>
         <li class=menu-item><a href=/>首页</a></li>
-        {{ range .Site.Menus.main }}<li class=menu-item><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}
+        <li class=menu-item><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
+        <li class=menu-item><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
+        <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
+        <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
     </ul></div></nav>
 
     <script>
