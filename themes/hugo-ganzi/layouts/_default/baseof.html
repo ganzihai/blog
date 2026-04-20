@@ -12,7 +12,7 @@
     {{ with resources.Get "css/custom.css" }}{{ $custom := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $custom.RelPermalink }}">{{ end }}
     
     <script type="text/javascript" src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/jquery.mmenu.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/mmenu.js").RelPermalink }}"></script>
     <script type="text/javascript" src="{{ (resources.Get "js/dark.min.js").RelPermalink }}"></script>
     <script type="text/javascript" src="{{ (resources.Get "js/weisay.js").RelPermalink }}"></script>
 </head>
