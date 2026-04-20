@@ -93,7 +93,8 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 @media screen and (min-width: 992px) {
   /* mmenu 生成的透明遮罩，禁止拦截鼠标事件 */
   #mm-blocker,
-  .mm-wrapper__blocker {
+  .mm-wrapper__blocker,
+  .mm-blocker {
     display: none !important;
     pointer-events: none !important;
   }
@@ -114,5 +115,23 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   html.mm-opened body,
   html.mm-opening body {
     overflow: auto !important;
+  }
+
+  /* 确保导航栏及其链接层级高于 mmenu 任何元素 */
+  .header,
+  .top-bar,
+  .navigation {
+    position: relative !important;
+    z-index: 9999 !important;
+  }
+
+  .navigation .mainmenu,
+  .navigation .menu-ganzi-container,
+  #menu-ganzi,
+  #menu-ganzi li,
+  #menu-ganzi li a {
+    position: relative !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
   }
 }
