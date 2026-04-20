@@ -10,6 +10,56 @@
     {{ with resources.Get "css/dark.css" }}{{ $dark := . | minify | fingerprint }}<link rel=stylesheet href="{{ $dark.RelPermalink }}">{{ end }}
     {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel=stylesheet href="{{ $mmenu.RelPermalink }}">{{ end }}
     
+    <style>
+        /* 全站暗黑模式文字增强 */
+        body.dark { color: #ccc !important; }
+        body.dark a { color: #ed5565 !important; }
+        body.dark .article, body.dark .widget { background: #1d1d1d !important; border-color: #333 !important; }
+        body.dark h1, body.dark h2, body.dark h3 { color: #eee !important; }
+
+        /* NEXT 风格代码块全局适配 (Mac 窗口效果) */
+        .highlight, pre { 
+            position: relative; 
+            background: #282c34 !important; 
+            border-radius: 8px !important; 
+            margin: 20px 0 !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        pre { padding: 35px 15px 15px !important; color: #abb2bf !important; }
+        .highlight::before {
+            content: "";
+            position: absolute;
+            top: 12px;
+            left: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #fc625d;
+            box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b;
+            z-index: 5;
+        }
+        /* 复制按钮样式 */
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            padding: 2px 8px;
+            font-size: 12px;
+            color: #5c6370;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #3e4451;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 10;
+            transition: 0.2s;
+        }
+        .copy-btn:hover { background: #ed5565; color: #fff; border-color: #ed5565; }
+        
+        /* 修复行号对齐 */
+        .chroma .lntd:first-child { border-right: 1px solid #3e4451; padding-right: 10px; }
+        .chroma .lntd:last-child { padding-left: 15px; }
+    </style>
+
     <script type=text/javascript src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
     <script type=text/javascript src="{{ (resources.Get "js/jquery.mmenu.min.js").RelPermalink }}"></script>
     <script type=text/javascript src="{{ (resources.Get "js/dark.min.js").RelPermalink }}"></script>
@@ -19,51 +69,32 @@
     <div class=header>
         <div class=top-bar>
             <div class=container>
-                <div class=top-page>
-                    <div class=menu>
-                        <ul>
-                            <li class=page_item><a href="/archives/">归档</a></li>
-                            <li class=page_item><a href="/flinks.html">链接</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class=top-social>
-                    <ul class=social-bookmarks>
-                        <li><a class=rss-icon href=/index.xml target=_blank title="欢迎订阅{{ .Site.Title }}"><i class="iconfont socialicon">&#xe8e7;</i></a></li>
-                    </ul>
-                </div>
+                <div class=top-page><div class=menu><ul>
+                    <li class=page_item><a href="/archives/">归档</a></li>
+                    <li class=page_item><a href="/flinks.html">链接</a></li>
+                </ul></div></div>
+                <div class=top-social><ul class=social-bookmarks><li><a class=rss-icon href=/index.xml target=_blank><i class="iconfont socialicon">&#xe8e7;</i></a></li></ul></div>
             </div>
         </div>
         <div class=clear></div>
         <div class="website container">
             <div class=headline>
-                {{ if .IsHome }}<h1>{{ end }}<a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>{{ if .IsHome }}</h1>{{ end }}
+                {{ if .IsHome }}<h1>{{ end }}<a href="/">{{ .Site.Title }}</a>{{ if .IsHome }}</h1>{{ end }}
                 <div class=blogdescription>{{ .Site.Params.description }}</div>
             </div>
         </div>
     </div>
 
-    <div class=headermenu>
-        <a id=hamburger onfocus=this.blur() href=#menu rel=nofollow><span></span></a>{{ .Site.Title }}<a class=icon-right href=#menu-right rel=nofollow><i class="iconfont righticon"></i></a>
-    </div>
-
     <div class=navigation>
         <div class="container mainmenu">
-            <div class=menu-ganzi-container>
-                <ul id=menu-ganzi class=menu>
-                    <li class="menu-item {{ if .IsHome }}current-menu-item{{ end }}"><a href=/>首页</a></li>
-                    <li class=menu-item><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
-                    <li class=menu-item><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
-                    <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
-                    <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
-                </ul>
-            </div>
-            <div class=search>
-                <form class=search-form method=get action=/>
-                    <input class=search-input required type=text name=s placeholder=搜索>
-                    <button aria-label=搜索 class="search-submit iconfont" type=submit>&#xe652;</button>
-                </form>
-            </div>
+            <div class=menu-ganzi-container><ul id=menu-ganzi class=menu>
+                <li class="menu-item {{ if .IsHome }}current-menu-item{{ end }}"><a href=/>首页</a></li>
+                <li class=menu-item><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
+                <li class=menu-item><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
+                <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
+                <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
+            </ul></div>
+            <div class=search><form class=search-form method=get action=/><input class=search-input required type=text name=s placeholder=搜索><button class="search-submit iconfont" type=submit>&#xe652;</button></form></div>
         </div>
     </div>
 
@@ -73,32 +104,38 @@
     </div>
 
     <div class=container>
-        <div class=main>
-            {{ block "main" . }}{{ end }}
-        </div>
+        <div class=main>{{ block "main" . }}{{ end }}</div>
         {{ partial "sidebar.html" . }}
     </div>
 
-    <div class=clear></div>
     <div class=footer id=footers>
-        <div class="footer-info container">
-            <div class=footer-left>
-                <p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class=footer-hide>Theme by <a href=https://blog.zznuo.com/ rel=external>Ganzi</a>.</span></p>
-            </div>
-        </div>
+        <div class="footer-info container"><div class=footer-left><p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class=footer-hide>Theme by <a href=https://blog.zznuo.com/>Ganzi</a>.</span></p></div></div>
     </div>
 
-    <nav id=menu>
-        <div class=menu-ganzi-container>
-            <ul id=menu-ganzi-1 class=menu>
-                <li class=menu-item><a href=/>首页</a></li>
-                <li class=menu-item><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
-                <li class=menu-item><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
-                <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
-                <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
-            </ul>
-        </div>
-    </nav>
+    <nav id=menu><div class=menu-ganzi-container><ul id=menu-ganzi-1 class=menu>
+        <li class=menu-item><a href=/>首页</a></li>
+        {{ range .Site.Menus.main }}<li class=menu-item><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}
+    </ul></div></nav>
+
+    <!-- 复制按钮 JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('pre').forEach(function(codeBlock) {
+                const button = document.createElement('button');
+                button.className = 'copy-btn';
+                button.type = 'button';
+                button.innerText = 'Copy';
+                button.addEventListener('click', function() {
+                    const code = codeBlock.querySelector('code').innerText;
+                    navigator.clipboard.writeText(code).then(function() {
+                        button.innerText = 'Copied!';
+                        setTimeout(function() { button.innerText = 'Copy'; }, 2000);
+                    });
+                });
+                codeBlock.appendChild(button);
+            });
+        });
+    </script>
     {{ with resources.Get "js/lazyload.min.js" }}<script type=text/javascript src="{{ .RelPermalink }}"></script>{{ end }}
 </body>
 </html>
