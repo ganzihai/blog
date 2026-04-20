@@ -54,31 +54,45 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .tag-link-6 { background: #8ed1fc !important; } .tag-link-7 { background: #0693e3 !important; } .tag-link-8 { background: #9b51e0 !important; } .tag-link-9 { background: #abb8c3 !important; }
 
 /* --- 5. 归档与友链页面终极适配 --- */
+
+/*
+ * .archives-statistics 需要 overflow:visible 让标签超出显示，
+ * 同时父元素 .article 也必须允许 overflow:visible（不能裁切子元素）
+ */
+.article { overflow: visible !important; }
+
 .archives-statistics {
     border: 1px solid #ddd;
     border-radius: 4px;
-    padding: 45px 20px 25px;
+    /* padding-top 要大于标签高度的一半，为标签留出空间 */
+    padding: 30px 20px 25px;
     position: relative;
     margin-bottom: 30px;
-    margin-top: 20px;
+    /* margin-top 为标签超出部分留出空间（标签约 24px 高，一半是 12px，留 16px 安全） */
+    margin-top: 30px;
     background: #fff;
     overflow: visible !important;
 }
 
-/* 「博客统计信息」标签：
-   top:0 将元素顶部对齐到盒子上边框线，
-   translateY(-50%) 将其向上移动自身高度的5成，
-   无论字体大小或窗口宽度如何变化，边框线始终穿过标签正中间 */
+/*
+ * 「博客统计信息」标签定位方案：
+ * 不使用 transform（避免被父级 transform:none 覆盖），
+ * 改用固定的 top + margin-top 负值：
+ *   标签 padding: 3px 12px，font-size: 14px，行高约 20px
+ *   总高度约 = 3+20+3 = 26px，一半 = 13px
+ *   所以 top: -13px 让标签正好骑在边框线上
+ */
 .archives-info {
     position: absolute !important;
-    top: 0 !important;
+    top: -13px !important;
     left: 20px !important;
-    transform: translateY(-50%) !important;
+    transform: none !important;
     background: #ed5565;
     color: #fff !important;
     padding: 3px 12px;
     border-radius: 4px;
     font-size: 14px;
+    line-height: 20px;
     font-weight: 300;
     z-index: 5;
     white-space: nowrap;
@@ -92,7 +106,10 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .dark .archives-statistics .archives-counts { color: #666 !important; }
 .dark .archives-statistics ul li span { color: #aaa !important; }
 
-.car-container, .flinks-container { background: #fff !important; padding: 25px !important; border-radius: 8px !important; border: 1px solid #eee !important; }
+/*
+ * .car-container 边框改为与 .archives-statistics 一致的 #ddd（原来是 #eee，偏细偏淡）
+ */
+.car-container, .flinks-container { background: #fff !important; padding: 25px !important; border-radius: 8px !important; border: 1px solid #ddd !important; }
 .car-yearmonth { cursor: pointer; color: #ed5565; font-size: 18px; display: block; padding: 12px 0; border-bottom: 1px solid #f5f5f5; font-weight: bold; }
 .car-days { color: #777; margin-right: 15px; font-size: 13px; background: #f5f5f5; padding: 2px 8px; border-radius: 4px; border: 1px solid #eee; min-width: 40px; text-align: center; }
 
