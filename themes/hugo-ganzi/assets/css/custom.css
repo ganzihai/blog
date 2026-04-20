@@ -87,7 +87,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .archives-statistics ul { display: flex !important; justify-content: space-around !important; list-style: none !important; margin: 0 !important; }
 .archives-counts { font-size: 32px; color: #999; margin-bottom: 5px; }
 
-/* 归档页暗黑模式 */
 .dark .archives-statistics { background: #1d1d1d !important; border-color: #333 !important; }
 .dark .archives-statistics .archives-counts { color: #666 !important; }
 .dark .archives-statistics ul li span { color: #aaa !important; }
@@ -96,7 +95,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .car-yearmonth { cursor: pointer; color: #ed5565; font-size: 18px; display: block; padding: 12px 0; border-bottom: 1px solid #f5f5f5; font-weight: bold; }
 .car-days { color: #777; margin-right: 15px; font-size: 13px; background: #f5f5f5; padding: 2px 8px; border-radius: 4px; border: 1px solid #eee; min-width: 40px; text-align: center; }
 
-/* 归档列表暗黑模式 */
 .dark .car-container { background: #1d1d1d !important; border-color: #333 !important; }
 .dark .car-yearmonth { border-bottom-color: #2a2a2a !important; }
 .dark .car-days { background: #2a2a2a !important; border-color: #3a3a3a !important; color: #999 !important; }
@@ -124,36 +122,19 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .link-card-item:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
 
 .link-avatar {
-    width: 50px !important;
-    height: 50px !important;
-    min-width: 50px !important;
-    min-height: 50px !important;
-    max-width: 50px !important;
-    max-height: 50px !important;
-    margin-right: 15px !important;
-    flex-shrink: 0 !important;
-    border-radius: 50% !important;
-    overflow: hidden !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    width: 50px !important; height: 50px !important; min-width: 50px !important; min-height: 50px !important;
+    max-width: 50px !important; max-height: 50px !important; margin-right: 15px !important;
+    flex-shrink: 0 !important; border-radius: 50% !important; overflow: hidden !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
     background: #f5f5f5 !important;
 }
 .dark .link-avatar { background: #2a2a2a !important; }
 
 .link-card-inner .link-avatar img {
-    width: 50px !important;
-    height: 50px !important;
-    max-width: 50px !important;
-    max-height: 50px !important;
-    min-width: 50px !important;
-    min-height: 50px !important;
-    border-radius: 50% !important;
-    object-fit: contain !important;
-    display: block !important;
-    border: none !important;
-    background: transparent !important;
-    flex-shrink: 0 !important;
+    width: 50px !important; height: 50px !important; max-width: 50px !important; max-height: 50px !important;
+    min-width: 50px !important; min-height: 50px !important; border-radius: 50% !important;
+    object-fit: contain !important; display: block !important; border: none !important;
+    background: transparent !important; flex-shrink: 0 !important;
 }
 
 .link-info { overflow: hidden !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
@@ -168,83 +149,69 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .divider-line span { background: #fff; padding: 0 15px; position: relative; top: -11px; color: #bbb; }
 .dark .divider-line span { background: #1d1d1d !important; }
 
-/* 修正页脚浮动 */
+/* 修复页脚浮动 */
 .clear-footer { clear: both !important; height: 1px !important; width: 100% !important; display: block !important; }
 #footers { clear: both !important; width: 100% !important; margin-top: 50px !important; }
 
-/* --- 6. 修复桌面端 mmenu 遮罩层挡住导航点击的问题 --- */
+/* --- 6. 返回顶部按钮尺寸（与太阳图标一致）--- */
+.roll-top {
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.roll-top svg {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* --- 7. 修复桌面端 mmenu 遮罩层挡住导航点击的问题 --- */
 @media screen and (min-width: 992px) {
-  #mm-blocker,
-  .mm-wrapper__blocker,
-  .mm-blocker {
+  #mm-blocker, .mm-wrapper__blocker, .mm-blocker {
     display: none !important;
     pointer-events: none !important;
   }
-
   .mm-page.mm-slideout {
     width: 100% !important;
     transform: none !important;
     left: 0 !important;
   }
-
-  html.mm-opened,
-  html.mm-opening,
-  html.mm-blocking {
-    overflow: auto !important;
-  }
-  html.mm-opened body,
-  html.mm-opening body {
-    overflow: auto !important;
-  }
-
-  .header,
-  .top-bar,
-  .navigation {
-    position: relative !important;
-    z-index: 9999 !important;
-  }
-
-  .navigation .mainmenu,
-  .navigation .menu-ganzi-container,
-  #menu-ganzi,
-  #menu-ganzi li,
-  #menu-ganzi li a {
-    position: relative !important;
-    z-index: 9999 !important;
-    pointer-events: auto !important;
+  html.mm-opened, html.mm-opening, html.mm-blocking { overflow: auto !important; }
+  html.mm-opened body, html.mm-opening body { overflow: auto !important; }
+  .header, .top-bar, .navigation { position: relative !important; z-index: 9999 !important; }
+  .navigation .mainmenu, .navigation .menu-ganzi-container,
+  #menu-ganzi, #menu-ganzi li, #menu-ganzi li a {
+    position: relative !important; z-index: 9999 !important; pointer-events: auto !important;
   }
 }
 
-/* --- 7. 手机端顶栏（仅 max-width:991px 生效，桌面端完全不受影响）--- */
+/* --- 8. 手机端顶栏（仅 max-width:991px 生效，桌面端完全不受影响）--- */
 @media screen and (max-width: 991px) {
 
   /* 隐藏桌面端 header/navigation，手机端用顶栏代替 */
-  .header,
-  .navigation {
-    display: none !important;
-  }
+  .header, .navigation { display: none !important; }
 
-  /* 隐藏桌面端侧边栏（内容通过右侧 mmenu 访问） */
-  .container > .sidebar {
-    display: none !important;
-  }
+  /* 隐藏桌面端侧边栏（内容通过右侧 mmenu 访问）*/
+  .container > .sidebar { display: none !important; }
 
   /* 手机端顶栏 */
   .mobile-header {
     display: flex !important;
     align-items: center;
     justify-content: space-between;
-    height: 50px;
-    padding: 0 12px;
+    height: 54px;
+    padding: 0 15px;
     background: #434a54;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 10000;
   }
 
+  /* 站点标题 */
   .mobile-site-title {
     color: #fff !important;
-    font-size: 17px;
+    font-size: 19px;
     font-weight: bold;
     text-decoration: none;
     flex: 1;
@@ -252,9 +219,11 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin: 0 8px;
+    margin: 0 10px;
+    letter-spacing: 1px;
   }
 
+  /* 左右图标按钮 */
   .mobile-nav-btn {
     background: none !important;
     border: none !important;
@@ -265,29 +234,30 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    min-width: 40px;
-    min-height: 40px;
+    min-width: 44px;
+    min-height: 44px;
+    text-decoration: none !important;
   }
+  .mobile-nav-btn svg { color: #fff; stroke: #fff; }
 
-  /* 暗黑模式下手机顶栏 */
-  body.dark .mobile-header {
-    background: #1a1a1a !important;
-  }
+  /* 暗黑模式手机顶栏 */
+  body.dark .mobile-header { background: #1a1a1a !important; }
 
-  /* mmenu 右侧面板内的 sidebar 样式适配 */
+  /* mmenu 右侧面板内 sidebar 样式适配 */
   #menu-right .sidebar {
     display: block !important;
     padding: 10px;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
   }
+  #menu-right .sidebar .widget { margin-bottom: 15px; }
 
-  #menu-right .sidebar .widget {
-    margin-bottom: 15px;
-  }
+  /* mmenu 面板内隐藏多余 padding/margin */
+  #menu-right { padding: 0 !important; }
 }
 
 /* 桌面端隐藏手机顶栏 */
 @media screen and (min-width: 992px) {
-  .mobile-header {
-    display: none !important;
-  }
+  .mobile-header { display: none !important; }
 }
