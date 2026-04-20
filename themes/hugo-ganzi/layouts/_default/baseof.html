@@ -17,6 +17,17 @@
     <script type="text/javascript" src="{{ (resources.Get "js/weisay.min.js").RelPermalink }}"></script>
 </head>
 <body>
+    <!-- 手机端顶栏：仅在 max-width:991px 显示 -->
+    <div class="mobile-header">
+        <button class="mobile-nav-btn" id="mobile-menu-trigger" aria-label="打开导航菜单">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <a class="mobile-site-title" href="/">{{ .Site.Title }}</a>
+        <button class="mobile-nav-btn" id="mobile-sidebar-trigger" aria-label="打开侧边栏">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        </button>
+    </div>
+
     <div class="header">
         <div class="top-bar">
             <div class="container">
@@ -72,11 +83,28 @@
         <div class="footer-info container"><div class="footer-left"><p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class="footer-hide">Theme by <a href="https://blog.zznuo.com/">Ganzi</a>.</span></p></div></div>
     </div>
 
-    <nav id="menu"><div class="menu-ganzi-container"><ul id="menu-ganzi-1" class="menu">
-        {{ range .Site.Menus.main }}<li><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}
-    </ul></div></nav>
+    <!-- 左侧滑出：导航菜单 -->
+    <nav id="menu">
+        <div class="menu-ganzi-container">
+            <ul id="menu-ganzi-1" class="menu">
+                <li><a href="/">首页</a></li>
+                <li><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
+                <li><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
+                <li><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
+                <li><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
+                <li><a href="/archives/">归档</a></li>
+                <li><a href="/flinks.html">链接</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 右侧滑出：侧边栏内容 -->
+    <nav id="menu-right">
+        {{ partial "sidebar.html" . }}
+    </nav>
 
     <script>
+        // 复制按钮
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.highlight').forEach(function(container) {
                 if (container.querySelector('.copy-btn')) return;
@@ -91,6 +119,22 @@
                 });
                 container.appendChild(button);
             });
+
+            // 手机端触发按钮绑定 mmenu API
+            if (window.innerWidth <= 991) {
+                var $menuLeft = jQuery('nav#menu');
+                var $menuRight = jQuery('nav#menu-right');
+                if ($menuLeft.length && $menuLeft.data('mmenu')) {
+                    document.getElementById('mobile-menu-trigger').addEventListener('click', function() {
+                        $menuLeft.data('mmenu').open();
+                    });
+                }
+                if ($menuRight.length && $menuRight.data('mmenu')) {
+                    document.getElementById('mobile-sidebar-trigger').addEventListener('click', function() {
+                        $menuRight.data('mmenu').open();
+                    });
+                }
+            }
         });
     </script>
     {{ with resources.Get "js/lazyload.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}

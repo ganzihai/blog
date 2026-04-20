@@ -141,11 +141,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 }
 .dark .link-avatar { background: #2a2a2a !important; }
 
-/*
- * object-fit: contain — 图标完整显示，不裁切不偏移
- * border: none       — 去除在暗色背景上显眼的浅灰描边
- * background: transparent — 透明背景，由容器 .link-avatar 的背景兜底
- */
 .link-card-inner .link-avatar img {
     width: 50px !important;
     height: 50px !important;
@@ -217,5 +212,82 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     position: relative !important;
     z-index: 9999 !important;
     pointer-events: auto !important;
+  }
+}
+
+/* --- 7. 手机端顶栏（仅 max-width:991px 生效，桌面端完全不受影响）--- */
+@media screen and (max-width: 991px) {
+
+  /* 隐藏桌面端 header/navigation，手机端用顶栏代替 */
+  .header,
+  .navigation {
+    display: none !important;
+  }
+
+  /* 隐藏桌面端侧边栏（内容通过右侧 mmenu 访问） */
+  .container > .sidebar {
+    display: none !important;
+  }
+
+  /* 手机端顶栏 */
+  .mobile-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    padding: 0 12px;
+    background: #434a54;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .mobile-site-title {
+    color: #fff !important;
+    font-size: 17px;
+    font-weight: bold;
+    text-decoration: none;
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 8px;
+  }
+
+  .mobile-nav-btn {
+    background: none !important;
+    border: none !important;
+    color: #fff !important;
+    padding: 6px;
+    cursor: pointer;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  /* 暗黑模式下手机顶栏 */
+  body.dark .mobile-header {
+    background: #1a1a1a !important;
+  }
+
+  /* mmenu 右侧面板内的 sidebar 样式适配 */
+  #menu-right .sidebar {
+    display: block !important;
+    padding: 10px;
+  }
+
+  #menu-right .sidebar .widget {
+    margin-bottom: 15px;
+  }
+}
+
+/* 桌面端隐藏手机顶栏 */
+@media screen and (min-width: 992px) {
+  .mobile-header {
+    display: none !important;
   }
 }
