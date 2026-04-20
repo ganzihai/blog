@@ -8,20 +8,27 @@
     <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}" />
     <meta name="keywords" content="{{ with .Params.tags }}{{ delimit . "," }}{{ else }}{{ .Site.Params.keywords }}{{ end }}" />
     
-    {{ $style := resources.Get "css/style.css" | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
-    {{ $dark := resources.Get "css/dark.css" | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $dark.RelPermalink }}" />
-    {{ $mmenu := resources.Get "css/jquery.mmenu.css" | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $mmenu.RelPermalink }}" />
+    {{ with resources.Get "css/style.css" }}
+        {{ $style := . | minify | fingerprint }}
+        <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
+    {{ end }}
+    {{ with resources.Get "css/dark.css" }}
+        {{ $dark := . | minify | fingerprint }}
+        <link rel="stylesheet" href="{{ $dark.RelPermalink }}" />
+    {{ end }}
+    {{ with resources.Get "css/jquery.mmenu.css" }}
+        {{ $mmenu := . | minify | fingerprint }}
+        <link rel="stylesheet" href="{{ $mmenu.RelPermalink }}" />
+    {{ end }}
     
-    <script type="text/javascript" src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/jquery.mmenu.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/dark.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/weisay.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/lazyload.min.js").RelPermalink }}"></script>
+    {{ with resources.Get "js/jquery.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    {{ with resources.Get "js/jquery.mmenu.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    {{ with resources.Get "js/dark.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    {{ with resources.Get "js/weisay.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    {{ with resources.Get "js/lazyload.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
 </head>
 <body {{ if .Site.Params.darkMode }}class="dark"{{ end }}>
+    <!-- 其余 HTML 内容保持不变 -->
     <div class="header">
         <div class="top-bar">
             <div class="container">
@@ -102,11 +109,13 @@
         </div>
     </nav>
 
-    <script src="{{ (resources.Get "js/activate-power-mode.min.js").RelPermalink }}"></script>
+    {{ with resources.Get "js/activate-power-mode.min.js" }}
+    <script src="{{ .RelPermalink }}"></script>
     <script>
         POWERMODE.colorful = true;
         POWERMODE.shake = false;
         document.body.addEventListener('input', POWERMODE);
     </script>
+    {{ end }}
 </body>
 </html>

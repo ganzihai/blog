@@ -1,9 +1,8 @@
 name = "hugo-ganzi"
-description = "A perfect replication of the weisaybox/weisaygrace WordPress theme for Hugo."
+description = "WordPress weisaybox/weisaygrace theme for Hugo"
 homepage = "https://blog.zznuo.com"
-tags = ["blog", "personal", "clean", "responsive"]
-features = ["dark mode", "random thumbnails", "rewards", "breadcrumb"]
-author = "ganzi"
+tags = ["blog", "personal"]
+features = ["dark mode", "random thumbnails"]
 
 [author]
   name = "ganzi"
