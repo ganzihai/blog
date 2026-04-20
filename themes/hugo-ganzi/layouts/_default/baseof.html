@@ -11,52 +11,49 @@
     {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel=stylesheet href="{{ $mmenu.RelPermalink }}">{{ end }}
     
     <style>
-        /* 全站暗黑模式文字增强 */
-        body.dark { color: #ccc !important; }
-        body.dark a { color: #ed5565 !important; }
-        body.dark .article, body.dark .widget { background: #1d1d1d !important; border-color: #333 !important; }
-        body.dark h1, body.dark h2, body.dark h3 { color: #eee !important; }
+        /* 全站暗黑模式深度补丁 */
+        body.dark { background: #121212 !important; color: #bbb !important; }
+        body.dark .header, body.dark .footer { background: #1a1a1a !important; }
+        body.dark .article, body.dark .widget { background: #1d1d1d !important; border-color: #333 !important; box-shadow: none !important; }
+        body.dark h1, body.dark h2, body.dark h3, body.dark .post-title a { color: #eee !important; }
+        body.dark .crumb { background: #1d1d1d !important; border-color: #333 !important; color: #888 !important; }
 
-        /* NEXT 风格代码块全局适配 (Mac 窗口效果) */
-        .highlight, pre { 
-            position: relative; 
-            background: #282c34 !important; 
-            border-radius: 8px !important; 
-            margin: 20px 0 !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        pre { padding: 35px 15px 15px !important; color: #abb2bf !important; }
-        .highlight::before {
+        /* NEXT 风格代码块：彻底去重版 */
+        .highlight { position: relative; margin: 25px 0; border-radius: 8px; overflow: hidden; background: #282c34 !important; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .highlight pre { margin: 0 !important; padding: 40px 15px 15px !important; border: none !important; box-shadow: none !important; background: transparent !important; }
+        
+        /* 仅在 highlight 容器或独立的 pre 上显示圆点 */
+        .highlight::before, pre:not(.highlight pre)::before {
             content: "";
             position: absolute;
-            top: 12px;
+            top: 15px;
             left: 15px;
             width: 12px;
             height: 12px;
             border-radius: 50%;
             background: #fc625d;
             box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b;
-            z-index: 5;
+            z-index: 10;
         }
-        /* 复制按钮样式 */
+
         .copy-btn {
             position: absolute;
-            top: 8px;
-            right: 10px;
-            padding: 2px 8px;
-            font-size: 12px;
+            top: 10px;
+            right: 15px;
+            padding: 3px 10px;
+            font-size: 11px;
             color: #5c6370;
             background: rgba(255,255,255,0.05);
             border: 1px solid #3e4451;
             border-radius: 4px;
             cursor: pointer;
-            z-index: 10;
-            transition: 0.2s;
+            z-index: 11;
         }
         .copy-btn:hover { background: #ed5565; color: #fff; border-color: #ed5565; }
-        
-        /* 修复行号对齐 */
-        .chroma .lntd:first-child { border-right: 1px solid #3e4451; padding-right: 10px; }
+
+        /* 修复带行号的代码块布局 */
+        .chroma { border-spacing: 0; padding: 0; margin: 0; width: 100%; }
+        .chroma .lntd:first-child { background: #21252b; padding: 0 10px; text-align: right; color: #4b5263; border-right: 1px solid #3e4451; }
         .chroma .lntd:last-child { padding-left: 15px; }
     </style>
 
@@ -114,19 +111,24 @@
 
     <nav id=menu><div class=menu-ganzi-container><ul id=menu-ganzi-1 class=menu>
         <li class=menu-item><a href=/>首页</a></li>
-        {{ range .Site.Menus.main }}<li class=menu-item><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}
+        <li class=menu-item><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
+        <li class=menu-item><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
+        <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
+        <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
     </ul></div></nav>
 
-    <!-- 复制按钮 JavaScript -->
+    <!-- 增强版复制脚本：自动寻找最外层容器 -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('pre').forEach(function(codeBlock) {
+            // 为所有 pre 和 highlight 容器添加复制按钮，避免重复
+            document.querySelectorAll('.highlight, pre:not(.highlight pre)').forEach(function(codeBlock) {
+                if (codeBlock.querySelector('.copy-btn')) return;
                 const button = document.createElement('button');
                 button.className = 'copy-btn';
                 button.type = 'button';
                 button.innerText = 'Copy';
                 button.addEventListener('click', function() {
-                    const code = codeBlock.querySelector('code').innerText;
+                    const code = codeBlock.querySelector('code') ? codeBlock.querySelector('code').innerText : codeBlock.innerText;
                     navigator.clipboard.writeText(code).then(function() {
                         button.innerText = 'Copied!';
                         setTimeout(function() { button.innerText = 'Copy'; }, 2000);

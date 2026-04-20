@@ -2,11 +2,15 @@
 <div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; {{ .Title }}</div>
 
 <div class="article flinks-article">
-    <!-- 1. 压缩顶部标题间距 -->
     <h1 class="article-title" style="text-align: center; margin: 20px 0 30px; font-size: 26px;">友情连接</h1>
     
     <div class="article-content">
-        <!-- 优先显示友链卡片 -->
+        <!-- 说明文字 -->
+        <div class="md-content" style="margin-bottom: 30px; line-height: 1.8;">
+            {{ .Content }}
+        </div>
+
+        <!-- 友链卡片：优先读取 data/flinks/zh-cn.yaml -->
         {{ $data := index .Site.Data.flinks "zh-cn" }}
         {{ if $data }}
             {{ range $data }}
@@ -17,13 +21,13 @@
                     <div class="link-grid">
                         {{ range .FLinksList }}
                         <a href="{{ .link }}" target="_blank" class="link-card-item">
-                            <div class="link-card-box">
-                                <div class="link-avatar">
+                            <div class="link-card-inner">
+                                <div class="link-avatar-wrap">
                                     <img src="{{ .avatar | default "/images/avatar.jpg" }}" alt="{{ .name }}" onerror="this.src='/images/avatar.jpg'" />
                                 </div>
-                                <div class="link-text">
-                                    <div class="link-name">{{ .name }}</div>
-                                    <div class="link-desc" title="{{ .desc }}">{{ .desc }}</div>
+                                <div class="link-info">
+                                    <span class="link-name">{{ .name }}</span>
+                                    <span class="link-desc" title="{{ .desc }}">{{ .desc }}</span>
                                 </div>
                             </div>
                         </a>
@@ -32,50 +36,37 @@
                 </div>
             {{ end }}
         {{ end }}
-
+        
         <div class="divider-line">~~~~~ 我可是有底线的哟 ~~~~~</div>
-
-        <!-- 说明文字区 -->
-        <div class="md-content-wrap">
-            {{ .Content }}
-        </div>
     </div>
 </div>
 
 <style>
-    .flinks-article { background: #fff; padding: 15px 20px 20px; border-radius: 4px; }
-    .link-group-section { margin-bottom: 35px; }
-    .group-title { font-size: 20px; color: #333; margin-bottom: 8px; font-weight: bold; }
+    .flinks-article { background: #fff; padding: 20px; border-radius: 4px; }
+    .link-group-section { margin-bottom: 40px; }
+    .group-title { font-size: 20px; color: #333; margin-bottom: 10px; font-weight: bold; }
     .group-desc { color: #888; font-size: 13px; margin-bottom: 15px; }
     
     .link-grid { display: flex; flex-wrap: wrap; margin: 0 -8px; }
     .link-card-item { width: calc(33.333% - 16px); margin: 8px; text-decoration: none !important; }
+    .link-card-inner { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 12px; display: flex; align-items: center; transition: all 0.3s; }
+    .link-card-item:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: #ed5565; }
     
-    .link-card-box { 
-        background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 12px; 
-        display: flex; align-items: center; transition: all 0.3s ease;
-    }
-    .link-card-item:hover .link-card-box { 
-        transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
-        border-color: #ed5565; 
-    }
+    .link-avatar-wrap { width: 45px; height: 45px; margin-right: 12px; flex-shrink: 0; }
+    .link-avatar-wrap img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 1px solid #eee; }
     
-    .link-avatar { width: 45px; height: 45px; flex-shrink: 0; margin-right: 12px; }
-    .link-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-    
-    .link-text { overflow: hidden; display: flex; flex-direction: column; }
+    .link-info { overflow: hidden; display: flex; flex-direction: column; }
     .link-name { font-size: 15px; color: #333; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .link-desc { font-size: 12px; color: #777; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    
-    .divider-line { text-align: center; margin: 40px 0 30px; color: #bbb; font-size: 14px; border-top: 1px dashed #ddd; padding-top: 20px; }
+    .divider-line { text-align: center; margin: 50px 0 30px; color: #bbb; font-size: 14px; border-top: 1px dashed #ddd; padding-top: 25px; }
 
-    /* 暗黑模式深度对齐 */
-    body.dark .flinks-article { background: #1d1d1d; }
-    body.dark .link-card-box { background: #262626; border-color: #333; }
-    body.dark .link-name { color: #ddd; }
-    body.dark .link-desc { color: #999; }
-    body.dark .group-title { color: #eee; }
-    body.dark .divider-line { border-color: #333; }
+    /* 暗黑模式深度对齐：强制覆盖白底 */
+    body.dark .flinks-article { background: #1d1d1d !important; }
+    body.dark .link-card-inner { background: #262626 !important; border-color: #333 !important; }
+    body.dark .link-name { color: #eee !important; }
+    body.dark .link-desc { color: #999 !important; }
+    body.dark .group-title { color: #ddd !important; }
+    body.dark .divider-line { border-color: #333 !important; }
 
     @media (max-width: 992px) { .link-card-item { width: calc(50% - 16px); } }
     @media (max-width: 600px) { .link-card-item { width: calc(100% - 16px); } }
