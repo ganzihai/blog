@@ -11,74 +11,23 @@
     {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel=stylesheet href="{{ $mmenu.RelPermalink }}">{{ end }}
     
     <style>
-        /* 全局暗黑基础 */
+        /* 全站暗黑基础增强 */
         body.dark { background: #121212 !important; color: #bbb !important; }
-        body.dark .header, body.dark .footer { background: #1a1a1a !important; }
         body.dark .article, body.dark .widget { background: #1d1d1d !important; border-color: #333 !important; }
-
-        /* NEXT 代码块终极版：解决 29.png 的 6圆点和嵌套问题 */
-        .highlight { position: relative; margin: 25px 0 !important; border-radius: 8px; overflow: hidden; background: #282c34 !important; border: 1px solid #181a1f; }
+        body.dark h1, body.dark h2, body.dark h3 { color: #eee !important; }
         
-        /* 1. 仅为 highlight 容器设置圆点 */
+        /* 强制页脚到底部并清除浮动 */
+        .clear-footer { clear: both; display: block; height: 0; overflow: hidden; }
+        #footers { clear: both; width: 100%; position: relative; margin-top: 30px; }
+
+        /* 代码块统一 */
+        .highlight { position: relative; margin: 25px 0 !important; border-radius: 8px; overflow: hidden; background: #282c34 !important; }
         .highlight::before {
-            content: "";
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #fc625d;
-            box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b;
-            z-index: 10;
+            content: ""; position: absolute; top: 15px; left: 15px; width: 12px; height: 12px;
+            border-radius: 50%; background: #fc625d; box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b; z-index: 10;
         }
-
-        /* 2. 内部 pre 标签彻底透明化，移除所有边框和重复样式 */
-        .highlight pre { 
-            margin: 0 !important; 
-            padding: 45px 20px 20px !important; 
-            background: transparent !important; 
-            border: none !important; 
-            box-shadow: none !important; 
-        }
-
-        /* 3. 复制按钮 */
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            padding: 3px 10px;
-            font-size: 11px;
-            color: #5c6370;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid #3e4451;
-            border-radius: 4px;
-            cursor: pointer;
-            z-index: 11;
-        }
-        .copy-btn:hover { background: #ed5565; color: #fff; border-color: #ed5565; }
-
-        /* 针对没有 highlight 包装的独立 pre */
-        pre:not(.highlight pre) {
-            position: relative;
-            background: #282c34 !important;
-            padding: 45px 20px 20px !important;
-            border-radius: 8px;
-            margin: 25px 0;
-            border: 1px solid #181a1f;
-        }
-        pre:not(.highlight pre)::before {
-            content: "";
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #fc625d;
-            box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b;
-            z-index: 10;
-        }
+        .highlight pre { margin: 0 !important; padding: 45px 20px 20px !important; background: transparent !important; }
+        .copy-btn { position: absolute; top: 10px; right: 15px; padding: 3px 10px; font-size: 11px; color: #5c6370; background: rgba(255,255,255,0.05); border: 1px solid #3e4451; border-radius: 4px; cursor: pointer; z-index: 11; }
     </style>
 
     <script type=text/javascript src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
@@ -105,6 +54,7 @@
             </div>
         </div>
     </div>
+
     <div class=navigation>
         <div class="container mainmenu">
             <div class=menu-ganzi-container><ul id=menu-ganzi class=menu>
@@ -117,17 +67,26 @@
             <div class=search><form class=search-form method=get action=/><input class=search-input required type=text name=s placeholder=搜索><button class="search-submit iconfont" type=submit>&#xe652;</button></form></div>
         </div>
     </div>
+
     <div class=roll>
         <div id=dark-mode-toggle-button onclick=applyCustomDarkModeSettings(toggleCustomDarkMode()) title=点击切换显示模式 class=roll-dark><i class="iconfont rollmodeicon"></i></div>
         <div title=回到顶部 class=roll-top><i class="iconfont rollicon">&#xe614;</i></div>
     </div>
+
     <div class=container>
         <div class=main>{{ block "main" . }}{{ end }}</div>
         {{ partial "sidebar.html" . }}
+        <div class="clear-footer"></div> <!-- 强力清除浮动 -->
     </div>
+
     <div class=footer id=footers>
-        <div class="footer-info container"><div class=footer-left><p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class=footer-hide>Theme by <a href=https://blog.zznuo.com/>Ganzi</a>.</span></p></div></div>
+        <div class="footer-info container">
+            <div class=footer-left>
+                <p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class=footer-hide>Theme by <a href=https://blog.zznuo.com/>Ganzi</a>.</span></p>
+            </div>
+        </div>
     </div>
+
     <nav id=menu><div class=menu-ganzi-container><ul id=menu-ganzi-1 class=menu>
         <li class=menu-item><a href=/>首页</a></li>
         <li class=menu-item><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
@@ -135,14 +94,13 @@
         <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
         <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
     </ul></div></nav>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.highlight, pre:not(.highlight pre)').forEach(function(container) {
                 if (container.querySelector('.copy-btn')) return;
                 const button = document.createElement('button');
-                button.className = 'copy-btn';
-                button.type = 'button';
-                button.innerText = 'Copy';
+                button.className = 'copy-btn'; button.type = 'button'; button.innerText = 'Copy';
                 button.addEventListener('click', function() {
                     const code = container.querySelector('code') ? container.querySelector('code').innerText : container.innerText;
                     navigator.clipboard.writeText(code).then(function() {
