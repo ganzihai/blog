@@ -10,11 +10,14 @@
     {{ with resources.Get "css/dark.css" }}{{ $dark := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $dark.RelPermalink }}" />{{ end }}
     {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $mmenu.RelPermalink }}" />{{ end }}
     
-    <script type="text/javascript" src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/jquery.mmenu.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/dark.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/weisay.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/lazyload.min.js").RelPermalink }}"></script>
+    {{ with resources.Get "js/jquery.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    {{ with resources.Get "js/jquery.mmenu.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    {{ with resources.Get "js/dark.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    {{ with resources.Get "js/weisay.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    {{ with resources.Get "js/lazyload.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>
+    {{ else }}
+        {{ with resources.Get "js/lazyload.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    {{ end }}
 </head>
 <body>
     <div class="header">
@@ -101,12 +104,21 @@
     </nav>
 
     {{ with resources.Get "js/activate-power-mode.min.js" }}
-    <script src="{{ .RelPermalink }}"></script>
-    <script>
-        POWERMODE.colorful = true;
-        POWERMODE.shake = false;
-        document.body.addEventListener('input', POWERMODE);
-    </script>
+        <script src="{{ .RelPermalink }}"></script>
+        <script>
+            POWERMODE.colorful = true;
+            POWERMODE.shake = false;
+            document.body.addEventListener('input', POWERMODE);
+        </script>
+    {{ else }}
+        {{ with resources.Get "js/activate-power-mode.js" }}
+            <script src="{{ .RelPermalink }}"></script>
+            <script>
+                POWERMODE.colorful = true;
+                POWERMODE.shake = false;
+                document.body.addEventListener('input', POWERMODE);
+            </script>
+        {{ end }}
     {{ end }}
 </body>
 </html>
