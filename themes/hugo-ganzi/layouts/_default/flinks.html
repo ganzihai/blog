@@ -2,29 +2,27 @@
 <div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; {{ .Title }}</div>
 
 <div class="article">
-    <h1 class="article-title" itemprop="headline" style="text-align: center; margin: 30px 0;">友情连接</h1>
+    <h1 class="article-title" itemprop="headline" style="text-align: center; margin: 35px 0; font-size: 24px;">友情连接</h1>
     
     <div class="article-content">
         {{ .Content }}
 
-        <!-- 修复读取逻辑：针对 data/flinks/zh-cn.yaml -->
-        {{ $flinksData := .Site.Data.flinks.zh_cn }}
-        {{ if not $flinksData }}
-            {{ $flinksData = .Site.Data.flinks }} <!-- 备用读取 -->
-        {{ end }}
-
-        {{ range $flinksData }}
-            <h3 class="link-title">{{ .FLinksTitle }}</h3>
-            {{ if .FLinksDesc }}<p class="link-group-desc">{{ .FLinksDesc }}</p>{{ end }}
+        <!-- 解析 NEXT 风格的 data/flinks/zh-cn.yaml 结构 -->
+        {{ $flinks := .Site.Data.flinks.zh_cn }}
+        {{ range $flinks }}
+            <h2 class="group-title" style="font-size: 20px; color: #444; margin: 40px 0 15px; border-bottom: 1px solid #eee; padding-bottom: 8px;">{{ .FLinksTitle }}</h2>
+            {{ if .FLinksDesc }}<p class="group-desc" style="color:#888; font-size:14px; margin:-10px 0 20px 5px; font-style:italic;">{{ .FLinksDesc }}</p>{{ end }}
             
-            <div class="link-list">
+            <div class="link-grid">
                 {{ range .FLinksList }}
-                <a href="{{ .link }}" target="_blank" class="link-item">
-                    <div class="link-item-inner">
-                        <img src="{{ .avatar | default "/images/avatar.jpg" }}" alt="{{ .name }}" onerror="this.src='/images/avatar.jpg'" />
+                <a href="{{ .link }}" target="_blank" class="link-card">
+                    <div class="link-card-inner">
+                        <div class="link-avatar-wrap">
+                            <img src="{{ .avatar | default "/images/avatar.jpg" }}" alt="{{ .name }}" onerror="this.src='/images/avatar.jpg'" />
+                        </div>
                         <div class="link-info">
                             <span class="link-name">{{ .name }}</span>
-                            <span class="link-desc">{{ .desc }}</span>
+                            <span class="link-desc" title="{{ .desc }}">{{ .desc }}</span>
                         </div>
                     </div>
                 </a>
@@ -33,39 +31,44 @@
             <div class="clear"></div>
         {{ end }}
         
-        <div style="text-align:center; margin-top:50px; color:#999; font-size:14px; border-top:1px dashed #ddd; padding-top:20px;">
-            <p>~~~~~ 我可是有底线的哟 ~~~~~</p>
-        </div>
+        <div class="divider-line">~~~~~ 我可是有底线的哟 ~~~~~</div>
     </div>
 </div>
 
 <style>
-    .link-title { font-size: 20px; color: #444; margin: 30px 0 10px; font-weight: bold; }
-    .link-group-desc { color: #888; font-size: 14px; margin-bottom: 20px; font-style: italic; }
-    .link-list { display: flex; flex-wrap: wrap; margin: 0 -10px; }
-    .link-item { width: calc(33.333% - 20px); margin: 10px; text-decoration: none !important; }
-    .link-item-inner { 
-        background: #333; /* NEXT 风格深色背景 */
+    .link-grid { display: flex; flex-wrap: wrap; margin: 0 -10px; }
+    .link-card { width: calc(33.333% - 20px); margin: 10px; text-decoration: none !important; }
+    .link-card-inner { 
+        background: #333; /* NEXT 默认深色卡片 */
         border: 1px solid #444; 
-        border-radius: 8px; 
+        border-radius: 6px; 
         padding: 15px; 
         display: flex; 
         align-items: center; 
-        transition: all 0.3s;
+        transition: transform 0.3s, box-shadow 0.3s;
     }
-    .link-item:hover .link-item-inner { background: #444; transform: translateY(-3px); border-color: #ed5565; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-    .link-item img { width: 50px; height: 50px; border-radius: 4px; margin-right: 15px; object-fit: cover; flex-shrink: 0; }
+    .link-card:hover .link-card-inner { 
+        transform: translateY(-4px); 
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+        border-color: #ed5565; 
+        background: #3d3d3d;
+    }
+    .link-avatar-wrap { width: 50px; height: 50px; margin-right: 15px; flex-shrink: 0; }
+    .link-avatar-wrap img { width: 100%; height: 100%; border-radius: 4px; object-fit: cover; border: 1px solid #555; }
     .link-info { display: flex; flex-direction: column; overflow: hidden; }
-    .link-name { font-size: 16px; color: #eee; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .link-desc { font-size: 12px; color: #aaa; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .link-name { font-size: 16px; color: #fff; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .link-desc { font-size: 12px; color: #aaa; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     
-    /* 适配亮色模式 */
-    body:not(.dark) .link-item-inner { background: #fff; border-color: #eee; }
-    body:not(.dark) .link-name { color: #333; }
-    body:not(.dark) .link-desc { color: #888; }
-    body:not(.dark) .link-item:hover .link-item-inner { background: #fff; }
+    .divider-line { text-align: center; margin: 60px 0 30px; color: #999; font-size: 14px; border-top: 1px dashed #ddd; padding-top: 25px; }
 
-    @media (max-width: 992px) { .link-item { width: calc(50% - 20px); } }
-    @media (max-width: 768px) { .link-item { width: calc(100% - 20px); } }
+    /* 亮色模式适配 */
+    body:not(.dark) .link-card-inner { background: #fff; border-color: #eee; }
+    body:not(.dark) .link-name { color: #333; }
+    body:not(.dark) .link-desc { color: #777; }
+    body:not(.dark) .link-avatar-wrap img { border-color: #eee; }
+    body:not(.dark) .link-card:hover .link-card-inner { background: #fff; }
+
+    @media (max-width: 1024px) { .link-card { width: calc(50% - 20px); } }
+    @media (max-width: 600px) { .link-card { width: calc(100% - 20px); } }
 </style>
 {{ end }}
