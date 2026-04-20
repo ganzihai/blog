@@ -1,5 +1,5 @@
 <div class="sidebar">
-    <!-- 部件1：选项卡 -->
+    <!-- 部件1：选项卡 (热评日志默认显示) -->
     <div class="widget">
         <div class="tab">
             <ul class="tabnav">
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <!-- 部件2：关于作者 (完美对齐 06.png) -->
+    <!-- 部件2：关于作者 (对齐 06.png) -->
     <div class="widget">
         <div class="about-author">
             <div class="author-cover" style="background-image: url('{{ .Site.Params.author_cover | default "/images/cover.jpg" }}'); background-position: center; background-size: cover; height: 110px; border-radius: 4px 4px 0 0;"></div>
@@ -46,23 +46,23 @@
                         <span class="stat-label" style="display: block; font-size: 12px; color: #999;">文章</span>
                     </div>
                     <div class="stat-item border-left" style="flex: 1; border-left: 1px solid #f0f0f0;">
-                        <span class="stat-number" style="display: block; font-size: 16px; font-weight: bold; color: #333;">1</span>
-                        <span class="stat-label" style="display: block; font-size: 12px; color: #999;">评论</span>
+                        <span class="stat-number">1</span>
+                        <span class="stat-label">评论</span>
                     </div>
                     <div class="stat-item border-left" style="flex: 1; border-left: 1px solid #f0f0f0;">
-                        <span class="stat-number" style="display: block; font-size: 16px; font-weight: bold; color: #333;">{{ len .Site.Taxonomies.categories }}</span>
-                        <span class="stat-label" style="display: block; font-size: 12px; color: #999;">分类</span>
+                        <span class="stat-number">{{ len .Site.Taxonomies.categories }}</span>
+                        <span class="stat-label">分类</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 部件3：标签云 (彩色样式复刻) -->
+    <!-- 部件3：彩色标签云 (修正 add 报错) -->
     <div class="widget">
         <div class="widget-tags" style="padding: 15px;">
-            {{ range $index, $term := .Site.Taxonomies.tags }}
-            <a href="{{ .Page.Permalink }}" class="tag-cloud-link tag-link-{{ (mod (add $index 1) 20) }} tag-link-position-{{ (add $index 1) }}" style="font-size: 13px; margin: 3px; display: inline-block;">{{ .Page.Title }}</a>
+            {{ range $index, $term := .Site.Taxonomies.tags.Alphabetical }}
+            <a href="{{ .Page.Permalink }}" class="tag-cloud-link tag-link-{{ (mod (add $index 1) 20) }}" style="font-size: 13px; margin: 3px; display: inline-block;">{{ .Page.Title }}</a>
             {{ end }}
         </div>
     </div>
