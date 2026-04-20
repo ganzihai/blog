@@ -3,24 +3,44 @@ jQuery(document).ready(function(){
 jQuery('.roll-top').click(function(){jQuery('html,body').animate({scrollTop: '0px'}, 800);}); 
 });
 
-//手机版菜单展开
-jQuery(document).ready(function(){
-	jQuery('nav#menu').mmenu({
-		extensions : [ 'left' ],
-		counters : true,
-		navbar : {
-			title : '导航'
-		},
-	});
-var $menu = $('nav#menu-right');
-	$menu.mmenu({
-		offCanvas : {
-			position : 'right'
+//手机版菜单展开（mmenu v9 新版 API）
+document.addEventListener('DOMContentLoaded', function() {
+	if (document.querySelector('nav#menu')) {
+		new Mmenu('nav#menu', {
+			offCanvas: {
+				position: 'left'
 			},
-		navbar : {
-			title : '侧边栏'
+			counters: {
+				add: true
 			},
-	});
+			navbar: {
+				title: '导航'
+			}
+		});
+
+		// 绑定左侧菜单按钮
+		var menuBtn = document.querySelector('a[href="#menu"]');
+		if (menuBtn) {
+			menuBtn.addEventListener('click', function(e) {
+				e.preventDefault();
+				var mmApi = document.querySelector('nav#menu').mmApi;
+				if (mmApi) {
+					mmApi.open ? mmApi.open() : null;
+				}
+			});
+		}
+	}
+
+	if (document.querySelector('nav#menu-right')) {
+		new Mmenu('nav#menu-right', {
+			offCanvas: {
+				position: 'right'
+			},
+			navbar: {
+				title: '侧边栏'
+			}
+		});
+	}
 });
 
 //侧边栏TAB效果
