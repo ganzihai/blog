@@ -5,30 +5,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,maximum-scale=2.0,shrink-to-fit=no" />
     <meta name="color-scheme" content="light dark" />
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
-    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}" />
-    <meta name="keywords" content="{{ with .Params.tags }}{{ delimit . "," }}{{ else }}{{ .Site.Params.keywords }}{{ end }}" />
     
-    {{ with resources.Get "css/style.css" }}
-        {{ $style := . | minify | fingerprint }}
-        <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
-    {{ end }}
-    {{ with resources.Get "css/dark.css" }}
-        {{ $dark := . | minify | fingerprint }}
-        <link rel="stylesheet" href="{{ $dark.RelPermalink }}" />
-    {{ end }}
-    {{ with resources.Get "css/jquery.mmenu.css" }}
-        {{ $mmenu := . | minify | fingerprint }}
-        <link rel="stylesheet" href="{{ $mmenu.RelPermalink }}" />
-    {{ end }}
+    {{ with resources.Get "css/style.css" }}{{ $style := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $style.RelPermalink }}" />{{ end }}
+    {{ with resources.Get "css/dark.css" }}{{ $dark := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $dark.RelPermalink }}" />{{ end }}
+    {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $mmenu.RelPermalink }}" />{{ end }}
     
-    {{ with resources.Get "js/jquery.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
-    {{ with resources.Get "js/jquery.mmenu.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
-    {{ with resources.Get "js/dark.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
-    {{ with resources.Get "js/weisay.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
-    {{ with resources.Get "js/lazyload.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    <script type="text/javascript" src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/jquery.mmenu.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/dark.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/weisay.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/lazyload.min.js").RelPermalink }}"></script>
 </head>
-<body {{ if .Site.Params.darkMode }}class="dark"{{ end }}>
-    <!-- 其余 HTML 内容保持不变 -->
+<body>
     <div class="header">
         <div class="top-bar">
             <div class="container">
@@ -71,6 +59,12 @@
                     {{ end }}
                 </ul>
             </div>
+            <div class="search">
+                <form class="search-form" method="get" action="/">
+                    <input class="search-input" required="" type="text" name="s" placeholder="搜索" />
+                    <button aria-label="搜索" class="search-submit iconfont" type="submit">&#xe652;</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -91,9 +85,6 @@
         <div class="footer-info container">
             <div class="footer-left">
                 <p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class="footer-hide">Powered by <a href="https://gohugo.io/" rel="external">Hugo</a>. Theme by <a href="https://blog.zznuo.com/" rel="external">Ganzi</a>.</span></p>
-            </div>
-            <div class="footer-right">
-                <p>{{ if .Site.Params.beian }}<a href="https://beian.miit.gov.cn/" rel="external nofollow">{{ .Site.Params.beian }}</a>{{ end }}</p>
             </div>
         </div>
     </div>
