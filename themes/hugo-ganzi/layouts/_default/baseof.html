@@ -11,7 +11,7 @@
     {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $mmenu.RelPermalink }}">{{ end }}
     
     <style>
-        /* 暗黑模式强力适配 */
+        /* 1. 暗黑模式补丁 */
         .dark, [data-theme='dark'] { --bg: #121212; --card: #1d1d1d; --border: #333; --text: #eee; }
         body.dark { background: #121212 !important; color: #bbb !important; }
         .dark .article, .dark .widget { background: #1d1d1d !important; border-color: #333 !important; }
@@ -20,28 +20,37 @@
         .clear-footer { clear: both; display: block; height: 0; overflow: hidden; }
         #footers { clear: both; width: 100%; position: relative; margin-top: 30px; }
 
-        /* 代码块统一 */
-        .highlight { position: relative; margin: 25px 0 !important; border-radius: 8px; overflow: hidden; background: #282c34 !important; }
-        .highlight::before {
+        /* 2. NEXT 风格代码块：强力去白底补丁 (解决 40.png 问题) */
+        .highlight { position: relative; margin: 25px 0 !important; border-radius: 8px; overflow: hidden; background: #282c34 !important; border: 1px solid #181a1f; }
+        
+        /* 强制所有内部容器透明，露出 282c34 */
+        .highlight pre, .highlight code, .highlight .chroma, .highlight .lntable, .highlight .lntd { 
+            background: transparent !important; 
+            border: none !important; 
+            padding: 0 !important; 
+            margin: 0 !important;
+            color: #abb2bf !important; /* 强制基础文字颜色 */
+        }
+        
+        /* 设置外层统一 Padding */
+        .highlight pre { padding: 45px 20px 20px !important; }
+
+        .highlight::before, pre:not(.highlight pre)::before {
             content: ""; position: absolute; top: 15px; left: 15px; width: 12px; height: 12px;
             border-radius: 50%; background: #fc625d; box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b; z-index: 10;
         }
-        .highlight pre { margin: 0 !important; padding: 45px 20px 20px !important; background: transparent !important; }
-        .copy-btn { position: absolute; top: 10px; right: 15px; padding: 3px 10px; font-size: 11px; color: #5c6370; background: rgba(255,255,255,0.05); border: 1px solid #3e4451; border-radius: 4px; cursor: pointer; z-index: 11; }
 
-        /* 顶部条对齐 */
+        .copy-btn { position: absolute; top: 10px; right: 15px; padding: 3px 10px; font-size: 11px; color: #5c6370; background: rgba(255,255,255,0.05); border: 1px solid #3e4451; border-radius: 4px; cursor: pointer; z-index: 11; }
+        .copy-btn:hover { background: #ed5565; color: #fff; border-color: #ed5565; }
+
+        /* 顶部条与导航 */
         .top-bar .container { display: flex !important; justify-content: space-between !important; align-items: center !important; height: 2.75rem !important; }
         .top-page .menu ul { display: flex !important; align-items: center !important; list-style: none !important; margin: 0 !important; }
         .top-page .menu ul li a { line-height: 1 !important; padding-right: 15px !important; }
-
         .rss-icon { display: block !important; width: 28px !important; height: 28px !important; background: url(/images/rss.gif) no-repeat 0 0 !important; text-indent: -9999px !important; border-radius: 50% !important; overflow: hidden; border: none !important; }
         .rss-icon:hover { background-position: 0 -28px !important; }
-
-        /* 修复导航栏点击灵敏度 */
         .navigation { position: relative !important; z-index: 100 !important; }
         .navigation .menu-item a { display: block !important; padding: 0 15px !important; cursor: pointer !important; }
-        .website.container { position: relative; z-index: 1; pointer-events: none; }
-        .headline { pointer-events: auto; }
     </style>
 
     <script type="text/javascript" src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
@@ -64,18 +73,18 @@
                 </div>
             </div>
         </div>
-        <div class="clear"></div>
+        <div class=clear></div>
         <div class="website container">
             <div class="headline">
                 {{ if .IsHome }}<h1>{{ end }}<a href="/">{{ .Site.Title }}</a>{{ if .IsHome }}</h1>{{ end }}
-                <div class="blogdescription">{{ .Site.Params.description }}</div>
+                <div class=blogdescription>{{ .Site.Params.description }}</div>
             </div>
         </div>
     </div>
 
     <div class="navigation">
         <div class="container mainmenu">
-            <div class="menu-ganzi-container"><ul id="menu-ganzi" class="menu">
+            <div class=menu-ganzi-container><ul id="menu-ganzi" class="menu">
                 <li class="menu-item {{ if .IsHome }}current-menu-item{{ end }}"><a href="/">首页</a></li>
                 <li class="menu-item"><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
                 <li class="menu-item"><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
@@ -108,10 +117,7 @@
 
     <nav id="menu"><div class="menu-ganzi-container"><ul id="menu-ganzi-1" class="menu">
         <li class="menu-item"><a href="/">首页</a></li>
-        <li class="menu-item"><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
-        <li class="menu-item"><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
-        <li class="menu-item"><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
-        <li class="menu-item"><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
+        {{ range .Site.Menus.main }}<li class="menu-item"><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}
     </ul></div></nav>
 
     <script>
