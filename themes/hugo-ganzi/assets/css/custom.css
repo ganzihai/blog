@@ -88,3 +88,18 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 /* 修正页脚浮动 */
 .clear-footer { clear: both !important; height: 1px !important; width: 100% !important; display: block !important; }
 #footers { clear: both !important; width: 100% !important; margin-top: 50px !important; }
+
+/* 修复桌面端 mmenu 遮罩挡住首页链接的问题 */
+@media screen and (min-width: 992px) {
+  html.mm-opening .mm-slideout,
+  .mm-wrapper__blocker,
+  #mm-blocker {
+    display: none !important;
+    pointer-events: none !important;
+  }
+  
+  html.mm-opened body,
+  html.mm-opening body {
+    overflow: auto !important;
+  }
+}
