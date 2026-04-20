@@ -268,3 +268,129 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 @media screen and (min-width: 992px) {
   .mobile-header { display: none !important; }
 }
+/* --- 9. 左侧纯CSS抽屉（仅手机端，不影响桌面） --- */
+@media screen and (max-width: 991px) {
+
+  /* 遮罩层 */
+  #left-drawer-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 19998;
+    background: rgba(0,0,0,0.55);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  #left-drawer-overlay.is-open {
+    display: block;
+    opacity: 1;
+  }
+
+  /* 抽屉主体 */
+  #left-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 19999;
+    width: clamp(16rem, 78vw, 26rem);
+    background: #f3f3f3;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+  }
+  #left-drawer.is-open {
+    transform: translateX(0);
+  }
+
+  /* 抽屉顶栏 */
+  .left-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 2.75rem;
+    padding: 0 1rem;
+    background: #f3f3f3;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    flex-shrink: 0;
+  }
+  .left-drawer-title {
+    font-size: 14px;
+    color: rgba(0,0,0,0.4);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  #left-drawer-close {
+    background: none;
+    border: none;
+    color: rgba(0,0,0,0.4);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  #left-drawer-close:hover { color: rgba(0,0,0,0.8); }
+
+  /* 抽屉导航列表 */
+  .left-drawer-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+  }
+  .left-drawer-nav li {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+  }
+  .left-drawer-nav li a {
+    display: block;
+    height: 2.75rem;
+    line-height: 2.75rem;
+    padding: 0 1rem;
+    color: rgba(0,0,0,0.8);
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .left-drawer-nav li a:hover,
+  .left-drawer-nav li a:active {
+    background: rgba(0,0,0,0.05);
+  }
+
+  /* 暗黑模式 */
+  body.dark #left-drawer {
+    background: #333;
+  }
+  body.dark .left-drawer-header {
+    background: #333;
+    border-bottom-color: rgba(0,0,0,0.4);
+  }
+  body.dark .left-drawer-title {
+    color: rgba(255,255,255,0.4);
+  }
+  body.dark #left-drawer-close {
+    color: rgba(255,255,255,0.4);
+  }
+  body.dark #left-drawer-close:hover {
+    color: rgba(255,255,255,0.8);
+  }
+  body.dark .left-drawer-nav li {
+    border-bottom-color: rgba(0,0,0,0.4);
+  }
+  body.dark .left-drawer-nav li a {
+    color: rgba(255,255,255,0.8);
+  }
+  body.dark .left-drawer-nav li a:hover {
+    background: rgba(255,255,255,0.08);
+  }
+}
