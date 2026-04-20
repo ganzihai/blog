@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "zh-Hans" }}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,maximum-scale=2.0,shrink-to-fit=no" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}" />
+    <meta name="keywords" content="{{ with .Params.tags }}{{ delimit . "," }}{{ else }}{{ .Site.Params.keywords }}{{ end }}" />
+    
+    {{ $style := resources.Get "css/style.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
+    {{ $dark := resources.Get "css/dark.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $dark.RelPermalink }}" />
+    {{ $mmenu := resources.Get "css/jquery.mmenu.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $mmenu.RelPermalink }}" />
+    
+    <script type="text/javascript" src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/jquery.mmenu.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/dark.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/weisay.min.js").RelPermalink }}"></script>
+    <script type="text/javascript" src="{{ (resources.Get "js/lazyload.min.js").RelPermalink }}"></script>
+</head>
+<body {{ if .Site.Params.darkMode }}class="dark"{{ end }}>
+    <div class="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-page">
+                    <div class="menu">
+                        <ul>
+                            {{ range .Site.Menus.top }}
+                            <li class="page_item"><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+                            {{ end }}
+                        </ul>
+                    </div>
+                </div>
+                <div class="top-social">
+                    <ul class="social-bookmarks">
+                        <li><a class="rss-icon" href="/index.xml" target="_blank" title="欢迎订阅{{ .Site.Title }}"><i class="iconfont socialicon">&#xe8e7;</i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="website container">
+            <div class="headline">
+                <h1><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h1>
+                <div class="blogdescription">{{ .Site.Params.description }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="headermenu">
+        <a id="hamburger" onfocus="this.blur()" href="#menu" rel="nofollow"><span></span></a>{{ .Site.Title }}<a class="icon-right" href="#menu-right" rel="nofollow"><i class="iconfont righticon"></i></a>
+    </div>
+
+    <div class="navigation">
+        <div class="container mainmenu">
+            <div class="menu-ganzi-container">
+                <ul id="menu-ganzi" class="menu">
+                    <li class="menu-item {{ if .IsHome }}current-menu-item{{ end }}"><a href="{{ .Site.BaseURL }}">首页</a></li>
+                    {{ range .Site.Menus.main }}
+                    <li class="menu-item"><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="roll">
+        <div id="dark-mode-toggle-button" onclick="applyCustomDarkModeSettings(toggleCustomDarkMode());" title="点击切换显示模式" class="roll-dark"><i class="iconfont rollmodeicon"></i></div>
+        <div title="回到顶部" class="roll-top"><i class="iconfont rollicon">&#xe614;</i></div>
+    </div>
+
+    <div class="container">
+        <div class="main">
+            {{ block "main" . }}{{ end }}
+        </div>
+        {{ partial "sidebar.html" . }}
+    </div>
+
+    <div class="clear"></div>
+    <div class="footer" id="footers">
+        <div class="footer-info container">
+            <div class="footer-left">
+                <p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class="footer-hide">Powered by <a href="https://gohugo.io/" rel="external">Hugo</a>. Theme by <a href="https://blog.zznuo.com/" rel="external">Ganzi</a>.</span></p>
+            </div>
+            <div class="footer-right">
+                <p>{{ if .Site.Params.beian }}<a href="https://beian.miit.gov.cn/" rel="external nofollow">{{ .Site.Params.beian }}</a>{{ end }}</p>
+            </div>
+        </div>
+    </div>
+
+    <nav id="menu">
+        <div class="menu-ganzi-container">
+            <ul id="menu-ganzi-1" class="menu">
+                <li class="menu-item {{ if .IsHome }}current-menu-item{{ end }}"><a href="{{ .Site.BaseURL }}">首页</a></li>
+                {{ range .Site.Menus.main }}
+                <li class="menu-item"><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+    </nav>
+
+    <script src="{{ (resources.Get "js/activate-power-mode.min.js").RelPermalink }}"></script>
+    <script>
+        POWERMODE.colorful = true;
+        POWERMODE.shake = false;
+        document.body.addEventListener('input', POWERMODE);
+    </script>
+</body>
+</html>

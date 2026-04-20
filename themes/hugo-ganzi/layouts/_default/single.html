@@ -1,0 +1,93 @@
+{{ define "main" }}
+    <div class="crumb">
+        <div class="expand">
+            <span class="close-sidebar" title="隐藏侧边栏"><i class="iconfont expandicon">&#xe60b;</i></span>
+            <span class="show-sidebar" style="display:none;" title="显示侧边栏"><i class="iconfont expandicon">&#xe606;</i></span>
+        </div>
+        当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; 
+        {{ range .Params.categories }}
+        <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}" rel="category tag">{{ . }}</a> &gt; 
+        {{ end }}
+        正文
+    </div>
+
+    <div id="post-{{ .File.UniqueID }}" class="article" itemscope itemtype="http://schema.org/Article">
+        <h1 class="post-title" itemprop="headline">{{ .Title }}</h1>
+        <div class="article-info">
+            <div class="article-infomation">
+                <span class="vcard author info-icon" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span class="fn"><i class="iconfont posticon">&#xe603;</i>{{ .Site.Author.name | default "杆子" }}</span>
+                </span>
+                <span class="date info-icon" itemprop="datePublished" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">
+                    <i class="iconfont posticon">&#xe689;</i>{{ .Date.Format "2006-01-02" }}<span class="date-hi"> {{ .Date.Format "15:04" }}</span>
+                </span>
+                <span class="category info-icon" itemprop="articleSection">
+                    <i class="iconfont posticon">&#xe658;</i>
+                    {{ range .Params.categories }}
+                    <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}" rel="category tag">{{ . }}</a>
+                    {{ end }}
+                </span>
+            </div>
+        </div>
+        <div class="article-content" itemprop="articleBody">
+            {{ .Content }}
+        </div>
+        <div class="article-tags">
+            <i class="iconfont posticon" style="padding-right:8px;">&#xe843;</i>
+            <span itemprop="keywords">
+                {{ range .Params.tags }}
+                <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" rel="tag">{{ . }}</a>
+                {{ end }}
+            </span>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    {{ if .Site.Params.reward_display }}
+    <div class="article article-shang">
+        <div class="shang">
+            <span class="zanzhu"><a title="赞助本站" href="javascript:;" onfocus="this.blur()">赏</a></span>
+        </div>
+    </div>
+    <div class="shang-bg"></div>
+    <div class="shang-content" style="display:none;">
+        <button class="shang-close" title="关闭">×</button>
+        <div class="shang-title">打赏支持</div>
+        <div class="shang-body">
+            <div class="shang-zfb shang-qrcode"><img alt="支付宝打赏" src="{{ .Site.Params.alipay_qr | default "/images/alipay.jpg" }}" width="170" height="170"><span>支付宝打赏</span></div>
+            <div class="shang-wx shang-qrcode"><img alt="微信打赏" src="{{ .Site.Params.wechat_qr | default "/images/wechat.jpg" }}" width="170" height="170"><span>微信打赏</span></div>
+            <div class="clear"></div>
+            <p class="shang-tips">扫描二维码，打赏一下作者吧~</p>
+        </div>
+    </div>
+    {{ end }}
+
+    <div class="article">
+        <ul class="pre-nex">
+            {{ if .PrevInSection }}
+            <li>【上一篇】<a href="{{ .PrevInSection.Permalink }}" rel="prev">{{ .PrevInSection.Title }}</a></li>
+            {{ else }}
+            <li>【上一篇】已经是第一篇了</li>
+            {{ end }}
+            
+            {{ if .NextInSection }}
+            <li>【下一篇】<a href="{{ .NextInSection.Permalink }}" rel="next">{{ .NextInSection.Title }}</a></li>
+            {{ else }}
+            <li>【下一篇】已经是最后一篇了</li>
+            {{ end }}
+        </ul>
+    </div>
+
+    <div class="article">
+        <div class="article-related">
+            <h3 class="article-title">您可能还会对这些文章感兴趣！</h3>
+            <ul>
+                {{ $related := .Site.RegularPages.Related . | first 8 }}
+                {{ range $related }}
+                <li><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></li>
+                {{ end }}
+                <div class="clear"></div>
+            </ul>
+        </div>
+    </div>
+{{ end }}

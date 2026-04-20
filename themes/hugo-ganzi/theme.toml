@@ -1,0 +1,10 @@
+name = "hugo-ganzi"
+description = "A perfect replication of the weisaybox/weisaygrace WordPress theme for Hugo."
+homepage = "https://blog.zznuo.com"
+tags = ["blog", "personal", "clean", "responsive"]
+features = ["dark mode", "random thumbnails", "rewards", "breadcrumb"]
+author = "ganzi"
+
+[author]
+  name = "ganzi"
+  homepage = "https://blog.zznuo.com"

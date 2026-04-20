@@ -1,0 +1,77 @@
+<div class="sidebar">
+    <div class="widget">
+        <div class="tab">
+            <ul class="tabnav">
+                <li class="selected">最新日志</li>
+                <li>分类列表</li>
+                <li>标签云集</li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <div class="tab-content">
+            <!-- 最新日志 -->
+            <ul class="active">
+                {{ range first 10 .Site.RegularPages }}
+                <li><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></li>
+                {{ end }}
+            </ul>
+            <!-- 分类列表 -->
+            <ul style="display:none;">
+                {{ range .Site.Taxonomies.categories }}
+                <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }} ({{ .Count }})</a></li>
+                {{ end }}
+            </ul>
+            <!-- 标签云集 -->
+            <ul style="display:none;">
+                {{ range .Site.Taxonomies.tags }}
+                <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }} ({{ .Count }})</a></li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+
+    <div class="widget">
+        <div class="about-author">
+            {{ if .Site.Params.author_cover }}
+            <div class="author-cover" style="background-image: url('{{ .Site.Params.author_cover }}')"></div>
+            {{ end }}
+            <div class="author-avatar">
+                <img alt='{{ .Site.Author.name }}' src='{{ .Site.Params.author_avatar | default "/images/avatar.jpg" }}' class='avatar avatar-70 photo' height='70' width='70' loading='lazy' />
+            </div>
+            <div class="author-info">
+                <h3 class="author-name">{{ .Site.Author.name | default "众诺博客" }}</h3>
+                <div class="author-description">
+                    {{ .Site.Params.description | default "博采众长 一诺千金!" }}
+                </div>
+                <div class="author-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">{{ len .Site.RegularPages }}</span>
+                        <span class="stat-label">文章</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ len .Site.Taxonomies.categories }}</span>
+                        <span class="stat-label">分类</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ len .Site.Taxonomies.tags }}</span>
+                        <span class="stat-label">标签</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="widget">
+        <div class="widget-tags">
+            {{ range .Site.Taxonomies.tags }}
+            <a href="{{ .Page.Permalink }}" class="tag-cloud-link" style="font-size: 14px;">{{ .Page.Title }}</a>
+            {{ end }}
+        </div>
+    </div>
+</div>
+
+<nav id="menu-right">
+    <div class="right-side sidebar">
+        <!-- 可以在这里添加右侧菜单内容 -->
+    </div>
+</nav>
