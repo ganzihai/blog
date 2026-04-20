@@ -89,9 +89,30 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .clear-footer { clear: both !important; height: 1px !important; width: 100% !important; display: block !important; }
 #footers { clear: both !important; width: 100% !important; margin-top: 50px !important; }
 
+/* --- 6. 修复桌面端 mmenu 遮罩层挡住导航点击的问题 --- */
 @media screen and (min-width: 992px) {
+  /* mmenu 生成的透明遮罩，禁止拦截鼠标事件 */
+  #mm-blocker,
+  .mm-wrapper__blocker {
+    display: none !important;
+    pointer-events: none !important;
+  }
+
+  /* mmenu 把 body 内容包裹进 .mm-slideout，还原其位置和尺寸 */
   .mm-page.mm-slideout {
     width: 100% !important;
     transform: none !important;
+    left: 0 !important;
+  }
+
+  /* 防止 mmenu 开启时 html/body 产生 overflow:hidden 锁定滚动 */
+  html.mm-opened,
+  html.mm-opening,
+  html.mm-blocking {
+    overflow: auto !important;
+  }
+  html.mm-opened body,
+  html.mm-opening body {
+    overflow: auto !important;
   }
 }
