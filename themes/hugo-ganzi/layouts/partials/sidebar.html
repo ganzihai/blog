@@ -1,16 +1,15 @@
 <div class="sidebar">
-    <!-- 最终细节微调补丁 -->
     <style>
         .widget { background: #fff; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
-        .tab-content { padding: 10px 15px; }
+        .tab-content { padding: 12px 15px; }
         
-        /* 日志列表：加大字体至 16px，使用 Flex 实现垂直绝对居中，强制单行 */
+        /* 日志列表：字号加大到 17px，高度加大以保证居中感 */
         .tab-content ul li { 
-            height: 45px; /* 固定高度 */
+            height: 48px; 
             display: flex;
-            align-items: center; /* 垂直居中 */
+            align-items: center; 
             border-bottom: 1px dashed #eee; 
-            font-size: 16px; /* 加大字体 */
+            font-size: 17px; 
             list-style: none; 
             overflow: hidden;
         }
@@ -20,37 +19,36 @@
             white-space: nowrap; 
             overflow: hidden; 
             text-overflow: ellipsis; 
-            color: inherit; /* 自动适配暗黑模式颜色 */
+            color: #444;
             text-decoration: none; 
         }
         .tab-content ul li a:hover { color: #ed5565; }
         .tab-content ul li:last-child { border-bottom: none; }
 
-        /* 作者卡片统计栏 */
-        .author-stats .stat-item { text-align: center; flex: 1; padding: 10px 0; }
-        .author-stats .stat-number { display: block; font-size: 18px; font-weight: bold; color: inherit; line-height: 1.2; }
-        .author-stats .stat-label { display: block; font-size: 12px; color: #999; margin-top: 3px; }
+        /* 作者卡片 */
+        .author-stats { display: flex; border-top: 1px solid #f2f2f2; margin-top: 10px; background: #fafafa; }
+        .author-stats .stat-item { text-align: center; flex: 1; padding: 12px 0; }
+        .author-stats .stat-number { display: block; font-size: 18px; font-weight: bold; color: #333; }
+        .author-stats .stat-label { display: block; font-size: 13px; color: #999; margin-top: 2px; }
         
-        /* 彩色标签 */
+        /* 强制彩色标签 */
         .tag-cloud-link { 
             display: inline-block; 
-            margin: 4px; 
-            padding: 5px 12px; 
-            border-radius: 3px; 
+            margin: 5px; 
+            padding: 6px 12px; 
+            border-radius: 4px; 
             color: #fff !important; 
-            font-size: 14px !important; /* 稍微加大标签文字 */
+            font-size: 14px !important; 
+            font-weight: 500;
             text-decoration: none !important;
         }
-        .tag-link-1 { background-color: #f78da7; } .tag-link-2 { background-color: #cf2e2e; }
-        .tag-link-3 { background-color: #ff6900; } .tag-link-4 { background-color: #fcb900; }
-        .tag-link-5 { background-color: #7bdcb5; } .tag-link-6 { background-color: #00d084; }
-        .tag-link-7 { background-color: #8ed1fc; } .tag-link-8 { background-color: #0693e3; }
-        .tag-link-9 { background-color: #9b51e0; } .tag-link-0 { background-color: #abb8c3; }
-        .tag-link-10 { background-color: #f1a50a; } .tag-link-11 { background-color: #1e73be; }
-        .tag-link-12 { background-color: #81d742; } .tag-link-13 { background-color: #eeee22; }
+        .tag-link-0 { background: #f78da7; } .tag-link-1 { background: #cf2e2e; }
+        .tag-link-2 { background: #ff6900; } .tag-link-3 { background: #fcb900; }
+        .tag-link-4 { background: #7bdcb5; } .tag-link-5 { background: #00d084; }
+        .tag-link-6 { background: #8ed1fc; } .tag-link-7 { background: #0693e3; }
+        .tag-link-8 { background: #9b51e0; } .tag-link-9 { background: #abb8c3; }
     </style>
 
-    <!-- 部件1：选项卡 -->
     <div class="widget">
         <div class="tab">
             <ul class="tabnav">
@@ -79,28 +77,28 @@
         </div>
     </div>
 
-    <!-- 部件2：关于作者 -->
     <div class="widget">
         <div class="about-author">
-            <div class="author-cover" style="background-image: url('/images/cover.jpg'); background-position: center; background-size: cover; height: 120px;"></div>
+            <!-- 强制使用您指定的图片路径 -->
+            <div class="author-cover" style="background-image: url('/images/cover.jpg'); background-position: center; background-size: cover; height: 130px;"></div>
             <div class="author-avatar" style="text-align: center; margin-top: -45px;">
-                <img alt='头像' src='/images/ganzi.jpg' class='avatar avatar-90 photo' height='90' width='90' style="border: 4px solid #fff; border-radius: 50%; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1);" />
+                <img alt='头像' src='/images/ganzi.jpg' class='avatar avatar-90 photo' height='90' width='90' style="border: 4px solid #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); background: #fff;" />
             </div>
-            <div class="author-info" style="padding: 10px 0; text-align: center;">
-                <h3 class="author-name" style="margin: 5px 0; font-size: 18px; font-weight: bold;">{{ .Site.Params.author_name | default "杆子" }}</h3>
-                <div class="author-description" style="font-size: 13px; color: #777; padding: 0 15px 10px;">
-                    {{ .Site.Params.description | default "博采众长 一诺千金！" }}
+            <div class="author-info" style="text-align: center; padding-top: 10px;">
+                <h3 class="author-name" style="margin: 8px 0; font-size: 18px;">{{ .Site.Params.author_name | default "杆子" }}</h3>
+                <div class="author-description" style="font-size: 14px; color: #666; padding: 0 20px 15px;">
+                    {{ .Site.Params.description }}
                 </div>
-                <div class="author-stats" style="display: flex; border-top: 1px solid #f2f2f2; margin-top: 5px;">
+                <div class="author-stats">
                     <div class="stat-item">
                         <span class="stat-number">{{ len .Site.RegularPages }}</span>
                         <span class="stat-label">文章</span>
                     </div>
-                    <div class="stat-item" style="border-left: 1px solid #f2f2f2;">
+                    <div class="stat-item" style="border-left: 1px solid #eee;">
                         <span class="stat-number">1</span>
                         <span class="stat-label">评论</span>
                     </div>
-                    <div class="stat-item" style="border-left: 1px solid #f2f2f2;">
+                    <div class="stat-item" style="border-left: 1px solid #eee;">
                         <span class="stat-number">{{ len .Site.Taxonomies.categories }}</span>
                         <span class="stat-label">分类</span>
                     </div>
@@ -109,17 +107,11 @@
         </div>
     </div>
 
-    <!-- 部件3：彩色标签云 -->
     <div class="widget">
-        <div class="widget-tags" style="padding: 15px 10px; text-align: center;">
+        <div class="widget-tags" style="padding: 15px; text-align: center;">
             {{ range $index, $term := .Site.Taxonomies.tags.Alphabetical }}
-            <a href="{{ .Page.Permalink }}" class="tag-cloud-link tag-link-{{ (mod (add $index 1) 14) }}">{{ .Page.Title }}</a>
+            <a href="{{ .Page.Permalink }}" class="tag-cloud-link tag-link-{{ (mod $index 10) }}">{{ .Page.Title }}</a>
             {{ end }}
         </div>
     </div>
 </div>
-
-<nav id="menu-right">
-    <div class="right-side sidebar">
-    </div>
-</nav>

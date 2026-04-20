@@ -1,0 +1,74 @@
+{{ define "main" }}
+<div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; {{ .Title }}</div>
+
+<div class="article">
+    <h1 class="article-title" itemprop="headline">{{ .Title }}</h1>
+    
+    <div class="article-content">
+        {{ .Content }}
+
+        <!-- 第一部分：推荐链接 (如果有数据) -->
+        {{ with .Site.Data.flinks.recommend }}
+        <h3 class="link-title">推荐链接</h3>
+        <div class="link-list">
+            {{ range . }}
+            <a href="{{ .url }}" target="_blank" title="{{ .bio }}" class="link-item">
+                <img src="{{ .avatar | default "/images/avatar.jpg" }}" alt="{{ .name }}" />
+                <span class="link-name">{{ .name }}</span>
+            </a>
+            {{ end }}
+        </div>
+        <div class="clear"></div>
+        {{ end }}
+
+        <!-- 第二部分：友情链接 -->
+        {{ with .Site.Data.flinks.links }}
+        <h3 class="link-title" style="margin-top: 20px;">友情链接</h3>
+        <div class="link-list">
+            {{ range . }}
+            <a href="{{ .url }}" target="_blank" title="{{ .bio }}" class="link-item">
+                <img src="{{ .avatar | default "/images/avatar.jpg" }}" alt="{{ .name }}" />
+                <span class="link-name">{{ .name }}</span>
+            </a>
+            {{ end }}
+        </div>
+        <div class="clear"></div>
+        {{ end }}
+
+        <!-- 兜底：如果直接写在 data/flinks.yml 根部 -->
+        {{ if not (or .Site.Data.flinks.recommend .Site.Data.flinks.links) }}
+            {{ with .Site.Data.flinks }}
+            <div class="link-list">
+                {{ range . }}
+                <a href="{{ .url }}" target="_blank" title="{{ .bio }}" class="link-item">
+                    <img src="{{ .avatar | default "/images/avatar.jpg" }}" alt="{{ .name }}" />
+                    <span class="link-name">{{ .name }}</span>
+                </a>
+                {{ end }}
+            </div>
+            {{ end }}
+        {{ end }}
+    </div>
+</div>
+
+<style>
+    .link-title { border-left: 4px solid #ed5565; padding-left: 10px; margin: 25px 0 15px; font-size: 18px; }
+    .link-list { display: flex; flex-wrap: wrap; margin: 0 -10px; }
+    .link-item { 
+        width: calc(25% - 20px); 
+        margin: 10px; 
+        padding: 10px; 
+        background: #fafafa; 
+        border: 1px solid #eee; 
+        border-radius: 4px; 
+        display: flex; 
+        align-items: center; 
+        text-decoration: none !important;
+        transition: all 0.3s;
+    }
+    .link-item:hover { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transform: translateY(-2px); border-color: #ed5565; }
+    .link-item img { width: 35px; height: 35px; border-radius: 50%; margin-right: 10px; border: 1px solid #eee; }
+    .link-name { font-size: 14px; color: #444; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    @media (max-width: 768px) { .link-item { width: calc(50% - 20px); } }
+</style>
+{{ end }}
