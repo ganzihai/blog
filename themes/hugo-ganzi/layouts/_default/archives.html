@@ -9,7 +9,8 @@
         <div class="archives-info">博客统计信息</div>
         <ul>
             <li>
-                {{ $age := div (sub now.Unix .Site.Params.since.Unix) 86400 }}
+                {{ $since := time (.Site.Params.since | default "2023-05-20") }}
+                {{ $age := div (sub now.Unix $since.Unix) 86400 }}
                 <p class="archives-counts"><span class="archives-count">{{ $age }}</span>+</p>
                 <p class="archives-title">运行天数</p>
             </li>
@@ -30,7 +31,19 @@
                 <p class="archives-title">评论</p>
             </li>
             <li>
-                <p class="archives-counts"><span class="archives-count">{{ len (index .Site.Data "flinks" | default (slice)) }}</span>+</p>
+                {{ $flinksCount := 0 }}
+                {{ with .Site.Data.flinks }}
+                    {{ if reflect.IsMap . }}
+                        {{ range . }}
+                            {{ if reflect.IsSlice . }}
+                                {{ $flinksCount = add $flinksCount (len .) }}
+                            {{ end }}
+                        {{ end }}
+                    {{ else if reflect.IsSlice . }}
+                        {{ $flinksCount = len . }}
+                    {{ end }}
+                {{ end }}
+                <p class="archives-counts"><span class="archives-count">{{ $flinksCount }}</span>+</p>
                 <p class="archives-title">友链</p>
             </li>
         </ul>
@@ -66,6 +79,5 @@
     </div>
 </div>
 
-<!-- 归档交互 JS (如果您已拷贝 archives.min.js，它会自动生效) -->
 <script type="text/javascript" src="/js/archives.min.js"></script>
 {{ end }}
