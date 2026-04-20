@@ -68,7 +68,7 @@ input,textarea{appearance:none;-moz-appearance:none;-webkit-appearance:none;}
 .website a:link,.website a:visited{color:#222;font-size:1.625rem;font-weight:normal;}
 .article h1 a:link, .article h1 a:visited{color:#333;}
 .website a:hover, .article h1 a:hover{color:#626262;text-decoration:none;}
-.blogdescription{padding-top:0.5rem;color:#777;font-size:0.875rem;font-weight:normal;}
+.blogdescription{padding-top:0rem;color:#777;font-size:0.875rem;font-weight:normal;}
 .headicon{float:right;padding-top:0.5rem;margin-right:1.5rem;}
 .weiicon{color:#ede9e9;font-size:3rem;width:3.25rem;height:3.25rem;box-sizing:border-box;position:relative;z-index:1;}
 .weiicon:hover{transform:scale(1.15);}

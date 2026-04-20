@@ -26,37 +26,45 @@
         .highlight pre { margin: 0 !important; padding: 45px 20px 20px !important; background: transparent !important; }
         .copy-btn { position: absolute; top: 10px; right: 15px; padding: 3px 10px; font-size: 11px; color: #5c6370; background: rgba(255,255,255,0.05); border: 1px solid #3e4451; border-radius: 4px; cursor: pointer; z-index: 11; }
 
-        /* --- 顶部条全方位垂直居中优化 --- */
+        /* --- 顶部条“绝对居中”终极补丁 --- */
+        .top-bar { height: 2.75rem !important; overflow: visible !important; }
         .top-bar .container { 
             display: flex !important; 
-            justify-content: space-between; 
-            align-items: center; 
-            height: 2.75rem; /* 固定高度与 style.css 对齐 */
+            justify-content: space-between !important; 
+            align-items: center !important; 
+            height: 2.75rem !important;
+            padding: 0 15px !important;
         }
-        .top-page, .top-social { float: none !important; margin: 0 !important; display: flex; align-items: center; }
-        .top-page .menu ul { 
-            display: flex !important; 
-            align-items: center; 
-            list-style: none !important; 
-            margin: 0 !important; 
+        
+        /* 强制重置左侧文字容器 */
+        .top-page { float: none !important; margin: 0 !important; height: 100% !important; display: flex !important; align-items: center !important; }
+        .top-page .menu, .top-page .menu ul { display: flex !important; align-items: center !important; height: 100% !important; list-style: none !important; padding: 0 !important; margin: 0 !important; }
+        .top-page .menu ul li { float: none !important; margin: 0 15px 0 0 !important; padding: 0 !important; height: auto !important; line-height: 1 !important; }
+        .top-page .menu ul li a { 
+            display: inline-block !important; 
             padding: 0 !important; 
+            margin: 0 !important; 
+            line-height: 1 !important; 
+            vertical-align: middle !important;
+            font-size: 0.9rem !important;
         }
-        .top-page .menu ul li { margin: 0 10px 0 0 !important; padding: 0 !important; float: none !important; line-height: 1 !important; }
-        .top-page .menu ul li a { display: block; padding: 0 !important; line-height: 1.5 !important; }
+
+        /* 强制重置右侧图标容器 */
+        .top-social { float: none !important; margin: 0 !important; display: flex !important; align-items: center !important; height: 100% !important; }
+        .social-bookmarks { display: flex !important; align-items: center !important; list-style: none !important; margin: 0 !important; padding: 0 !important; }
 
         .rss-icon { 
-            display: block; 
-            width: 28px; 
-            height: 28px; 
-            background: url(/images/rss.gif) no-repeat 0 0; 
-            text-indent: -9999px; 
+            display: block !important; 
+            width: 28px !important; 
+            height: 28px !important; 
+            background: url(/images/rss.gif) no-repeat 0 0 !important; 
+            text-indent: -9999px !important; 
             border-radius: 50% !important; 
-            overflow: hidden;
-            border: none;
+            overflow: hidden !important;
+            border: none !important;
+            margin: 0 !important;
         }
-        .rss-icon:hover { 
-            background-position: 0 -28px; 
-        }
+        .rss-icon:hover { background-position: 0 -28px !important; }
     </style>
 
     <script type=text/javascript src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
