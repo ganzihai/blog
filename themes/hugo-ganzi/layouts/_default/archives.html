@@ -1,28 +1,38 @@
 {{ define "main" }}
 <style>
     .archives-statistics { background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 35px 20px 25px; position: relative; margin-bottom: 30px; }
-    .archives-info { position: absolute; top: -12px; left: 25px; background: #ed5565; color: #fff; padding: 4px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 4px 10px rgba(237,85,101,0.2); }
+    .archives-info { position: absolute; top: -12px; left: 25px; background: #ed5565; color: #fff !important; padding: 4px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; }
     .archives-statistics ul { display: flex; justify-content: space-around; list-style: none; padding: 0; margin: 0; }
     .archives-statistics li { flex: 1; text-align: center; border-right: 1px solid #f2f2f2; }
     .archives-statistics li:last-child { border-right: none; }
-    .archives-counts { font-size: 28px; color: #999; margin-bottom: 8px; font-family: "Helvetica Neue", Arial, sans-serif; }
-    .archives-title { font-size: 15px; color: #666; font-weight: 500; }
+    .archives-counts { font-size: 28px; color: #999; margin-bottom: 8px; }
+    .archives-title { font-size: 15px; color: #666; }
     
-    .car-container { background: #fff; padding: 25px; border-radius: 4px; border: 1px solid #eee; }
-    .cy-title { font-size: 24px; color: #333; text-align: center; margin: 35px 0 20px; }
+    .car-container { background: transparent; }
     .car-yearmonth { cursor: pointer; color: #ed5565; font-size: 18px; display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f1f1; font-weight: bold; }
-    .car-toggle-icon { font-size: 20px; width: 25px; display: inline-block; text-align: center; font-family: monospace; }
-    .car-monthlisting { padding: 15px 0 15px 40px; }
-    .car-monthlisting li { margin-bottom: 15px; font-size: 16px; color: #444; list-style: none; display: flex; align-items: center; }
-    .car-days { color: #999; margin-right: 15px; font-family: Arial; font-size: 14px; background: #f8f8f8; padding: 2px 8px; border-radius: 4px; border: 1px solid #eee; }
-    .car-monthlisting a { color: #ed5565; text-decoration: none; font-weight: 500; }
-    .car-monthlisting a:hover { text-decoration: underline; color: #da4453; }
+    .car-monthlisting { padding: 10px 0 10px 20px; }
+    .car-monthlisting li { margin-bottom: 15px; font-size: 16px; display: flex; align-items: center; list-style: none; }
+    
+    /* 修正 16.png 中的日期方块对齐 */
+    .car-days { 
+        background: #333; color: #fff; padding: 2px 8px; border-radius: 3px; 
+        font-size: 13px; margin-right: 12px; width: 40px; text-align: center; flex-shrink: 0;
+    }
+    
+    /* 暗黑模式适配 */
+    body.dark .archives-statistics { background: #333; border-color: #444; }
+    body.dark .archives-statistics li { border-color: #444; }
+    body.dark .archives-title { color: #aaa; }
+    body.dark .archives-counts { color: #ddd; }
+    body.dark .car-yearmonth { border-color: #444; }
+    body.dark .car-days { background: #444; }
+    body.dark .cy-title { color: #ddd; }
 </style>
 
 <div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; {{ .Title }}</div>
 
 <div class="article">
-    <h1 class="article-title" itemprop="headline" style="font-size: 26px; margin-bottom: 30px;">文章归档</h1>
+    <h1 class="article-title" itemprop="headline">文章归档</h1>
     
     <div class="archives-statistics">
         <div class="archives-info">博客统计信息</div>
@@ -37,42 +47,34 @@
             <li><p class="archives-counts">{{ len .Site.RegularPages }}+</p><p class="archives-title">文章</p></li>
             <li><p class="archives-counts">{{ len .Site.Pages }}+</p><p class="archives-title">页面</p></li>
             <li><p class="archives-counts">1+</p><p class="archives-title">评论</p></li>
-            <li><p class="archives-counts">{{ len (index .Site.Data "flinks" | default (slice)) }}+</p><p class="archives-title">友链</p></li>
+            <li><p class="archives-counts">{{ len (index .Site.Data.flinks "zh-cn" | default (slice)) }}+</p><p class="archives-title">友链</p></li>
         </ul>
     </div>
 
     <div class="archives-content">
         <div class="car-container">
-            <div style="margin-bottom: 25px; display: flex; align-items: center;">
-                <select id="archive-selector" style="padding: 6px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"><option>全部</option></select>
-                <a href="javascript:void(0)" class="car-toggler" id="archives-btn" style="margin-left: 20px; color:#c60; font-size:16px; font-weight:bold; text-decoration:none;">展开所有月份</a>
+            {{ range (.Site.RegularPages.GroupByDate "2006年") }}
+            <div class="car-year">
+                <h3 class="cy-title" style="text-align: center; margin: 40px 0 20px; font-size: 22px;">{{ .Key }}</h3>
+                <ul class="car-mon-list" style="list-style: none; padding: 0;">
+                    {{ range $index, $value := (.Pages.GroupByDate "1 月") }}
+                    <li>
+                        <span class="car-yearmonth" onclick="toggleMonth(this)">
+                            <span class="car-toggle-icon">{{ if eq $index 0 }}-{{ else }}+{{ end }}</span> {{ .Key }}
+                        </span>
+                        <ul class="car-monthlisting" style="{{ if ne $index 0 }}display:none;{{ end }}">
+                            {{ range .Pages }}
+                            <li>
+                                <span class="car-days">{{ .Date.Format "02日" }}</span>
+                                <a href="{{ .Permalink }}" style="color: #ed5565; text-decoration: none;">{{ .Title }}</a>
+                            </li>
+                            {{ end }}
+                        </ul>
+                    </li>
+                    {{ end }}
+                </ul>
             </div>
-            
-            <div class="car-list">
-                {{ range (.Site.RegularPages.GroupByDate "2006年") }}
-                <div class="car-year">
-                    <h3 class="cy-title">{{ .Key }} <span style="font-size:16px; font-weight:normal; color:#999;">（{{ len .Pages }} 篇文章）</span></h3>
-                    <ul class="car-mon-list" style="list-style: none; padding: 0;">
-                        {{ range $index, $value := (.Pages.GroupByDate "1 月") }}
-                        <li style="margin-bottom: 8px;">
-                            <span class="car-yearmonth" onclick="toggleMonth(this)">
-                                <span class="car-toggle-icon">{{ if eq $index 0 }}-{{ else }}+{{ end }}</span> {{ .Key }} <span style="color:#999; font-weight:normal; font-size:14px; margin-left: 10px;">({{ len .Pages }} 篇文章)</span>
-                            </span>
-                            <ul class="car-monthlisting" style="{{ if ne $index 0 }}display:none;{{ end }}">
-                                {{ range .Pages }}
-                                <li>
-                                    <span class="car-days">{{ .Date.Format "02日" }}</span>
-                                    <a href="{{ .Permalink }}">{{ .Title }}</a>
-                                    <span style="color:#bbb; font-size:13px; margin-left:10px;">（暂无评论）</span>
-                                </li>
-                                {{ end }}
-                            </ul>
-                        </li>
-                        {{ end }}
-                    </ul>
-                </div>
-                {{ end }}
-            </div>
+            {{ end }}
         </div>
     </div>
 </div>
@@ -89,17 +91,5 @@ function toggleMonth(el) {
         icon.innerText = '+';
     }
 }
-document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('archives-btn');
-    let isAllOpen = false;
-    btn.addEventListener('click', function() {
-        const lists = document.querySelectorAll('.car-monthlisting');
-        const icons = document.querySelectorAll('.car-toggle-icon');
-        isAllOpen = !isAllOpen;
-        lists.forEach(l => l.style.display = isAllOpen ? 'block' : 'none');
-        icons.forEach(i => i.innerText = isAllOpen ? '-' : '+');
-        this.innerText = isAllOpen ? '折叠所有月份' : '展开所有月份';
-    });
-});
 </script>
 {{ end }}

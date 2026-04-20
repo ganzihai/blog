@@ -1,0 +1,62 @@
+{{ define "main" }}
+<div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; {{ .Title }}</div>
+
+<div class="article">
+    <h1 class="article-title" itemprop="headline" style="text-align: center; margin: 35px 0;">友情连接</h1>
+    
+    <div class="article-content">
+        {{ .Content }}
+
+        <!-- 深度适配 data/flinks/zh-cn.yaml 结构 -->
+        {{ $flinks := index .Site.Data.flinks "zh-cn" }}
+        {{ range $flinks }}
+            <h2 class="group-title">{{ .FLinksTitle }}</h2>
+            {{ if .FLinksDesc }}<p class="group-desc">{{ .FLinksDesc }}</p>{{ end }}
+            
+            <div class="link-grid">
+                {{ range .FLinksList }}
+                <a href="{{ .link }}" target="_blank" class="link-card">
+                    <div class="link-card-inner">
+                        <div class="link-avatar-wrap">
+                            <img src="{{ .avatar | default "/images/avatar.jpg" }}" alt="{{ .name }}" onerror="this.src='/images/avatar.jpg'" />
+                        </div>
+                        <div class="link-info">
+                            <span class="link-name">{{ .name }}</span>
+                            <span class="link-desc" title="{{ .desc }}">{{ .desc }}</span>
+                        </div>
+                    </div>
+                </a>
+                {{ end }}
+            </div>
+            <div class="clear"></div>
+        {{ end }}
+        
+        <div class="divider-line">~~~~~ 我可是有底线的哟 ~~~~~</div>
+    </div>
+</div>
+
+<style>
+    .group-title { font-size: 20px; margin: 40px 0 15px; border-bottom: 1px solid #eee; padding-bottom: 8px; font-weight: bold; }
+    .group-desc { color: #888; font-size: 14px; margin: -10px 0 20px 5px; font-style: italic; }
+    .link-grid { display: flex; flex-wrap: wrap; margin: 0 -10px; }
+    .link-card { width: calc(33.333% - 20px); margin: 10px; text-decoration: none !important; }
+    .link-card-inner { background: #fff; border: 1px solid #eee; border-radius: 6px; padding: 15px; display: flex; align-items: center; transition: all 0.3s; }
+    .link-card:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: #ed5565; }
+    .link-avatar-wrap { width: 50px; height: 50px; margin-right: 15px; flex-shrink: 0; }
+    .link-avatar-wrap img { width: 100%; height: 100%; border-radius: 4px; object-fit: cover; }
+    .link-info { display: flex; flex-direction: column; overflow: hidden; }
+    .link-name { font-size: 16px; color: #333; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .link-desc { font-size: 12px; color: #777; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .divider-line { text-align: center; margin: 60px 0 30px; color: #999; font-size: 14px; border-top: 1px dashed #ddd; padding-top: 25px; }
+
+    /* 暗黑模式适配 */
+    body.dark .link-card-inner { background: #333; border-color: #444; }
+    body.dark .link-name { color: #eee; }
+    body.dark .link-desc { color: #aaa; }
+    body.dark .group-title { color: #ddd; border-color: #444; }
+    body.dark .divider-line { border-color: #444; }
+
+    @media (max-width: 1024px) { .link-card { width: calc(50% - 20px); } }
+    @media (max-width: 600px) { .link-card { width: calc(100% - 20px); } }
+</style>
+{{ end }}
