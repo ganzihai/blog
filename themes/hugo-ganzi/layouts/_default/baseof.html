@@ -6,100 +6,99 @@
     <meta name="color-scheme" content="light dark" />
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
     
-    {{ with resources.Get "css/style.css" }}{{ $style := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $style.RelPermalink }}" />{{ end }}
-    {{ with resources.Get "css/dark.css" }}{{ $dark := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $dark.RelPermalink }}" />{{ end }}
-    {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $mmenu.RelPermalink }}" />{{ end }}
+    {{ with resources.Get "css/style.css" }}{{ $style := . | minify | fingerprint }}<link rel=stylesheet href="{{ $style.RelPermalink }}">{{ end }}
+    {{ with resources.Get "css/dark.css" }}{{ $dark := . | minify | fingerprint }}<link rel=stylesheet href="{{ $dark.RelPermalink }}">{{ end }}
+    {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel=stylesheet href="{{ $mmenu.RelPermalink }}">{{ end }}
     
-    <script type="text/javascript" src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/jquery.mmenu.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/dark.min.js").RelPermalink }}"></script>
-    <script type="text/javascript" src="{{ (resources.Get "js/weisay.min.js").RelPermalink }}"></script>
+    <script type=text/javascript src="{{ (resources.Get "js/jquery.min.js").RelPermalink }}"></script>
+    <script type=text/javascript src="{{ (resources.Get "js/jquery.mmenu.min.js").RelPermalink }}"></script>
+    <script type=text/javascript src="{{ (resources.Get "js/dark.min.js").RelPermalink }}"></script>
+    <script type=text/javascript src="{{ (resources.Get "js/weisay.min.js").RelPermalink }}"></script>
 </head>
 <body>
-    <div class="header">
-        <div class="top-bar">
-            <div class="container">
-                <div class="top-page">
-                    <div class="menu">
+    <div class=header>
+        <div class=top-bar>
+            <div class=container>
+                <div class=top-page>
+                    <div class=menu>
                         <ul>
-                            <li class="page_item"><a href="/archives/">归档</a></li>
-                            <li class="page_item"><a href="/flinks.html">友链</a></li>
-                            <li class="page_item"><a href="/about.html">关于</a></li>
+                            <li class=page_item><a href="/archives/">归档</a></li>
+                            <li class=page_item><a href="/flinks.html">链接</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="top-social">
-                    <ul class="social-bookmarks">
-                        <li><a class="rss-icon" href="/index.xml" target="_blank" title="欢迎订阅{{ .Site.Title }}"><i class="iconfont socialicon">&#xe8e7;</i></a></li>
+                <div class=top-social>
+                    <ul class=social-bookmarks>
+                        <li><a class=rss-icon href=/index.xml target=_blank title="欢迎订阅{{ .Site.Title }}"><i class="iconfont socialicon">&#xe8e7;</i></a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="clear"></div>
+        <div class=clear></div>
         <div class="website container">
-            <div class="headline">
+            <div class=headline>
                 {{ if .IsHome }}<h1>{{ end }}<a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>{{ if .IsHome }}</h1>{{ end }}
-                <div class="blogdescription">{{ .Site.Params.description }}</div>
+                <div class=blogdescription>{{ .Site.Params.description }}</div>
             </div>
         </div>
     </div>
 
-    <div class="headermenu">
-        <a id="hamburger" onfocus="this.blur()" href="#menu" rel="nofollow"><span></span></a>{{ .Site.Title }}<a class="icon-right" href="#menu-right" rel="nofollow"><i class="iconfont righticon"></i></a>
+    <div class=headermenu>
+        <a id=hamburger onfocus=this.blur() href=#menu rel=nofollow><span></span></a>{{ .Site.Title }}<a class=icon-right href=#menu-right rel=nofollow><i class="iconfont righticon"></i></a>
     </div>
 
-    <div class="navigation">
+    <div class=navigation>
         <div class="container mainmenu">
-            <div class="menu-ganzi-container">
-                <ul id="menu-ganzi" class="menu">
-                    <li class="menu-item {{ if .IsHome }}current-menu-item{{ end }}"><a href="/">首页</a></li>
-                    <li class="menu-item"><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
-                    <li class="menu-item"><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
-                    <li class="menu-item"><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
-                    <li class="menu-item"><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
+            <div class=menu-ganzi-container>
+                <ul id=menu-ganzi class=menu>
+                    <li class="menu-item {{ if .IsHome }}current-menu-item{{ end }}"><a href=/>首页</a></li>
+                    <li class=menu-item><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
+                    <li class=menu-item><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
+                    <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
+                    <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
                 </ul>
             </div>
-            <div class="search">
-                <form class="search-form" method="get" action="/">
-                    <input class="search-input" required="" type="text" name="s" placeholder="搜索" />
-                    <button aria-label="搜索" class="search-submit iconfont" type="submit">&#xe652;</button>
+            <div class=search>
+                <form class=search-form method=get action=/>
+                    <input class=search-input required type=text name=s placeholder=搜索>
+                    <button aria-label=搜索 class="search-submit iconfont" type=submit>&#xe652;</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="roll">
-        <div id="dark-mode-toggle-button" onclick="applyCustomDarkModeSettings(toggleCustomDarkMode());" title="点击切换显示模式" class="roll-dark"><i class="iconfont rollmodeicon"></i></div>
-        <div title="回到顶部" class="roll-top"><i class="iconfont rollicon">&#xe614;</i></div>
+    <div class=roll>
+        <div id=dark-mode-toggle-button onclick=applyCustomDarkModeSettings(toggleCustomDarkMode()) title=点击切换显示模式 class=roll-dark><i class="iconfont rollmodeicon"></i></div>
+        <div title=回到顶部 class=roll-top><i class="iconfont rollicon">&#xe614;</i></div>
     </div>
 
-    <div class="container">
-        <div class="main">
+    <div class=container>
+        <div class=main>
             {{ block "main" . }}{{ end }}
         </div>
         {{ partial "sidebar.html" . }}
     </div>
 
-    <div class="clear"></div>
-    <div class="footer" id="footers">
+    <div class=clear></div>
+    <div class=footer id=footers>
         <div class="footer-info container">
-            <div class="footer-left">
-                <p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class="footer-hide">Theme by <a href="https://blog.zznuo.com/" rel="external">Ganzi</a>.</span></p>
+            <div class=footer-left>
+                <p>© {{ now.Format "2006" }} {{ .Site.Title }}. <span class=footer-hide>Theme by <a href=https://blog.zznuo.com/ rel=external>Ganzi</a>.</span></p>
             </div>
         </div>
     </div>
 
-    <nav id="menu">
-        <div class="menu-ganzi-container">
-            <ul id="menu-ganzi-1" class="menu">
-                <li class="menu-item"><a href="/">首页</a></li>
-                <li class="menu-item"><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
-                <li class="menu-item"><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
-                <li class="menu-item"><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
-                <li class="menu-item"><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
+    <nav id=menu>
+        <div class=menu-ganzi-container>
+            <ul id=menu-ganzi-1 class=menu>
+                <li class=menu-item><a href=/>首页</a></li>
+                <li class=menu-item><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
+                <li class=menu-item><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
+                <li class=menu-item><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
+                <li class=menu-item><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
             </ul>
         </div>
     </nav>
-    {{ with resources.Get "js/lazyload.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
+    {{ with resources.Get "js/lazyload.min.js" }}<script type=text/javascript src="{{ .RelPermalink }}"></script>{{ end }}
 </body>
 </html>
