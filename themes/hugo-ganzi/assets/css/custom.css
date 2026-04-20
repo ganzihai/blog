@@ -67,12 +67,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     overflow: visible !important;
 }
 
-/*
- * 「博客统计信息」标签：
- * style.css 原始规则有 margin: -2rem 0 1.25rem 把标签大幅上拉，
- * 必须用 margin: 0 !important 强制覆盖。
- * top: -13px = 标签自身高度(26px)的一半，使边框线穿过标签正中间。
- */
 .archives-info {
     position: absolute !important;
     top: -13px !important;
@@ -113,13 +107,46 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 #archive-selector { height: 34px !important; padding: 0 10px !important; border: 1px solid #ccc !important; border-radius: 4px !important; background: #fff !important; color: #333 !important; }
 .dark #archive-selector { background: #333 !important; color: #ccc !important; border-color: #444 !important; }
 
-/* 友链卡片强制 1:1 复刻 */
+/* 友链卡片 */
 .link-grid { display: flex; flex-wrap: wrap; margin: 0 -8px; }
 .link-card-item { width: calc(33.333% - 16px); margin: 8px; text-decoration: none !important; display: block !important; }
-.link-card-inner { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px; display: flex !important; align-items: center !important; transition: all 0.3s; min-height: 80px; }
+.link-card-inner {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex !important;
+    align-items: center !important;
+    transition: all 0.3s;
+    min-height: 80px;
+}
 .link-card-item:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
-.link-avatar { width: 50px !important; height: 50px !important; margin-right: 15px !important; flex-shrink: 0 !important; }
-.link-avatar img { width: 50px !important; height: 50px !important; border-radius: 50% !important; object-fit: cover !important; border: 1px solid #f0f0f0 !important; }
+
+/*
+ * 图标容器：必须同时设定固定宽高 + overflow:hidden + flex-shrink:0
+ * overflow:hidden 是关键——如果没有它，即使 img 设了 border-radius:50%
+ * 容器本身不裁切，寜宽不成正方形的图片会把容器撑高。
+ */
+.link-avatar {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
+    margin-right: 15px !important;
+    flex-shrink: 0 !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    display: block !important;
+}
+.link-avatar img {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    display: block !important;
+    border: 1px solid #f0f0f0 !important;
+}
+
 .link-info { overflow: hidden !important; display: flex !important; flex-direction: column !important; }
 .link-name { font-size: 16px !important; color: #333 !important; font-weight: bold !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.4 !important; }
 .link-desc { font-size: 12px !important; color: #777 !important; margin-top: 5px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.2 !important; }
