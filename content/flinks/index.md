@@ -1,6 +1,6 @@
 ---
 title: "友情连接"
-layout: flinks
+type: flinks
 url: flinks.html
 ---
 
