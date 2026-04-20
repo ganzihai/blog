@@ -55,7 +55,7 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 
 /* --- 5. 归档与友链页面终极适配 --- */
 .archives-statistics { border: 1px solid #ddd; border-radius: 4px; padding: 45px 20px 25px; position: relative; margin-bottom: 30px; margin-top: 20px; background: #fff; }
-.archives-info { position: absolute; top: -14px; left: 20px; background: #ed5565; color: #fff !important; padding: 3px 12px; border-radius: 4px; font-size: 14px; font-weight: 300; z-index: 5; }
+.archives-info { position: absolute; top: 22px; left: 1px; background: #ed5565; color: #fff !important; padding: 3px 12px; border-radius: 4px; font-size: 14px; font-weight: 300; z-index: 5; }
 .archives-statistics ul { display: flex !important; justify-content: space-around !important; list-style: none !important; margin: 0 !important; }
 .archives-counts { font-size: 32px; color: #999; margin-bottom: 5px; }
 
