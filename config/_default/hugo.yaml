@@ -3,7 +3,7 @@
 # ===============================================================
 
 baseURL: /
-title: 杆子博客-博采众长 一诺千金！
+title: 杆子博客
 theme: hugo-ganzi
 timeZone: Asia/Shanghai
 defaultContentLanguage: zh-cn
