@@ -12,28 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	if (isMobile && document.querySelector('nav#menu-right')) {
 		var rightMenu = new Mmenu('nav#menu-right', {
 			offCanvas: { position: 'right' },
-			navbar: { title: '侧边栏' }
+			navbar: { title: '侧边栏' },
+			theme: 'white'  // 固定使用白色主题
 		});
 
-		function updateMmenuTheme() {
-			var el = document.querySelector('nav#menu-right');
-			if (!el) return;
-			if (document.body.classList.contains('dark')) {
-				el.classList.add('mm-menu--theme-dark');
-				el.classList.remove('mm-menu--theme-white');
-			} else {
-				el.classList.remove('mm-menu--theme-dark');
-				el.classList.add('mm-menu--theme-white');
-			}
-		}
-		updateMmenuTheme();
-
-		var observer = new MutationObserver(function(mutations) {
-			mutations.forEach(function(m) {
-				if (m.attributeName === 'class') updateMmenuTheme();
-			});
-		});
-		observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+		// 不再根据暗黑模式切换主题，始终保持明亮主题
 
 		// 右侧按钮绑定 mmenu API
 		var sidebarBtn = document.getElementById('mobile-sidebar-btn');
