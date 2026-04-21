@@ -31,8 +31,9 @@
             {{ end }}
         {{ end }}
 
-        {{/* 修复双重转义：先处理 &amp;amp; 再处理 &amp; */}}
-        {{ $imgSrc = $imgSrc | strings.Replace "&amp;amp;" "&" -1 | strings.Replace "&amp;" "&" -1 }}
+        {{/* 修复双重转义：用 replace 函数，格式为 replace 原字符串 旧值 新值 */}}
+        {{ $imgSrc = replace $imgSrc "&amp;amp;" "&" }}
+        {{ $imgSrc = replace $imgSrc "&amp;" "&" }}
 
         <div class="thumbnail">
             <a href="{{ .Permalink }}" rel="nofollow" title="{{ .Title }}">
