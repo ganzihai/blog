@@ -15,6 +15,7 @@
 }
 .iconfont{font-family:"iconfont" !important;font-size:14px;font-style:normal;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding-right:3px;display:inline-block;}
 *{border:0;margin:0;padding:0;}
+html{scroll-padding-top:5.75rem;}
 ::selection{color:#fff;background:#7c141f;}
 ::-moz-selection{color:#fff;background:#7c141f;}
 a:link, a:visited{color:#ed5565;text-decoration:none;}
