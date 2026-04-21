@@ -21,15 +21,15 @@
         <div class="about-author">
             <div class="author-cover" style="background-image: url('/images/cover.jpg'); background-position: center; background-size: cover; height: 130px;"></div>
             <div class="author-avatar" style="text-align: center; margin-top: -45px;">
-                <img alt='头像' src='/images/ganzi.jpg' class='avatar avatar-90 photo' height='90' width='90' style="border: 4px solid #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); background: #fff;" />
+                <img alt='头像' src='/images/ganzi.jpg' class='avatar avatar-90 photo' height='90' width='90' />
             </div>
             <div class="author-info" style="text-align: center; padding-top: 10px;">
                 <h3 class="author-name" style="margin: 8px 0; font-size: 18px;">{{ .Site.Params.author_name | default "杆子" }}</h3>
-                <div class="author-description" style="font-size: 14px; color: #666; padding: 0 20px 1px;">{{ .Site.Params.description }}</div>
+                <div class="author-description" style="font-size: 14px; padding: 0 20px 1px;">{{ .Site.Params.description }}</div>
                 <div class="author-stats">
                     <div class="stat-item"><span class="stat-number">{{ len .Site.RegularPages }}</span><span class="stat-label">文章</span></div>
-                    <div class="stat-item" style="border-left: 1px solid #eee;"><span class="stat-number">1</span><span class="stat-label">评论</span></div>
-                    <div class="stat-item" style="border-left: 1px solid #eee;"><span class="stat-number">{{ len .Site.Taxonomies.categories }}</span><span class="stat-label">分类</span></div>
+                    <div class="stat-item"><span class="stat-number">1</span><span class="stat-label">评论</span></div>
+                    <div class="stat-item"><span class="stat-number">{{ len .Site.Taxonomies.categories }}</span><span class="stat-label">分类</span></div>
                 </div>
             </div>
         </div>

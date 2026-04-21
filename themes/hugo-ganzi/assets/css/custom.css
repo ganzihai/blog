@@ -72,6 +72,18 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .tag-cloud-link:nth-child(9n+8) { color: #f65e87 !important; background-color: rgba(246,94,135,0.1); }
 .tag-cloud-link:hover { opacity: 0.8; transition: opacity 0.2s; }
 
+/* 暗黑模式下全局标签云样式 */
+.dark .tag-cloud-link { color: #bbb !important; }
+.dark .tag-cloud-link:nth-child(9n)   { background-color: rgba(43,152,253,0.15) !important; }
+.dark .tag-cloud-link:nth-child(9n+1) { background-color: rgba(188,16,72,0.15) !important; }
+.dark .tag-cloud-link:nth-child(9n+2) { background-color: rgba(68,85,222,0.15) !important; }
+.dark .tag-cloud-link:nth-child(9n+3) { background-color: rgba(255,89,0,0.15) !important; }
+.dark .tag-cloud-link:nth-child(9n+4) { background-color: rgba(39,121,32,0.15) !important; }
+.dark .tag-cloud-link:nth-child(9n+5) { background-color: rgba(217,49,196,0.15) !important; }
+.dark .tag-cloud-link:nth-child(9n+6) { background-color: rgba(20,192,31,0.15) !important; }
+.dark .tag-cloud-link:nth-child(9n+7) { background-color: rgba(172,126,36,0.15) !important; }
+.dark .tag-cloud-link:nth-child(9n+8) { background-color: rgba(246,94,135,0.15) !important; }
+
 /* --- 5. 归档与友链页面终极适配 --- */
 .article { overflow: visible !important; }
 
@@ -328,4 +340,10 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   body.dark .right-drawer-body h1,
   body.dark .right-drawer-body h2,
   body.dark .right-drawer-body h3 { color: #eee !important; }
+  
+  /* 标签云暗黑模式（继承全局样式，无需额外设置） */
+  /* 强制覆盖作者卡片的内联样式 */
+  body.dark .right-drawer-body .author-description { color: #999 !important; }
+  body.dark .right-drawer-body .stat-item { border-left-color: #333 !important; }
+  body.dark .right-drawer-body .author-avatar img { border-color: #1d1d1d !important; box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important; background: #1d1d1d !important; }
 }
