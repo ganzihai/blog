@@ -296,8 +296,8 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   .right-drawer-body .about-author .author-stats { background: #fafafa !important; border-top-color: #f2f2f2 !important; }
   .right-drawer-body .about-author .stat-number { color: #333 !important; }
 
-  /* 右侧抽屉始终保持明亮主题，不随暗黑模式变化 */
-  /* body.dark #right-drawer { background: #121212 !important; }
+  /* 右侧抽屉暗黑模式 - 与电脑端侧边栏样式完全一致 */
+  body.dark #right-drawer { background: #121212 !important; }
   body.dark .right-drawer-header { background: #1a1a1a !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
   body.dark .right-drawer-title { color: rgba(255,255,255,0.4) !important; }
   body.dark #right-drawer-close { color: rgba(255,255,255,0.4) !important; }
@@ -327,5 +327,5 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   body.dark .right-drawer-body .tabnav li.selected { color: #ed5565 !important; background: #1c1c1c !important; border-top-color: #da4453 !important; }
   body.dark .right-drawer-body h1,
   body.dark .right-drawer-body h2,
-  body.dark .right-drawer-body h3 { color: #eee !important; } */
+  body.dark .right-drawer-body h3 { color: #eee !important; }
 }
