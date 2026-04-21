@@ -1,0 +1,118 @@
+{{ define "main" }}
+<div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; 搜索结果</div>
+
+<div class="article">
+    <div class="article-content" style="padding: 20px;">
+        <div id="search-container">
+            <div id="search-status" style="color:#888; font-size:14px; margin-bottom:20px;"></div>
+            <div id="search-results"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+.search-result-item {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 16px 0;
+}
+.search-result-item:last-child { border-bottom: none; }
+.search-result-title {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+.search-result-title a {
+    color: #333 !important;
+    text-decoration: none;
+}
+.search-result-title a:hover { color: #ed5565 !important; }
+.search-result-summary {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.7;
+    margin-bottom: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.search-result-meta {
+    font-size: 13px;
+    color: #aaa;
+}
+.search-result-meta span { margin-right: 12px; }
+.search-highlight { color: #ed5565; font-weight: bold; }
+.search-empty {
+    text-align: center;
+    padding: 60px 0;
+    color: #aaa;
+    font-size: 15px;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script>
+(function(){
+    var query = new URLSearchParams(window.location.search).get('q') || '';
+    var statusEl = document.getElementById('search-status');
+    var resultsEl = document.getElementById('search-results');
+
+    if (!query.trim()) {
+        statusEl.textContent = '请输入搜索关键词';
+        return;
+    }
+
+    statusEl.textContent = '正在搜索“' + query + '”…';
+
+    fetch('/search.json')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+            var fuse = new Fuse(data, {
+                keys: [
+                    { name: 'title',   weight: 0.6 },
+                    { name: 'summary', weight: 0.3 },
+                    { name: 'tags',    weight: 0.1 }
+                ],
+                includeScore: true,
+                includeMatches: true,
+                threshold: 0.4,
+                minMatchCharLength: 1
+            });
+
+            var results = fuse.search(query);
+            statusEl.textContent = '搜索“' + query + '”，共找到 ' + results.length + ' 个结果';
+
+            if (results.length === 0) {
+                resultsEl.innerHTML = '<div class="search-empty">没有找到与“' + query + '”相关的文章</div>';
+                return;
+            }
+
+            var html = '';
+            results.forEach(function(r){
+                var item = r.item;
+                var title = item.title || '无标题';
+                var summary = item.summary || '';
+                var date = item.date || '';
+                var cats = (item.categories || []).join(', ');
+
+                // 高亮关键词
+                var re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+                var titleHl = title.replace(re, '<span class="search-highlight">$1</span>');
+                var summaryHl = summary.replace(re, '<span class="search-highlight">$1</span>');
+
+                html += '<div class="search-result-item">';
+                html += '<div class="search-result-title"><a href="' + item.url + '">' + titleHl + '</a></div>';
+                if (summary) html += '<div class="search-result-summary">' + summaryHl + '</div>';
+                html += '<div class="search-result-meta">';
+                if (date) html += '<span>&#xe689; ' + date + '</span>';
+                if (cats) html += '<span>&#xe658; ' + cats + '</span>';
+                html += '</div></div>';
+            });
+            resultsEl.innerHTML = html;
+        })
+        .catch(function(){
+            statusEl.textContent = '搜索索引加载失败，请刷新重试';
+        });
+})();
+</script>
+{{ end }}
