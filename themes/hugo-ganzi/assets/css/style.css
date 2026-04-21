@@ -298,7 +298,7 @@ input,textarea{appearance:none;-moz-appearance:none;-webkit-appearance:none;}
 .shang-body .shang-qrcode span{text-align:center;display:block;margin:-20px auto;background:#fff;font-size:14px;width:90px;font-weight:bold;position:relative;}
 .shang-body .shang-zfb span{color:#0062ff;}
 .shang-body .shang-wx span{color:#22ac38;}
-.shang-body .shang-tips{margin-top:2.5rem;text-align:center;display:inherit;}
+.shang-body .shang-tips{margin-top:2rem;text-align:center;display:inherit;}
 /* 图文混排 */
 img.size-auto,img.size-full,img.size-large,img.size-medium,.attachment img,.widget-container img{max-width:780px;height:auto;}
 .alignleft,img.alignleft{display:inline;float:left;margin-right:1rem;margin-top:0.325rem;}
