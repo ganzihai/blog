@@ -43,7 +43,7 @@
         <div class="clear"></div>
     </div>
 
-    {{ if .Site.Params.reward_display }}
+    {{ if .Site.Params.rewardSets.enable }}
     <div class="article article-shang">
         <div class="shang">
             <span class="zanzhu"><a title="赞助本站" href="javascript:;" onfocus="this.blur()">赏</a></span>
@@ -54,12 +54,76 @@
         <button class="shang-close" title="关闭">×</button>
         <div class="shang-title">打赏支持</div>
         <div class="shang-body">
-            <div class="shang-zfb shang-qrcode"><img alt="支付宝打赏" src="{{ .Site.Params.alipay_qr | default "/images/alipay.jpg" }}" width="170" height="170"><span>支付宝打赏</span></div>
-            <div class="shang-wx shang-qrcode"><img alt="微信打赏" src="{{ .Site.Params.wechat_qr | default "/images/wechat.jpg" }}" width="170" height="170"><span>微信打赏</span></div>
+            {{ range $key, $val := .Site.Params.rewardSets.reward }}
+            <div class="shang-qrcode">
+                <img alt="{{ $key }}打赏" src="{{ $val }}" width="170" height="170">
+                <span>
+                    {{ if eq $key "wechatpay" }}微信打赏
+                    {{ else if eq $key "alipay" }}支付宝打赏
+                    {{ else }}{{ $key }}
+                    {{ end }}
+                </span>
+            </div>
+            {{ end }}
             <div class="clear"></div>
             <p class="shang-tips">扫描二维码，打赏一下作者吧~</p>
         </div>
     </div>
+
+    <style>
+    .article-shang { text-align: center; padding: 20px 0; }
+    .shang { display: inline-block; }
+    .zanzhu a {
+        display: inline-block;
+        width: 60px; height: 60px; line-height: 60px;
+        border-radius: 50%; border: 2px solid #f0a500;
+        color: #f0a500; font-size: 20px; font-weight: bold;
+        text-decoration: none; cursor: pointer;
+        transition: all 0.3s;
+    }
+    .zanzhu a:hover { background: #f0a500; color: #fff; }
+    .shang-bg {
+        display: none; position: fixed; top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6); z-index: 9998;
+    }
+    .shang-content {
+        position: fixed; top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff; border-radius: 8px;
+        padding: 30px 40px; z-index: 9999;
+        text-align: center; min-width: 380px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    body.dark .shang-content, [data-theme="dark"] .shang-content { background: #2a2a2a; color: #ddd; }
+    .shang-close {
+        position: absolute; top: 10px; right: 15px;
+        font-size: 22px; cursor: pointer; background: none;
+        border: none; color: #999; line-height: 1;
+    }
+    .shang-close:hover { color: #333; }
+    .shang-title { font-size: 18px; font-weight: bold; margin-bottom: 20px; color: #f0a500; }
+    .shang-body { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+    .shang-qrcode { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .shang-qrcode img { border: 1px solid #eee; border-radius: 4px; }
+    .shang-qrcode span { font-size: 13px; color: #666; }
+    .shang-tips { margin-top: 20px; color: #999; font-size: 13px; }
+    </style>
+
+    <script>
+    (function(){
+        var zanBtn  = document.querySelector('.zanzhu a');
+        var shanBg  = document.querySelector('.shang-bg');
+        var shanBox = document.querySelector('.shang-content');
+        var closeBtn = document.querySelector('.shang-close');
+        function openReward(){ shanBg.style.display='block'; shanBox.style.display='block'; }
+        function closeReward(){ shanBg.style.display='none'; shanBox.style.display='none'; }
+        if(zanBtn)   zanBtn.addEventListener('click', openReward);
+        if(shanBg)   shanBg.addEventListener('click', closeReward);
+        if(closeBtn) closeBtn.addEventListener('click', closeReward);
+        document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeReward(); });
+    })();
+    </script>
     {{ end }}
 
     <div class="article">
