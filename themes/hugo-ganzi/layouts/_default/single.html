@@ -67,7 +67,7 @@
             </div>
             {{ end }}
             <div class="clear"></div>
-            <p class="shang-tips">「请 GANZI 喝杯咖啡作为鼓励」~</p>
+            <p class="shang-tips">「请 GANZI 喝杯咏啡作为鼓励」~</p>
         </div>
     </div>
 
@@ -117,8 +117,15 @@
     </div>
 
 <style>
-.main .article .article-related li {
-    padding-right: 2rem;
+/* 奇数列（左列）加右边距，不影响宽度 */
+@media screen and (min-width:992px) {
+    .main .article .article-related li:nth-child(odd) {
+        margin-right: 2rem;
+    }
+    .main .article .article-related li:nth-child(odd),
+    .main .article .article-related li:nth-child(even) {
+        box-sizing: border-box;
+    }
 }
 </style>
 {{ end }}
