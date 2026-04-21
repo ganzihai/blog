@@ -7,6 +7,10 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .dark .article, .dark .widget, .dark .car-container, .dark .flinks-container { background: #1d1d1d !important; border-color: #333 !important; }
 .dark h1, .dark h2, .dark h3, .dark .post-title a { color: #eeeeee !important; }
 .dark .link-group-title { color: #ffffff !important; }
+/* tab-content 暗黑背景（全局，桌面+手机同时生效） */
+.dark .tab-content { background: #1d1d1d !important; }
+.dark .tab-content ul li { border-bottom-color: #2a2a2a !important; color: #bbb !important; }
+.dark .tab-content ul li a { color: #bbb !important; }
 
 /* --- 2. 顶部条 (Top Bar) 垂直绝对居中锁定 --- */
 .top-bar { height: 45px !important; line-height: 45px !important; background: #434a54 !important; overflow: visible !important; }
@@ -39,7 +43,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .sidebar .widget .tab-content { padding: 15px !important; }
 .sidebar .widget .tab-content ul li { height: 40px; display: flex; align-items: center; border-bottom: 1px dashed #eee; font-size: 16px; overflow: hidden; }
 .sidebar .widget .tab-content ul li a { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; color: inherit; width: 100%; display: block; }
-.dark .tab-content ul li { border-bottom-color: #2a2a2a !important; }
 
 /* 作者卡片统计 */
 .about-author .author-stats { display: flex !important; border-top: 1px solid #f2f2f2 !important; margin-top: 12px !important; background: #fafafa !important; width: 100% !important; border-radius: 0 0 8px 8px; }
@@ -126,8 +129,14 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .clear-footer { clear: both !important; height: 1px !important; width: 100% !important; display: block !important; }
 #footers { clear: both !important; width: 100% !important; margin-top: 50px !important; }
 
-/* --- 6. 返回顶部按鈕 --- */
-.roll-top { width: 40px !important; height: 40px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+/* --- 6. 右下角悬浮按钮统一大小（暗黑切换 + 回到顶部） --- */
+.roll { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.roll-dark,
+.roll-top {
+    width: 40px !important; height: 40px !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    flex-shrink: 0 !important;
+}
 .roll-top svg { width: 24px !important; height: 24px !important; }
 
 /* --- 7. 桌面端隐藏手机组件，防止mmenu副作用 --- */
@@ -173,7 +182,7 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   .mobile-header { display: none !important; }
 }
 
-/* --- 9. 左侧纯CSS抽屉 --- */
+/* --- 9. 左侧纯CSS抽屉（含暗黑模式） --- */
 @media screen and (max-width: 991px) {
   #left-drawer-overlay {
     display: none; position: fixed; inset: 0; z-index: 19998;
@@ -207,14 +216,15 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   .left-drawer-nav li a { display: block; height: 2.75rem; line-height: 2.75rem; padding: 0 1rem; color: rgba(0,0,0,0.8); font-size: 1rem; text-decoration: none; transition: background 0.2s; }
   .left-drawer-nav li a:hover, .left-drawer-nav li a:active { background: rgba(0,0,0,0.05); }
 
-  body.dark #left-drawer { background: #333; }
-  body.dark .left-drawer-header { background: #333; border-bottom-color: rgba(0,0,0,0.4); }
-  body.dark .left-drawer-title { color: rgba(255,255,255,0.4); }
-  body.dark #left-drawer-close { color: rgba(255,255,255,0.4); }
-  body.dark #left-drawer-close:hover { color: rgba(255,255,255,0.8); }
-  body.dark .left-drawer-nav li { border-bottom-color: rgba(0,0,0,0.4); }
-  body.dark .left-drawer-nav li a { color: rgba(255,255,255,0.8); }
-  body.dark .left-drawer-nav li a:hover { background: rgba(255,255,255,0.08); }
+  /* 左侧抽屉暗黑模式 */
+  body.dark #left-drawer { background: #1e1e1e !important; }
+  body.dark .left-drawer-header { background: #1e1e1e !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
+  body.dark .left-drawer-title { color: rgba(255,255,255,0.4) !important; }
+  body.dark #left-drawer-close { color: rgba(255,255,255,0.4) !important; }
+  body.dark #left-drawer-close:hover { color: rgba(255,255,255,0.9) !important; }
+  body.dark .left-drawer-nav li { border-bottom-color: rgba(255,255,255,0.08) !important; }
+  body.dark .left-drawer-nav li a { color: rgba(255,255,255,0.85) !important; }
+  body.dark .left-drawer-nav li a:hover { background: rgba(255,255,255,0.07) !important; }
 }
 
 /* --- 10. 右侧纯CSS抽屉（完全支持暗黑模式） --- */
@@ -236,11 +246,10 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   }
   #right-drawer.is-open { transform: translateX(0); }
 
-  /* 头部条 */
   .right-drawer-header {
     display: flex; align-items: center; justify-content: space-between;
     height: 2.75rem; padding: 0 1rem;
-    background: #f3f3f3;
+    background: #ebebeb;
     border-bottom: 1px solid rgba(0,0,0,0.15);
     position: sticky; top: 0; z-index: 2; flex-shrink: 0;
   }
@@ -248,7 +257,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   #right-drawer-close { background: none; border: none; color: rgba(0,0,0,0.4); cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; line-height: 1; }
   #right-drawer-close:hover { color: rgba(0,0,0,0.8); }
 
-  /* 内容区域 */
   .right-drawer-body {
     flex: 1; padding: 10px;
     background: #f5f5f5;
@@ -259,16 +267,16 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     background: transparent !important; border: none !important; box-shadow: none !important;
   }
 
-  /* widget 卡片对齐桶面端样式 */
+  /* widget 卡片 */
   .right-drawer-body .widget {
-    background: #fff !important;
-    color: #333 !important;
-    border: 1px solid #ddd !important;
-    border-radius: 8px !important;
-    overflow: hidden !important;
-    margin-bottom: 15px !important;
+    background: #fff !important; color: #333 !important;
+    border: 1px solid #ddd !important; border-radius: 8px !important;
+    overflow: hidden !important; margin-bottom: 15px !important;
   }
-  .right-drawer-body .widget .tab-content { padding: 15px !important; }
+  .right-drawer-body .widget .tab-content {
+    padding: 15px !important;
+    background: #fff !important;
+  }
   .right-drawer-body .widget .tab-content ul li {
     height: 40px; display: flex; align-items: center;
     border-bottom: 1px dashed #eee !important;
@@ -288,21 +296,21 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   .right-drawer-body .about-author .author-stats { background: #fafafa !important; border-top-color: #f2f2f2 !important; }
   .right-drawer-body .about-author .stat-number { color: #333 !important; }
 
-  /* 暗黑模式 */
-  body.dark #right-drawer { background: #121212; }
-  body.dark .right-drawer-header { background: #1a1a1a; border-bottom-color: rgba(255,255,255,0.1); }
-  body.dark .right-drawer-title { color: rgba(255,255,255,0.4); }
-  body.dark #right-drawer-close { color: rgba(255,255,255,0.4); }
-  body.dark #right-drawer-close:hover { color: rgba(255,255,255,0.8); }
-  body.dark .right-drawer-body { background: #121212; }
+  /* 右侧抽屉暗黑模式 */
+  body.dark #right-drawer { background: #121212 !important; }
+  body.dark .right-drawer-header { background: #1a1a1a !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
+  body.dark .right-drawer-title { color: rgba(255,255,255,0.4) !important; }
+  body.dark #right-drawer-close { color: rgba(255,255,255,0.4) !important; }
+  body.dark #right-drawer-close:hover { color: rgba(255,255,255,0.9) !important; }
+  body.dark .right-drawer-body { background: #121212 !important; }
   body.dark .right-drawer-body .widget {
+    background: #1d1d1d !important; color: #bbb !important; border-color: #333 !important;
+  }
+  body.dark .right-drawer-body .widget .tab-content {
     background: #1d1d1d !important;
-    color: #bbb !important;
-    border-color: #333 !important;
   }
   body.dark .right-drawer-body .widget .tab-content ul li {
-    border-bottom-color: #2a2a2a !important;
-    color: #bbb !important;
+    border-bottom-color: #2a2a2a !important; color: #bbb !important;
   }
   body.dark .right-drawer-body .widget .tab-content ul li a { color: #bbb !important; }
   body.dark .right-drawer-body .widget .tab-content ul li a:hover { color: #ed5565 !important; }
