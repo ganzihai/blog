@@ -130,16 +130,15 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .roll-top { width: 40px !important; height: 40px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
 .roll-top svg { width: 24px !important; height: 24px !important; }
 
-/* --- 7. 桑面端完全隔离 mmenu 副作用 --- */
+/* --- 7. 桌面端隐藏手机组件，防止mmenu副作用 --- */
 @media screen and (min-width: 992px) {
   .mm-page.mm-slideout { width: 100% !important; transform: none !important; left: 0 !important; position: static !important; }
   html.mm-opened, html.mm-opening, html.mm-blocking { overflow: auto !important; }
   html.mm-opened body, html.mm-opening body { overflow: auto !important; }
-  #mm-blocker, .mm-wrapper__blocker, .mm-blocker, .mm-slideout ~ div[class*="mm-"] { display: none !important; pointer-events: none !important; visibility: hidden !important; opacity: 0 !important; z-index: -1 !important; }
-  nav#menu-right { position: fixed !important; right: -9999px !important; visibility: hidden !important; pointer-events: none !important; }
+  #mm-blocker, .mm-wrapper__blocker, .mm-blocker { display: none !important; pointer-events: none !important; visibility: hidden !important; opacity: 0 !important; z-index: -1 !important; }
   .navigation { position: relative !important; z-index: 99999 !important; pointer-events: auto !important; }
   .navigation * { pointer-events: auto !important; }
-  #left-drawer, #left-drawer-overlay { display: none !important; pointer-events: none !important; visibility: hidden !important; }
+  #left-drawer, #left-drawer-overlay, #right-drawer, #right-drawer-overlay { display: none !important; pointer-events: none !important; visibility: hidden !important; }
   .top-page ul { position: static !important; z-index: auto !important; pointer-events: auto !important; }
 }
 
@@ -147,7 +146,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 @media screen and (max-width: 991px) {
   .header, .navigation { display: none !important; }
   .container > .sidebar { display: none !important; }
-  :root { --mm-size: 78vw; --mm-max-size: 26rem; --mm-min-size: 16rem; }
 
   .mobile-header {
     display: flex !important; align-items: center; justify-content: space-between;
@@ -168,13 +166,9 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   }
   .mobile-nav-btn svg { color: #fff; stroke: #fff; }
   body.dark .mobile-header { background: #1a1a1a !important; }
-
-  /* mmenu 面板内 sidebar */
-  #menu-right .sidebar { display: block !important; padding: 10px; background: transparent !important; border: none !important; box-shadow: none !important; }
-  #menu-right, #menu { padding: 0 !important; }
 }
 
-/* 桑面端隐藏手机顶栏 */
+/* 桌面端隐藏手机顶栏 */
 @media screen and (min-width: 992px) {
   .mobile-header { display: none !important; }
 }
@@ -223,31 +217,50 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   body.dark .left-drawer-nav li a:hover { background: rgba(255,255,255,0.08); }
 }
 
-/* --- 10. 手机端右侧栏完全对齐桓面端效果（支持暗黑模式） --- */
+/* --- 10. 右侧纯CSS抽屉（完全支持暗黑模式） --- */
 @media screen and (max-width: 991px) {
+  #right-drawer-overlay {
+    display: none; position: fixed; inset: 0; z-index: 19998;
+    background: rgba(0,0,0,0.55); opacity: 0; transition: opacity 0.3s ease;
+  }
+  #right-drawer-overlay.is-open { display: block; opacity: 1; }
 
-  /* mmenu 面板基础样式 - 亮色 */
-  #menu-right.mm-menu,
-  #menu-right,
-  #menu-right .mm-panel,
-  #menu-right .mm-panels > .mm-panel {
-    background: #f5f5f5 !important;
+  #right-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 19999;
+    width: clamp(16rem, 82vw, 22rem);
+    background: #f5f5f5;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+    display: flex; flex-direction: column;
+  }
+  #right-drawer.is-open { transform: translateX(0); }
+
+  /* 头部条 */
+  .right-drawer-header {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 2.75rem; padding: 0 1rem;
+    background: #f3f3f3;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    position: sticky; top: 0; z-index: 2; flex-shrink: 0;
+  }
+  .right-drawer-title { font-size: 14px; color: rgba(0,0,0,0.4); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+  #right-drawer-close { background: none; border: none; color: rgba(0,0,0,0.4); cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; line-height: 1; }
+  #right-drawer-close:hover { color: rgba(0,0,0,0.8); }
+
+  /* 内容区域 */
+  .right-drawer-body {
+    flex: 1; padding: 10px;
+    background: #f5f5f5;
+  }
+  .right-drawer-body .sidebar {
+    display: block !important; width: 100% !important;
+    float: none !important; padding: 0 !important;
+    background: transparent !important; border: none !important; box-shadow: none !important;
   }
 
-  /* 隐藏 mmenu 自带 navbar 标题栏 */
-  #menu-right .mm-navbar { display: none !important; }
-
-  /* sidebar 擑开 */
-  #menu-right .sidebar {
-    display: block !important;
-    width: 100% !important;
-    padding: 10px !important;
-    float: none !important;
-    background: #f5f5f5 !important;
-  }
-
-  /* widget 卡片对齐桓面端 */
-  #menu-right .widget {
+  /* widget 卡片对齐桶面端样式 */
+  .right-drawer-body .widget {
     background: #fff !important;
     color: #333 !important;
     border: 1px solid #ddd !important;
@@ -255,70 +268,53 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     overflow: hidden !important;
     margin-bottom: 15px !important;
   }
-
-  /* tab 导航 */
-  #menu-right .tabnav li { color: #555 !important; }
-  #menu-right .tabnav li.selected { color: #ed5565 !important; }
-
-  /* 列表条目 */
-  #menu-right .tab-content ul li {
-    border-bottom-color: #eee !important;
-    color: #333 !important;
+  .right-drawer-body .widget .tab-content { padding: 15px !important; }
+  .right-drawer-body .widget .tab-content ul li {
+    height: 40px; display: flex; align-items: center;
+    border-bottom: 1px dashed #eee !important;
+    font-size: 15px; overflow: hidden;
   }
-  #menu-right .tab-content ul li a { color: #333 !important; }
-  #menu-right .tab-content ul li a:hover { color: #ed5565 !important; }
-
-  /* 作者卡片 */
-  #menu-right .about-author .author-stats { background: #fafafa !important; border-top-color: #f2f2f2 !important; }
-  #menu-right .about-author .stat-number { color: #333 !important; }
-  #menu-right .about-author .stat-label { color: #666 !important; }
-
-  /* 标签云 */
-  #menu-right .widget-tags { background: #fff !important; }
-
-  /* 标题、链接 */
-  #menu-right h1, #menu-right h2, #menu-right h3 { color: #333 !important; }
-  #menu-right a { color: #333 !important; }
-  #menu-right a:hover { color: #ed5565 !important; }
-
-  /* ============ 暗黑模式完全跟随 ============ */
-  body.dark #menu-right.mm-menu,
-  body.dark #menu-right,
-  body.dark #menu-right .mm-panel,
-  body.dark #menu-right .mm-panels > .mm-panel {
-    background: #121212 !important;
+  .right-drawer-body .widget .tab-content ul li a {
+    white-space: nowrap !important; overflow: hidden !important;
+    text-overflow: ellipsis !important; color: #333 !important;
+    width: 100%; display: block;
   }
+  .right-drawer-body .widget .tab-content ul li a:hover { color: #ed5565 !important; }
+  .right-drawer-body .tabnav li { color: #555 !important; }
+  .right-drawer-body .tabnav li.selected { color: #ed5565 !important; }
+  .right-drawer-body h1, .right-drawer-body h2, .right-drawer-body h3 { color: #333 !important; }
+  .right-drawer-body a { color: #333 !important; }
+  .right-drawer-body a:hover { color: #ed5565 !important; }
+  .right-drawer-body .about-author .author-stats { background: #fafafa !important; border-top-color: #f2f2f2 !important; }
+  .right-drawer-body .about-author .stat-number { color: #333 !important; }
 
-  body.dark #menu-right .sidebar {
-    background: #121212 !important;
-  }
-
-  body.dark #menu-right .widget {
+  /* 暗黑模式 */
+  body.dark #right-drawer { background: #121212; }
+  body.dark .right-drawer-header { background: #1a1a1a; border-bottom-color: rgba(255,255,255,0.1); }
+  body.dark .right-drawer-title { color: rgba(255,255,255,0.4); }
+  body.dark #right-drawer-close { color: rgba(255,255,255,0.4); }
+  body.dark #right-drawer-close:hover { color: rgba(255,255,255,0.8); }
+  body.dark .right-drawer-body { background: #121212; }
+  body.dark .right-drawer-body .widget {
     background: #1d1d1d !important;
     color: #bbb !important;
     border-color: #333 !important;
   }
-
-  body.dark #menu-right .tabnav li { color: #999 !important; }
-  body.dark #menu-right .tabnav li.selected { color: #ed5565 !important; }
-
-  body.dark #menu-right .tab-content ul li {
+  body.dark .right-drawer-body .widget .tab-content ul li {
     border-bottom-color: #2a2a2a !important;
     color: #bbb !important;
   }
-  body.dark #menu-right .tab-content ul li a { color: #bbb !important; }
-  body.dark #menu-right .tab-content ul li a:hover { color: #ed5565 !important; }
-
-  body.dark #menu-right .about-author .author-stats { background: #222 !important; border-top-color: #333 !important; }
-  body.dark #menu-right .about-author .stat-number { color: #eee !important; }
-  body.dark #menu-right .about-author .stat-label { color: #999 !important; }
-  body.dark #menu-right .about-author .author-description { color: #999 !important; }
-
-  body.dark #menu-right .widget-tags { background: #1d1d1d !important; }
-
-  body.dark #menu-right h1,
-  body.dark #menu-right h2,
-  body.dark #menu-right h3 { color: #eee !important; }
-  body.dark #menu-right a { color: #bbb !important; }
-  body.dark #menu-right a:hover { color: #ed5565 !important; }
+  body.dark .right-drawer-body .widget .tab-content ul li a { color: #bbb !important; }
+  body.dark .right-drawer-body .widget .tab-content ul li a:hover { color: #ed5565 !important; }
+  body.dark .right-drawer-body .tabnav li { color: #999 !important; }
+  body.dark .right-drawer-body .tabnav li.selected { color: #ed5565 !important; }
+  body.dark .right-drawer-body h1,
+  body.dark .right-drawer-body h2,
+  body.dark .right-drawer-body h3 { color: #eee !important; }
+  body.dark .right-drawer-body a { color: #bbb !important; }
+  body.dark .right-drawer-body a:hover { color: #ed5565 !important; }
+  body.dark .right-drawer-body .about-author .author-stats { background: #222 !important; border-top-color: #333 !important; }
+  body.dark .right-drawer-body .about-author .stat-number { color: #eee !important; }
+  body.dark .right-drawer-body .about-author .stat-label,
+  body.dark .right-drawer-body .about-author .author-description { color: #999 !important; }
 }
