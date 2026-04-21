@@ -36,7 +36,7 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 /* --- 4. 侧边栏及彩色标签 --- */
 .sidebar .widget { border-radius: 8px !important; overflow: hidden !important; }
 .sidebar .widget .tab-content { padding: 15px !important; }
-.sidebar .widget .tab-content ul li { height: 48px; display: flex; align-items: center; border-bottom: 1px dashed #eee; font-size: 16px; overflow: hidden; }
+.sidebar .widget .tab-content ul li { height: 40px; display: flex; align-items: center; border-bottom: 1px dashed #eee; font-size: 16px; overflow: hidden; }
 .sidebar .widget .tab-content ul li a { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; color: inherit; width: 100%; display: block; }
 .dark .tab-content ul li { border-bottom-color: #2a2a2a !important; }
 
