@@ -192,7 +192,7 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   }
   /* 桌面端隐藏右侧 mmenu 面板（不应出现） */
   nav#menu-right.mm-menu {
-    display: none !important;
+    visibility:hidden !important;
   }
 }
 /* --- 8. 手机端顶栏（仅 max-width:991px 生效，桌面端完全不受影响）--- */
