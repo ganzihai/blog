@@ -50,26 +50,163 @@
         </div>
     </div>
     <div class="shang-bg"></div>
-    <div class="shang-content" style="display:none;">
-        <span class="shang-close" title="关闭">×</span>
+    <div class="shang-content">
+        <button class="shang-close" title="关闭">×</button>
         <div class="shang-title">打赏支持</div>
         <div class="shang-body">
             {{ with .Site.Params.rewardSets.reward.alipay }}
             <div class="shang-zfb shang-qrcode">
-                <img alt="支付宝打赏" src="{{ . }}" width="170" height="170">
+                <img alt="支付宝打赏" src="{{ . }}" width="170" height="170" loading="lazy">
                 <span>支付宝打赏</span>
             </div>
             {{ end }}
             {{ with .Site.Params.rewardSets.reward.wechatpay }}
             <div class="shang-wx shang-qrcode">
-                <img alt="微信打赏" src="{{ . }}" width="170" height="170">
+                <img alt="微信打赏" src="{{ . }}" width="170" height="170" loading="lazy">
                 <span>微信打赏</span>
             </div>
             {{ end }}
             <div class="clear"></div>
-            <p class="shang-tips">「请 GANZI 喝杯咏啡作为鼓励」~</p>
+            <p class="shang-tips">「请 GANZI 喝杯咖啡作为鼓励」~</p>
         </div>
     </div>
+
+    <style>
+    /* ===== 打赏按钮区域 ===== */
+    .article-shang {
+        text-align: center;
+        padding: 20px 0 10px;
+    }
+    .shang {
+        display: inline-block;
+    }
+    .zanzhu a {
+        display: inline-block;
+        width: 64px;
+        height: 64px;
+        line-height: 64px;
+        border-radius: 50%;
+        border: 2px solid #f0a500;
+        color: #f0a500;
+        font-size: 22px;
+        font-weight: bold;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+    .zanzhu a:hover,
+    .zanzhu a:active {
+        background: #f0a500;
+        color: #fff;
+        transform: scale(1.08);
+    }
+
+    /* ===== 遮罩层 ===== */
+    .shang-bg {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 9998;
+    }
+    .shang-bg.is-open {
+        display: block;
+    }
+
+    /* ===== 弹窗 ===== */
+    .shang-content {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        border-radius: 10px;
+        padding: 28px 32px 24px;
+        z-index: 9999;
+        text-align: center;
+        width: 90%;
+        max-width: 420px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        box-sizing: border-box;
+    }
+    .shang-content.is-open {
+        display: block;
+    }
+
+    /* 暗黑模式适配 */
+    body.dark .shang-content {
+        background: #2a2a2a;
+        color: #ddd;
+    }
+
+    /* 关闭按钮 */
+    .shang-close {
+        position: absolute;
+        top: 10px; right: 14px;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: #aaa;
+        padding: 0;
+    }
+    .shang-close:hover { color: #333; }
+    body.dark .shang-close:hover { color: #fff; }
+
+    /* 弹窗标题 */
+    .shang-title {
+        font-size: 17px;
+        font-weight: bold;
+        margin-bottom: 18px;
+        color: #f0a500;
+    }
+
+    /* 二维码区域 */
+    .shang-body {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+    .shang-qrcode {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    .shang-qrcode img {
+        border: 1px solid #eee;
+        border-radius: 6px;
+        max-width: 140px;
+        height: auto;
+    }
+    .shang-qrcode span {
+        font-size: 13px;
+        color: #666;
+    }
+    body.dark .shang-qrcode span { color: #aaa; }
+    body.dark .shang-qrcode img { border-color: #444; }
+
+    /* 底部提示 */
+    .shang-tips {
+        margin-top: 16px;
+        color: #999;
+        font-size: 13px;
+    }
+
+    /* 手机端二维码缩小一点 */
+    @media screen and (max-width: 480px) {
+        .shang-qrcode img {
+            max-width: 120px;
+        }
+        .shang-content {
+            padding: 24px 18px 20px;
+        }
+    }
+    </style>
 
     <script>
     (function(){
@@ -77,12 +214,24 @@
         var shanBg  = document.querySelector('.shang-bg');
         var shanBox = document.querySelector('.shang-content');
         var closeBtn = document.querySelector('.shang-close');
-        function openReward(){ shanBg.style.display='block'; shanBox.style.display='block'; }
-        function closeReward(){ shanBg.style.display='none'; shanBox.style.display='none'; }
-        if(zanBtn)   zanBtn.addEventListener('click', openReward);
-        if(shanBg)   shanBg.addEventListener('click', closeReward);
-        if(closeBtn) closeBtn.addEventListener('click', closeReward);
-        document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeReward(); });
+
+        function openReward() {
+            shanBg.classList.add('is-open');
+            shanBox.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeReward() {
+            shanBg.classList.remove('is-open');
+            shanBox.classList.remove('is-open');
+            document.body.style.overflow = '';
+        }
+
+        if (zanBtn)   zanBtn.addEventListener('click', openReward);
+        if (shanBg)   shanBg.addEventListener('click', closeReward);
+        if (closeBtn) closeBtn.addEventListener('click', closeReward);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeReward();
+        });
     })();
     </script>
     {{ end }}
@@ -117,7 +266,6 @@
     </div>
 
 <style>
-/* 奇数列（左列）加右边距，不影响宽度 */
 @media screen and (min-width:992px) {
     .main .article .article-related li:nth-child(odd) {
         margin-right: 2rem;
