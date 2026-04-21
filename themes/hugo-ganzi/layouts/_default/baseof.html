@@ -132,6 +132,65 @@
                 });
                 container.appendChild(button);
             });
+
+            // ============================================================
+            // 修复：手机端右侧栏(mmenu)暗黑模式
+            // mmenu 会通过 JS 动态写入 background 内联样式，CSS !important 无法覆盖。
+            // 方案：监听 mmenu 打开事件 + body.dark 变化，用 JS 强制覆盖内联样式。
+            // ============================================================
+            function applyMmenuDarkFix() {
+                var isDark = document.body.classList.contains('dark');
+                var bgPanel  = isDark ? '#121212' : '#f5f5f5';
+                var bgWidget = isDark ? '#1d1d1d' : '#ffffff';
+
+                // 面板本身
+                var panels = document.querySelectorAll('#menu-right, #menu-right .mm-panel, #menu-right .mm-panels > .mm-panel');
+                panels.forEach(function(el) {
+                    el.style.setProperty('background', bgPanel, 'important');
+                });
+
+                // sidebar 容器
+                var sidebars = document.querySelectorAll('#menu-right .sidebar');
+                sidebars.forEach(function(el) {
+                    el.style.setProperty('background', bgPanel, 'important');
+                });
+
+                // widget 卡片
+                var widgets = document.querySelectorAll('#menu-right .widget');
+                widgets.forEach(function(el) {
+                    el.style.setProperty('background', bgWidget, 'important');
+                    el.style.setProperty('color', isDark ? '#bbbbbb' : '#333333', 'important');
+                    el.style.setProperty('border-color', isDark ? '#333333' : '#dddddd', 'important');
+                });
+            }
+
+            // mmenu 打开时触发
+            var menuRight = document.getElementById('menu-right');
+            if (menuRight) {
+                // mmenu 4.x/5.x 用自定义事件，也兼容 class 变化
+                menuRight.addEventListener('mm-open', applyMmenuDarkFix);
+                menuRight.addEventListener('mm-opened', applyMmenuDarkFix);
+                // 兜底：MutationObserver 监听 class 变化（mmenu 打开时会加 mm-opened 等 class）
+                new MutationObserver(function(mutations) {
+                    mutations.forEach(function(m) {
+                        if (m.attributeName === 'class' || m.attributeName === 'style') {
+                            applyMmenuDarkFix();
+                        }
+                    });
+                }).observe(menuRight, { attributes: true });
+            }
+
+            // 暗黑模式切换时也立刻修正（body.dark 变化）
+            new MutationObserver(function(mutations) {
+                mutations.forEach(function(m) {
+                    if (m.attributeName === 'class') {
+                        applyMmenuDarkFix();
+                    }
+                });
+            }).observe(document.body, { attributes: true });
+
+            // 页面加载时立即执行一次（保证刷新后状态正确）
+            applyMmenuDarkFix();
         });
     </script>
     {{ with resources.Get "js/lazyload.min.js" }}<script type="text/javascript" src="{{ .RelPermalink }}"></script>{{ end }}
