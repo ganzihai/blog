@@ -180,3 +180,30 @@
 .dark .comment-list .comment-content .heartfelt span{background:#8f6f16;}
 .dark .comment-list .comment-content:hover .heartfelt span{background:#9e7a14;}
 }
+/* 左右侧栏始终保持明亮主题，不随暗黑模式变化 */
+.dark .mm-left,.dark .mm-right{background:#e8ecf0!important;color:#333!important;}
+.dark .mm-left *,.dark .mm-right *{color:inherit!important;}
+.dark .mm-left .widget-title,.dark .mm-right .widget-title{background-color:#f3f3f3!important;color:#333!important;}
+.dark .mm-left .widget,.dark .mm-right .widget{background-color:#e8ecf0!important;}
+.dark .mm-left a:link,.dark .mm-left a:visited,.dark .mm-right a:link,.dark .mm-right a:visited{color:#666!important;}
+.dark .mm-left a:hover,.dark .mm-right a:hover{color:#da4453!important;}
+.dark .mm-listitem--selected>.mm-listitem__text{background:#f3f6f8!important;}
+.dark .tabnav{background-color:#f3f3f3!important;}
+.dark .tabnav li{background-color:#f3f3f3!important;color:#333!important;}
+.dark .tabnav .selected{background-color:#e8ecf0!important;color:#da4453!important;}
+.dark .widget-comment-contnet{background:#fff!important;}
+.dark .widget-comment-contnet:before{border-bottom:7px solid #fff!important;}
+.dark .widget-comment-contnet p{color:#666!important;}
+.dark .widget-comment-top .avatar{border:1px solid #ddd!important;background:#fff!important;}
+.dark .rightbox .widget-comment ul li img.avatar{background:#fff!important;border:1px solid #ddd!important;}
+.dark .rightbox .widget-comment li{color:#666!important;}
+.dark .rightbox .right-comment-author{color:#666!important;}
+.dark .widget-comment-commentator{color:#666!important;}
+.dark .widget-comment-date{color:#999!important;}
+.dark .tab-content ul li{color:#666!important;}
+.dark .rightbox .widget .widget-content li{color:#666!important;}
+.dark .rightbox .widget .loginform p{color:#666!important;}
+.dark #loginform input.login{background:#fff!important;color:#333!important;border:1px solid #ddd!important;}
+.dark #loginform input.denglu{background:#f3f3f3!important;color:#333!important;border:1px solid #ddd!important;}
+.dark .widget .tags a{background:#ddd!important;color:#666!important;}
+.dark .widget .tags a:hover{background:#ccc!important;color:#333!important;}
