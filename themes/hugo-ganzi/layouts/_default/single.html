@@ -44,194 +44,63 @@
     </div>
 
     {{ if .Site.Params.rewardSets.enable }}
-    <div class="article article-shang">
-        <div class="shang">
-            <span class="zanzhu"><a title="赞助本站" href="javascript:;" onfocus="this.blur()">赏</a></span>
+    <div class="article article-shang-wrap" style="text-align:center;padding:20px 0 10px;">
+        <div style="display:inline-block;">
+            <span class="zanzhu-btn"><a id="rewardOpenBtn" title="赞助本站" href="javascript:;" onfocus="this.blur()">赏</a></span>
         </div>
     </div>
-    <div class="shang-bg"></div>
-    <div class="shang-content">
-        <button class="shang-close" title="关闭">×</button>
-        <div class="shang-title">打赏支持</div>
-        <div class="shang-body">
+
+    <div id="rewardBg" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9998;"></div>
+    <div id="rewardBox" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:10px;padding:28px 32px 24px;z-index:9999;text-align:center;width:90%;max-width:420px;box-shadow:0 12px 40px rgba(0,0,0,0.25);box-sizing:border-box;">
+        <button id="rewardCloseBtn" style="position:absolute;top:10px;right:14px;font-size:24px;line-height:1;cursor:pointer;background:none;border:none;color:#aaa;padding:0;" title="关闭">×</button>
+        <div style="font-size:17px;font-weight:bold;margin-bottom:18px;color:#f0a500;">打赏支持</div>
+        <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;">
             {{ with .Site.Params.rewardSets.reward.alipay }}
-            <div class="shang-zfb shang-qrcode">
-                <img alt="支付宝打赏" src="{{ . }}" width="170" height="170" loading="lazy">
-                <span>支付宝打赏</span>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+                <img alt="支付宝打赏" src="{{ . }}" width="140" height="140" loading="lazy" style="border:1px solid #eee;border-radius:6px;max-width:140px;height:auto;">
+                <span style="font-size:13px;color:#0062ff;font-weight:bold;">支付宝打赏</span>
             </div>
             {{ end }}
             {{ with .Site.Params.rewardSets.reward.wechatpay }}
-            <div class="shang-wx shang-qrcode">
-                <img alt="微信打赏" src="{{ . }}" width="170" height="170" loading="lazy">
-                <span>微信打赏</span>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+                <img alt="微信打赏" src="{{ . }}" width="140" height="140" loading="lazy" style="border:1px solid #eee;border-radius:6px;max-width:140px;height:auto;">
+                <span style="font-size:13px;color:#22ac38;font-weight:bold;">微信打赏</span>
             </div>
             {{ end }}
-            <div class="clear"></div>
-            <p class="shang-tips">「请 GANZI 喝杯咖啡作为鼓励」~</p>
         </div>
+        <p style="margin-top:16px;color:#999;font-size:13px;">「请 GANZI 喝杯咖啡作为鼓励」~</p>
     </div>
 
     <style>
-    /* ===== 打赏按钮区域 ===== */
-    .article-shang {
-        text-align: center;
-        padding: 20px 0 10px;
-    }
-    .shang {
+    .zanzhu-btn a {
         display: inline-block;
-    }
-    .zanzhu a {
-        display: inline-block;
-        width: 64px;
-        height: 64px;
-        line-height: 64px;
+        width: 64px; height: 64px; line-height: 64px;
         border-radius: 50%;
         border: 2px solid #f0a500;
-        color: #f0a500;
-        font-size: 22px;
-        font-weight: bold;
-        text-decoration: none;
-        cursor: pointer;
+        color: #f0a500; font-size: 22px; font-weight: bold;
+        text-decoration: none; cursor: pointer;
         transition: all 0.25s ease;
+        background: #fefefe;
+        box-shadow: 1px 2px 3px rgba(0,0,0,.2);
     }
-    .zanzhu a:hover,
-    .zanzhu a:active {
-        background: #f0a500;
-        color: #fff;
-        transform: scale(1.08);
-    }
-
-    /* ===== 遮罩层 ===== */
-    .shang-bg {
-        display: none;
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 9998;
-    }
-    .shang-bg.is-open {
-        display: block;
-    }
-
-    /* ===== 弹窗 ===== */
-    .shang-content {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: #fff;
-        border-radius: 10px;
-        padding: 28px 32px 24px;
-        z-index: 9999;
-        text-align: center;
-        width: 90%;
-        max-width: 420px;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-        box-sizing: border-box;
-    }
-    .shang-content.is-open {
-        display: block;
-    }
-
-    /* 暗黑模式适配 */
-    body.dark .shang-content {
-        background: #2a2a2a;
-        color: #ddd;
-    }
-
-    /* 关闭按钮 */
-    .shang-close {
-        position: absolute;
-        top: 10px; right: 14px;
-        font-size: 24px;
-        line-height: 1;
-        cursor: pointer;
-        background: none;
-        border: none;
-        color: #aaa;
-        padding: 0;
-    }
-    .shang-close:hover { color: #333; }
-    body.dark .shang-close:hover { color: #fff; }
-
-    /* 弹窗标题 */
-    .shang-title {
-        font-size: 17px;
-        font-weight: bold;
-        margin-bottom: 18px;
-        color: #f0a500;
-    }
-
-    /* 二维码区域 */
-    .shang-body {
-        display: flex;
-        justify-content: center;
-        gap: 24px;
-        flex-wrap: wrap;
-    }
-    .shang-qrcode {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-    }
-    .shang-qrcode img {
-        border: 1px solid #eee;
-        border-radius: 6px;
-        max-width: 140px;
-        height: auto;
-    }
-    .shang-qrcode span {
-        font-size: 13px;
-        color: #666;
-    }
-    body.dark .shang-qrcode span { color: #aaa; }
-    body.dark .shang-qrcode img { border-color: #444; }
-
-    /* 底部提示 */
-    .shang-tips {
-        margin-top: 16px;
-        color: #999;
-        font-size: 13px;
-    }
-
-    /* 手机端二维码缩小一点 */
-    @media screen and (max-width: 480px) {
-        .shang-qrcode img {
-            max-width: 120px;
-        }
-        .shang-content {
-            padding: 24px 18px 20px;
-        }
+    .zanzhu-btn a:hover, .zanzhu-btn a:active {
+        background: #f0a500; color: #fff; border-color: #f0a500;
+        text-decoration: none;
     }
     </style>
 
     <script>
     (function(){
-        var zanBtn  = document.querySelector('.zanzhu a');
-        var shanBg  = document.querySelector('.shang-bg');
-        var shanBox = document.querySelector('.shang-content');
-        var closeBtn = document.querySelector('.shang-close');
-
-        function openReward() {
-            shanBg.classList.add('is-open');
-            shanBox.classList.add('is-open');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeReward() {
-            shanBg.classList.remove('is-open');
-            shanBox.classList.remove('is-open');
-            document.body.style.overflow = '';
-        }
-
-        if (zanBtn)   zanBtn.addEventListener('click', openReward);
-        if (shanBg)   shanBg.addEventListener('click', closeReward);
-        if (closeBtn) closeBtn.addEventListener('click', closeReward);
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeReward();
-        });
+        var openBtn  = document.getElementById('rewardOpenBtn');
+        var bg       = document.getElementById('rewardBg');
+        var box      = document.getElementById('rewardBox');
+        var closeBtn = document.getElementById('rewardCloseBtn');
+        function open()  { bg.style.display='block'; box.style.display='block'; document.body.style.overflow='hidden'; }
+        function close() { bg.style.display='none';  box.style.display='none';  document.body.style.overflow=''; }
+        if(openBtn)  openBtn.addEventListener('click', open);
+        if(bg)       bg.addEventListener('click', close);
+        if(closeBtn) closeBtn.addEventListener('click', close);
+        document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
     })();
     </script>
     {{ end }}
