@@ -2,7 +2,7 @@
 <div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; {{ .Title }}</div>
 
 <div class="article">
-    <p style="text-align: center; margin: 35px 0; font-size: 24px; font-weight: bold;">友情连接</p>
+    <h2 class="flinks-page-title">友情连接</h2>
     
     <div class="article-content">
         {{ .Content }}
@@ -36,6 +36,18 @@
 </div>
 
 <style>
+    /* 友情连接页面标题 */
+    .flinks-page-title {
+        text-align: center !important;
+        margin: 35px 0 !important;
+        font-size: 24px !important;
+        font-weight: bold !important;
+        display: block !important;        /* 覆盖 article-content h2 的 display:inline */
+        box-shadow: none !important;      /* 去掉主题 h2 的粉色底线装饰 */
+        width: 100% !important;
+        color: #444;
+    }
+
     .link-grid { display: flex; flex-wrap: wrap; margin: 0 -10px; }
     .link-card { width: calc(33.333% - 20px); margin: 10px; text-decoration: none !important; }
     .link-card-inner { 
