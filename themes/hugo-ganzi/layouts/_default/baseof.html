@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,maximum-scale=2.0,shrink-to-fit=no" />
     <meta name="color-scheme" content="light dark" />
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
-    
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
     {{ with resources.Get "css/style.css" }}{{ $style := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $style.RelPermalink }}">{{ end }}
     {{ with resources.Get "css/dark.css" }}{{ $dark := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $dark.RelPermalink }}">{{ end }}
     {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $mmenu.RelPermalink }}">{{ end }}
     {{ with resources.Get "css/custom.css" }}{{ $custom := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $custom.RelPermalink }}">{{ end }}
-    
+
     {{ with resources.Get "js/jquery.min.js" }}{{ $js := . | fingerprint }}<script type="text/javascript" src="{{ $js.RelPermalink }}"></script>{{ end }}
     {{ with resources.Get "js/mmenu.js" }}{{ $js := . | fingerprint }}<script type="text/javascript" src="{{ $js.RelPermalink }}"></script>{{ end }}
     {{ with resources.Get "js/dark.min.js" }}{{ $js := . | fingerprint }}<script type="text/javascript" src="{{ $js.RelPermalink }}"></script>{{ end }}
