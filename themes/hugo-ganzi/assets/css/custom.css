@@ -16,7 +16,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 }
 .top-page, .top-social { display: flex !important; align-items: center !important; height: 100% !important; float: none !important; }
 .top-page .menu, .top-page .menu ul { display: flex !important; align-items: center !important; height: 100% !important; list-style: none !important; margin: 0 !important; }
-/* 关键修复：重置 top-page ul 的 position，防止它浮层遮挡内容 */
 .top-page ul { position: static !important; z-index: auto !important; pointer-events: auto !important; }
 .top-page .menu ul li { margin-right: 20px !important; float: none !important; display: flex !important; align-items: center !important; }
 .top-page .menu ul li a { color: #fff !important; font-size: 1rem !important; line-height: 1 !important; display: inline-block !important; }
@@ -59,92 +58,35 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     text-decoration: none !important;
     font-weight: 500;
 }
+.tag-cloud-link:nth-child(9n)   { color: #2b98fd !important; background-color: rgba(43,152,253,0.1); }
+.tag-cloud-link:nth-child(9n+1) { color: #bd1048 !important; background-color: rgba(188,16,72,0.1); }
+.tag-cloud-link:nth-child(9n+2) { color: #4455de !important; background-color: rgba(68,85,222,0.1); }
+.tag-cloud-link:nth-child(9n+3) { color: #ff5900 !important; background-color: rgba(255,89,0,0.1); }
+.tag-cloud-link:nth-child(9n+4) { color: #277920 !important; background-color: rgba(39,121,32,0.1); }
+.tag-cloud-link:nth-child(9n+5) { color: #d931c4 !important; background-color: rgba(217,49,196,0.1); }
+.tag-cloud-link:nth-child(9n+6) { color: #14c01f !important; background-color: rgba(20,192,31,0.1); }
+.tag-cloud-link:nth-child(9n+7) { color: #ac7e24 !important; background-color: rgba(172,126,36,0.1); }
+.tag-cloud-link:nth-child(9n+8) { color: #f65e87 !important; background-color: rgba(246,94,135,0.1); }
+.tag-cloud-link:hover { opacity: 0.8; transition: opacity 0.2s; }
 
-/* 9n   → 第9、18、27...个 */
-.tag-cloud-link:nth-child(9n) {
-    color: #2b98fd !important;
-    background-color: rgba(43, 152, 253, 0.1);
-}
-
-/* 9n+1 → 第1、10、19...个 */
-.tag-cloud-link:nth-child(9n+1) {
-    color: #bd1048 !important;
-    background-color: rgba(188, 16, 72, 0.1);
-}
-
-.tag-cloud-link:nth-child(9n+2) {
-    color: #4455de !important;
-    background-color: rgba(68, 85, 222, 0.1);
-}
-
-.tag-cloud-link:nth-child(9n+3) {
-    color: #ff5900 !important;
-    background-color: rgba(255, 89, 0, 0.1);
-}
-
-.tag-cloud-link:nth-child(9n+4) {
-    color: #277920 !important;
-    background-color: rgba(39, 121, 32, 0.1);
-}
-
-.tag-cloud-link:nth-child(9n+5) {
-    color: #d931c4 !important;
-    background-color: rgba(217, 49, 196, 0.1);
-}
-
-.tag-cloud-link:nth-child(9n+6) {
-    color: #14c01f !important;
-    background-color: rgba(20, 192, 31, 0.1);
-}
-
-.tag-cloud-link:nth-child(9n+7) {
-    color: #ac7e24 !important;
-    background-color: rgba(172, 126, 36, 0.1);
-}
-
-.tag-cloud-link:nth-child(9n+8) {
-    color: #f65e87 !important;
-    background-color: rgba(246, 94, 135, 0.1);
-}
-
-.tag-cloud-link:hover {
-    opacity: 0.8;
-    transition: opacity 0.2s;
-}
 /* --- 5. 归档与友链页面终极适配 --- */
 .article { overflow: visible !important; }
 
 .archives-statistics {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 30px 20px 25px;
-    position: relative;
-    margin-bottom: 30px;
-    margin-top: 30px;
-    background: #fff;
-    overflow: visible !important;
+    border: 1px solid #ddd; border-radius: 4px; padding: 30px 20px 25px;
+    position: relative; margin-bottom: 30px; margin-top: 30px;
+    background: #fff; overflow: visible !important;
 }
-
 .archives-info {
-    position: absolute !important;
-    top: -13px !important;
-    left: 20px !important;
-    margin: 0 !important;
-    transform: none !important;
-    background: #ed5565 !important;
-    color: #fff !important;
-    padding: 3px 12px !important;
-    border-radius: 4px !important;
-    font-size: 14px !important;
-    line-height: 20px !important;
-    font-weight: 300 !important;
-    z-index: 5 !important;
-    white-space: nowrap !important;
+    position: absolute !important; top: -13px !important; left: 20px !important;
+    margin: 0 !important; transform: none !important;
+    background: #ed5565 !important; color: #fff !important;
+    padding: 3px 12px !important; border-radius: 4px !important;
+    font-size: 14px !important; line-height: 20px !important;
+    font-weight: 300 !important; z-index: 5 !important; white-space: nowrap !important;
 }
-
 .archives-statistics ul { display: flex !important; justify-content: space-around !important; list-style: none !important; margin: 0 !important; }
 .archives-counts { font-size: 32px; color: #999; margin-bottom: 5px; }
-
 .dark .archives-statistics { background: #1d1d1d !important; border-color: #333 !important; }
 .dark .archives-statistics .archives-counts { color: #666 !important; }
 .dark .archives-statistics ul li span { color: #aaa !important; }
@@ -152,53 +94,26 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .car-container, .flinks-container { background: #fff !important; padding: 25px !important; border-radius: 8px !important; border: 1px solid #ddd !important; }
 .car-yearmonth { cursor: pointer; color: #ed5565; font-size: 18px; display: block; padding: 12px 0; border-bottom: 1px solid #f5f5f5; font-weight: 100; }
 .car-days { color: #777; margin-right: 15px; font-size: 13px; background: #f5f5f5; padding: 2px 8px; border-radius: 4px; border: 1px solid #eee; min-width: 40px; text-align: center; }
-
 .dark .car-container { background: #1d1d1d !important; border-color: #333 !important; }
 .dark .car-yearmonth { border-bottom-color: #2a2a2a !important; }
 .dark .car-days { background: #2a2a2a !important; border-color: #3a3a3a !important; color: #999 !important; }
 .dark .car-container .post-list li { border-bottom-color: #2a2a2a !important; }
 .dark .car-container .post-list li a { color: #ccc !important; }
 .dark .car-container .post-list li a:hover { color: #ed5565 !important; }
-
 #archive-selector { height: 34px !important; padding: 0 10px !important; border: 1px solid #ccc !important; border-radius: 4px !important; background: #fff !important; color: #333 !important; }
 .dark #archive-selector { background: #333 !important; color: #ccc !important; border-color: #444 !important; }
 
 /* 友链卡片 */
 .link-grid { display: flex; flex-wrap: wrap; margin: 0 -8px; }
 .link-card-item { width: calc(33.333% - 16px); margin: 8px; text-decoration: none !important; display: block !important; }
-.link-card-inner {
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 15px;
-    display: flex !important;
-    align-items: center !important;
-    transition: all 0.3s;
-    min-height: 50px;
-    overflow: hidden !important;
-}
+.link-card-inner { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px; display: flex !important; align-items: center !important; transition: all 0.3s; min-height: 50px; overflow: hidden !important; }
 .link-card-item:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
-
-.link-avatar {
-    width: 50px !important; height: 50px !important; min-width: 50px !important; min-height: 50px !important;
-    max-width: 50px !important; max-height: 50px !important; margin-right: 15px !important;
-    flex-shrink: 0 !important; border-radius: 50% !important; overflow: hidden !important;
-    display: flex !important; align-items: center !important; justify-content: center !important;
-    background: #f5f5f5 !important;
-}
+.link-avatar { width: 50px !important; height: 50px !important; min-width: 50px !important; min-height: 50px !important; max-width: 50px !important; max-height: 50px !important; margin-right: 15px !important; flex-shrink: 0 !important; border-radius: 50% !important; overflow: hidden !important; display: flex !important; align-items: center !important; justify-content: center !important; background: #f5f5f5 !important; }
 .dark .link-avatar { background: #2a2a2a !important; }
-
-.link-card-inner .link-avatar img {
-    width: 50px !important; height: 50px !important; max-width: 50px !important; max-height: 50px !important;
-    min-width: 50px !important; min-height: 50px !important; border-radius: 50% !important;
-    object-fit: contain !important; display: block !important; border: none !important;
-    background: transparent !important; flex-shrink: 0 !important;
-}
-
+.link-card-inner .link-avatar img { width: 50px !important; height: 50px !important; max-width: 50px !important; max-height: 50px !important; min-width: 50px !important; min-height: 50px !important; border-radius: 50% !important; object-fit: contain !important; display: block !important; border: none !important; background: transparent !important; flex-shrink: 0 !important; }
 .link-info { overflow: hidden !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
 .link-name { font-size: 16px !important; color: #333 !important; font-weight: bold !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.4 !important; }
 .link-desc { font-size: 12px !important; color: #777 !important; margin-top: 5px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; line-height: 1.2 !important; }
-
 .dark .link-card-inner { background: #262626 !important; border-color: #333 !important; }
 .dark .link-name { color: #eeeeee !important; }
 .dark .link-desc { color: #999999 !important; }
@@ -207,330 +122,203 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 .divider-line span { background: #fff; padding: 0 15px; position: relative; top: -11px; color: #bbb; }
 .dark .divider-line span { background: #1d1d1d !important; }
 
-/* 修复页脚浮动 */
+/* 页脚 */
 .clear-footer { clear: both !important; height: 1px !important; width: 100% !important; display: block !important; }
 #footers { clear: both !important; width: 100% !important; margin-top: 50px !important; }
 
-/* --- 6. 返回顶部按钮尺寸（与太阳图标一致）--- */
-.roll-top {
-    width: 40px !important;
-    height: 40px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-.roll-top svg {
-    width: 24px !important;
-    height: 24px !important;
-}
-/* --- 7. 桌面端完全隔离 mmenu 副作用 --- */
+/* --- 6. 返回顶部按鈕 --- */
+.roll-top { width: 40px !important; height: 40px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+.roll-top svg { width: 24px !important; height: 24px !important; }
+
+/* --- 7. 桑面端完全隔离 mmenu 副作用 --- */
 @media screen and (min-width: 992px) {
-  .mm-page.mm-slideout {
-    width: 100% !important;
-    transform: none !important;
-    left: 0 !important;
-    position: static !important;
-  }
-  html.mm-opened,
-  html.mm-opening,
-  html.mm-blocking {
-    overflow: auto !important;
-  }
-  html.mm-opened body,
-  html.mm-opening body {
-    overflow: auto !important;
-  }
-  #mm-blocker,
-  .mm-wrapper__blocker,
-  .mm-blocker,
-  .mm-slideout ~ div[class*="mm-"] {
-    display: none !important;
-    pointer-events: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    z-index: -1 !important;
-  }
-  nav#menu-right {
-    position: fixed !important;
-    right: -9999px !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-  .navigation {
-    position: relative !important;
-    z-index: 99999 !important;
-    pointer-events: auto !important;
-  }
-  .navigation * {
-    pointer-events: auto !important;
-  }
-
-  /* 桌面端隐藏抽屉和遮罩 */
-  #left-drawer,
-  #left-drawer-overlay {
-    display: none !important;
-    pointer-events: none !important;
-    visibility: hidden !important;
-  }
-
-  /* 关键修复：桌面端 top-page ul 不能是 absolute，防止遮挡内容区 */
-  .top-page ul {
-    position: static !important;
-    z-index: auto !important;
-    pointer-events: auto !important;
-  }
+  .mm-page.mm-slideout { width: 100% !important; transform: none !important; left: 0 !important; position: static !important; }
+  html.mm-opened, html.mm-opening, html.mm-blocking { overflow: auto !important; }
+  html.mm-opened body, html.mm-opening body { overflow: auto !important; }
+  #mm-blocker, .mm-wrapper__blocker, .mm-blocker, .mm-slideout ~ div[class*="mm-"] { display: none !important; pointer-events: none !important; visibility: hidden !important; opacity: 0 !important; z-index: -1 !important; }
+  nav#menu-right { position: fixed !important; right: -9999px !important; visibility: hidden !important; pointer-events: none !important; }
+  .navigation { position: relative !important; z-index: 99999 !important; pointer-events: auto !important; }
+  .navigation * { pointer-events: auto !important; }
+  #left-drawer, #left-drawer-overlay { display: none !important; pointer-events: none !important; visibility: hidden !important; }
+  .top-page ul { position: static !important; z-index: auto !important; pointer-events: auto !important; }
 }
-/* --- 8. 手机端顶栏（仅 max-width:991px 生效，桌面端完全不受影响）--- */
+
+/* --- 8. 手机端顶栏 --- */
 @media screen and (max-width: 991px) {
-
-  /* 隐藏桌面端 header/navigation，手机端用顶栏代替 */
   .header, .navigation { display: none !important; }
-
-  /* 隐藏桌面端侧边栏（内容通过右侧 mmenu 访问）*/
   .container > .sidebar { display: none !important; }
+  :root { --mm-size: 78vw; --mm-max-size: 26rem; --mm-min-size: 16rem; }
 
-  /* 调整手机端左右 mmenu 宽度，接近原 WordPress 主题比例 */
-  :root {
-    --mm-size: 78vw;
-    --mm-max-size: 26rem;
-    --mm-min-size: 16rem;
-  }
-
-  /* 手机端顶栏 */
   .mobile-header {
-    display: flex !important;
-    align-items: center;
-    justify-content: space-between;
-    height: 54px;
-    padding: 0 15px;
-    background: #434a54;
-    position: sticky;
-    top: 0;
-    z-index: 10000;
+    display: flex !important; align-items: center; justify-content: space-between;
+    height: 54px; padding: 0 15px; background: #434a54;
+    position: sticky; top: 0; z-index: 10000;
   }
-
-  /* 站点标题 */
   .mobile-site-title {
-    color: #fff !important;
-    font-size: 19px;
-    font-weight: bold;
-    text-decoration: none;
-    flex: 1;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0 10px;
-    letter-spacing: 1px;
+    color: #fff !important; font-size: 19px; font-weight: bold;
+    text-decoration: none; flex: 1; text-align: center;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin: 0 10px; letter-spacing: 1px;
   }
-
-  /* 左右图标按钮 */
   .mobile-nav-btn {
-    background: none !important;
-    border: none !important;
-    color: #fff !important;
-    padding: 6px;
-    cursor: pointer;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    min-width: 44px;
-    min-height: 44px;
-    text-decoration: none !important;
+    background: none !important; border: none !important; color: #fff !important;
+    padding: 6px; cursor: pointer; display: flex !important;
+    align-items: center; justify-content: center; flex-shrink: 0;
+    min-width: 44px; min-height: 44px; text-decoration: none !important;
   }
   .mobile-nav-btn svg { color: #fff; stroke: #fff; }
-
-  /* 暗黑模式手机顶栏 */
   body.dark .mobile-header { background: #1a1a1a !important; }
 
-  /* mmenu 右侧面板内 sidebar 样式适配 */
-  #menu-right .sidebar {
-    display: block !important;
-    padding: 10px;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  /* mmenu 面板内隐藏多余 padding/margin */
+  /* mmenu 面板内 sidebar */
+  #menu-right .sidebar { display: block !important; padding: 10px; background: transparent !important; border: none !important; box-shadow: none !important; }
   #menu-right, #menu { padding: 0 !important; }
 }
 
-/* 桌面端隐藏手机顶栏 */
+/* 桑面端隐藏手机顶栏 */
 @media screen and (min-width: 992px) {
   .mobile-header { display: none !important; }
 }
 
-/* --- 9. 左侧纯CSS抽屉（仅手机端，不影响桌面） --- */
+/* --- 9. 左侧纯CSS抽屉 --- */
 @media screen and (max-width: 991px) {
-
-  /* 遮罩层 */
   #left-drawer-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 19998;
-    background: rgba(0,0,0,0.55);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    display: none; position: fixed; inset: 0; z-index: 19998;
+    background: rgba(0,0,0,0.55); opacity: 0; transition: opacity 0.3s ease;
   }
-  #left-drawer-overlay.is-open {
-    display: block;
-    opacity: 1;
-  }
+  #left-drawer-overlay.is-open { display: block; opacity: 1; }
 
-  /* 抽屉主体 */
   #left-drawer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 19999;
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 19999;
     width: clamp(16rem, 78vw, 26rem);
     background: #f3f3f3;
     transform: translateX(-100%);
     transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    display: flex;
-    flex-direction: column;
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+    display: flex; flex-direction: column;
   }
-  #left-drawer.is-open {
-    transform: translateX(0);
-  }
+  #left-drawer.is-open { transform: translateX(0); }
 
-  /* 抽屉顶栏 */
   .left-drawer-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 2.75rem;
-    padding: 0 1rem;
-    background: #f3f3f3;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 2.75rem; padding: 0 1rem; background: #f3f3f3;
     border-bottom: 1px solid rgba(0,0,0,0.15);
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    flex-shrink: 0;
+    position: sticky; top: 0; z-index: 2; flex-shrink: 0;
   }
-  .left-drawer-title {
-    font-size: 14px;
-    color: rgba(0,0,0,0.4);
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  #left-drawer-close {
-    background: none;
-    border: none;
-    color: rgba(0,0,0,0.4);
-    cursor: pointer;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-  }
+  .left-drawer-title { font-size: 14px; color: rgba(0,0,0,0.4); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+  #left-drawer-close { background: none; border: none; color: rgba(0,0,0,0.4); cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; line-height: 1; }
   #left-drawer-close:hover { color: rgba(0,0,0,0.8); }
 
-  /* 抽屉导航列表 */
-  .left-drawer-nav {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    flex: 1;
-  }
-  .left-drawer-nav li {
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid rgba(0,0,0,0.15);
-  }
-  .left-drawer-nav li a {
-    display: block;
-    height: 2.75rem;
-    line-height: 2.75rem;
-    padding: 0 1rem;
-    color: rgba(0,0,0,0.8);
-    font-size: 1rem;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  .left-drawer-nav li a:hover,
-  .left-drawer-nav li a:active {
-    background: rgba(0,0,0,0.05);
-  }
+  .left-drawer-nav { list-style: none; margin: 0; padding: 0; flex: 1; }
+  .left-drawer-nav li { margin: 0; padding: 0; border-bottom: 1px solid rgba(0,0,0,0.15); }
+  .left-drawer-nav li a { display: block; height: 2.75rem; line-height: 2.75rem; padding: 0 1rem; color: rgba(0,0,0,0.8); font-size: 1rem; text-decoration: none; transition: background 0.2s; }
+  .left-drawer-nav li a:hover, .left-drawer-nav li a:active { background: rgba(0,0,0,0.05); }
 
-  /* 左侧抽屉暗黑模式 */
-  body.dark #left-drawer {
-    background: #333;
-  }
-  body.dark .left-drawer-header {
-    background: #333;
-    border-bottom-color: rgba(0,0,0,0.4);
-  }
-  body.dark .left-drawer-title {
-    color: rgba(255,255,255,0.4);
-  }
-  body.dark #left-drawer-close {
-    color: rgba(255,255,255,0.4);
-  }
-  body.dark #left-drawer-close:hover {
-    color: rgba(255,255,255,0.8);
-  }
-  body.dark .left-drawer-nav li {
-    border-bottom-color: rgba(0,0,0,0.4);
-  }
-  body.dark .left-drawer-nav li a {
-    color: rgba(255,255,255,0.8);
-  }
-  body.dark .left-drawer-nav li a:hover {
-    background: rgba(255,255,255,0.08);
-  }
+  body.dark #left-drawer { background: #333; }
+  body.dark .left-drawer-header { background: #333; border-bottom-color: rgba(0,0,0,0.4); }
+  body.dark .left-drawer-title { color: rgba(255,255,255,0.4); }
+  body.dark #left-drawer-close { color: rgba(255,255,255,0.4); }
+  body.dark #left-drawer-close:hover { color: rgba(255,255,255,0.8); }
+  body.dark .left-drawer-nav li { border-bottom-color: rgba(0,0,0,0.4); }
+  body.dark .left-drawer-nav li a { color: rgba(255,255,255,0.8); }
+  body.dark .left-drawer-nav li a:hover { background: rgba(255,255,255,0.08); }
 }
 
-/* --- 10. 右侧mmenu强制明亮模式，不跟随暗黑 --- */
+/* --- 10. 手机端右侧栏完全对齐桓面端效果（支持暗黑模式） --- */
 @media screen and (max-width: 991px) {
 
-  /* mmenu 面板背景强制白色 */
+  /* mmenu 面板基础样式 - 亮色 */
   #menu-right.mm-menu,
   #menu-right,
   #menu-right .mm-panel,
   #menu-right .mm-panels > .mm-panel {
-    background: #fff !important;
+    background: #f5f5f5 !important;
   }
 
   /* 隐藏 mmenu 自带 navbar 标题栏 */
-  #menu-right .mm-navbar {
-    display: none !important;
-  }
+  #menu-right .mm-navbar { display: none !important; }
 
-  /* sidebar 完全撑开 */
+  /* sidebar 擑开 */
   #menu-right .sidebar {
     display: block !important;
     width: 100% !important;
     padding: 10px !important;
     float: none !important;
+    background: #f5f5f5 !important;
   }
 
-  /* 强制右侧栏所有文字、背景回到明亮模式颜色 */
-  #menu-right,
-  #menu-right * {
-    background-color: revert !important;
-    color: revert !important;
+  /* widget 卡片对齐桓面端 */
+  #menu-right .widget {
+    background: #fff !important;
+    color: #333 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    margin-bottom: 15px !important;
   }
 
-  /* 覆盖 body.dark 对右侧栏内元素的影响 */
-  #menu-right .widget { background: #fff !important; color: #333 !important; border-color: #ddd !important; }
-  #menu-right .widget h3,
-  #menu-right .widget .widget-title { color: #333 !important; }
-  #menu-right .tab-content ul li { border-bottom-color: #eee !important; }
-  #menu-right .tab-content ul li a { color: #333 !important; }
+  /* tab 导航 */
   #menu-right .tabnav li { color: #555 !important; }
   #menu-right .tabnav li.selected { color: #ed5565 !important; }
-  #menu-right .about-author .author-stats { background: #fafafa !important; }
+
+  /* 列表条目 */
+  #menu-right .tab-content ul li {
+    border-bottom-color: #eee !important;
+    color: #333 !important;
+  }
+  #menu-right .tab-content ul li a { color: #333 !important; }
+  #menu-right .tab-content ul li a:hover { color: #ed5565 !important; }
+
+  /* 作者卡片 */
+  #menu-right .about-author .author-stats { background: #fafafa !important; border-top-color: #f2f2f2 !important; }
   #menu-right .about-author .stat-number { color: #333 !important; }
+  #menu-right .about-author .stat-label { color: #666 !important; }
+
+  /* 标签云 */
+  #menu-right .widget-tags { background: #fff !important; }
+
+  /* 标题、链接 */
   #menu-right h1, #menu-right h2, #menu-right h3 { color: #333 !important; }
   #menu-right a { color: #333 !important; }
   #menu-right a:hover { color: #ed5565 !important; }
+
+  /* ============ 暗黑模式完全跟随 ============ */
+  body.dark #menu-right.mm-menu,
+  body.dark #menu-right,
+  body.dark #menu-right .mm-panel,
+  body.dark #menu-right .mm-panels > .mm-panel {
+    background: #121212 !important;
+  }
+
+  body.dark #menu-right .sidebar {
+    background: #121212 !important;
+  }
+
+  body.dark #menu-right .widget {
+    background: #1d1d1d !important;
+    color: #bbb !important;
+    border-color: #333 !important;
+  }
+
+  body.dark #menu-right .tabnav li { color: #999 !important; }
+  body.dark #menu-right .tabnav li.selected { color: #ed5565 !important; }
+
+  body.dark #menu-right .tab-content ul li {
+    border-bottom-color: #2a2a2a !important;
+    color: #bbb !important;
+  }
+  body.dark #menu-right .tab-content ul li a { color: #bbb !important; }
+  body.dark #menu-right .tab-content ul li a:hover { color: #ed5565 !important; }
+
+  body.dark #menu-right .about-author .author-stats { background: #222 !important; border-top-color: #333 !important; }
+  body.dark #menu-right .about-author .stat-number { color: #eee !important; }
+  body.dark #menu-right .about-author .stat-label { color: #999 !important; }
+  body.dark #menu-right .about-author .author-description { color: #999 !important; }
+
+  body.dark #menu-right .widget-tags { background: #1d1d1d !important; }
+
+  body.dark #menu-right h1,
+  body.dark #menu-right h2,
+  body.dark #menu-right h3 { color: #eee !important; }
+  body.dark #menu-right a { color: #bbb !important; }
+  body.dark #menu-right a:hover { color: #ed5565 !important; }
 }
