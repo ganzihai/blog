@@ -14,11 +14,9 @@
         {{ $content := .Content }}
         {{ $imgSrc := "" }}
 
-        {{/* 先尝试从 front matter 的 image 字段获取 */}}
         {{ if .Params.image }}
             {{ $imgSrc = .Params.image }}
         {{ else }}
-            {{/* 用更宽松的正则：找到第一个 <img 标签，再从中单独提取 src */}}
             {{ $imgTags := findRE `(?s)<img[^>]+>` $content 1 }}
             {{ if gt (len $imgTags) 0 }}
                 {{ $imgTag := index $imgTags 0 }}
@@ -27,12 +25,14 @@
                     {{ $imgSrc = index $srcMatches 0 | strings.TrimPrefix `src="` | strings.TrimSuffix `"` }}
                 {{ end }}
             {{ end }}
-            {{/* 如果文章内没有图片，随机取备用图 */}}
             {{ if eq $imgSrc "" }}
                 {{ $random_num := (add (mod (len .Title) 30) 1) }}
                 {{ $imgSrc = printf "/images/random/%d.jpg" $random_num }}
             {{ end }}
         {{ end }}
+
+        {{/* 修复双重转义：&amp;amp; → & */}}
+        {{ $imgSrc = $imgSrc | replaceAll "&amp;amp;" "&" | replaceAll "&amp;" "&" }}
 
         <div class="thumbnail">
             <a href="{{ .Permalink }}" rel="nofollow" title="{{ .Title }}">
