@@ -13,15 +13,26 @@
         
         {{ $content := .Content }}
         {{ $imgSrc := "" }}
-        {{ $imgs := findRE "<img.*?src=\"(.*?)\"" $content 1 }}
-        {{ if gt (len $imgs) 0 }}
-            {{ $imgSrc = index (findRE "src=\"(.*?)\"" (index $imgs 0) 1) 0 | strings.TrimPrefix "src=\"" | strings.TrimSuffix "\"" }}
-        {{ else if .Params.image }}
+
+        {{ if .Params.image }}
             {{ $imgSrc = .Params.image }}
         {{ else }}
-            {{ $random_num := (add (mod (len .Title) 30) 1) }}
-            {{ $imgSrc = printf "/images/random/%d.jpg" $random_num }}
+            {{ $imgTags := findRE `(?s)<img[^>]+>` $content 1 }}
+            {{ if gt (len $imgTags) 0 }}
+                {{ $imgTag := index $imgTags 0 }}
+                {{ $srcMatches := findRE `src="([^"]+)"` $imgTag 1 }}
+                {{ if gt (len $srcMatches) 0 }}
+                    {{ $imgSrc = index $srcMatches 0 | strings.TrimPrefix `src="` | strings.TrimSuffix `"` }}
+                {{ end }}
+            {{ end }}
+            {{ if eq $imgSrc "" }}
+                {{ $random_num := (add (mod (len .Title) 30) 1) }}
+                {{ $imgSrc = printf "/images/random/%d.jpg" $random_num }}
+            {{ end }}
         {{ end }}
+
+        {{ $imgSrc = replace $imgSrc "&amp;amp;" "&" }}
+        {{ $imgSrc = replace $imgSrc "&amp;" "&" }}
 
         <div class="thumbnail">
             <a href="{{ .Permalink }}" rel="nofollow" title="{{ .Title }}">
