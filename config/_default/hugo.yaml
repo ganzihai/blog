@@ -65,3 +65,15 @@ enableRobotsTXT: true
 
 minify:
   minifyOutput: true
+# 相关文章推荐配置
+related:
+  includeNewer: true
+  threshold: 30
+  toLower: false
+  indices:
+    - name: tags
+      weight: 100
+    - name: categories
+      weight: 50
+    - name: date
+      weight: 10
