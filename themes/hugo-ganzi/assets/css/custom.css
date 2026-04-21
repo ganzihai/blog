@@ -174,7 +174,7 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     display: flex !important;
     align-items: center !important;
     transition: all 0.3s;
-    min-height: 80px;
+    min-height: 50px;
     overflow: hidden !important;
 }
 .link-card-item:hover .link-card-inner { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: #ed5565; }
