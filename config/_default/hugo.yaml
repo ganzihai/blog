@@ -5,6 +5,7 @@
 baseURL: /
 title: 杆子博客
 theme: hugo-ganzi
+timeZone: Asia/Shanghai
 defaultContentLanguage: zh-cn
 languageCode: zh-CN
 hasCJKLanguage: true
