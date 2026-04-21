@@ -16,6 +16,8 @@ body.dark { background: #121212 !important; color: #bbb !important; }
 }
 .top-page, .top-social { display: flex !important; align-items: center !important; height: 100% !important; float: none !important; }
 .top-page .menu, .top-page .menu ul { display: flex !important; align-items: center !important; height: 100% !important; list-style: none !important; margin: 0 !important; }
+/* 关键修复：重置 top-page ul 的 position，防止它浮层遮挡内容 */
+.top-page ul { position: static !important; z-index: auto !important; pointer-events: auto !important; }
 .top-page .menu ul li { margin-right: 20px !important; float: none !important; display: flex !important; align-items: center !important; }
 .top-page .menu ul li a { color: #fff !important; font-size: 1rem !important; line-height: 1 !important; display: inline-block !important; }
 
@@ -56,7 +58,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     font-size: 14px !important;
     text-decoration: none !important;
     font-weight: 500;
-    /* 移除原有的 color: #fff，让颜色由下方各规则决定 */
 }
 
 /* 9n   → 第9、18、27...个 */
@@ -106,7 +107,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     background-color: rgba(246, 94, 135, 0.1);
 }
 
-/* 可选：增加悬停效果 */
 .tag-cloud-link:hover {
     opacity: 0.8;
     transition: opacity 0.2s;
@@ -265,10 +265,19 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     pointer-events: auto !important;
   }
 
-  /* ↓ 新增这两行 ↓ */
+  /* 桌面端隐藏抽屉和遮罩 */
   #left-drawer,
   #left-drawer-overlay {
     display: none !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+
+  /* 关键修复：桌面端 top-page ul 不能是 absolute，防止遮挡内容区 */
+  .top-page ul {
+    position: static !important;
+    z-index: auto !important;
+    pointer-events: auto !important;
   }
 }
 /* --- 8. 手机端顶栏（仅 max-width:991px 生效，桌面端完全不受影响）--- */
@@ -343,7 +352,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     border: none !important;
     box-shadow: none !important;
   }
-  #menu-right .sidebar .widget { margin-bottom: 15px; }
 
   /* mmenu 面板内隐藏多余 padding/margin */
   #menu-right, #menu { padding: 0 !important; }
