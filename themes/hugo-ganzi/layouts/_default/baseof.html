@@ -24,7 +24,6 @@
 <body>
     <!-- 手机端顶栏：仅在 max-width:991px 显示 -->
     <div class="mobile-header">
-        <!-- 左侧导航：href="#" 避免 mmenu 自动接管，由 JS 手动控制 -->
         <a href="#" id="mobile-menu-btn" class="mobile-nav-btn" aria-label="打开导航菜单">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </a>
@@ -134,43 +133,115 @@
             });
 
             // ============================================================
-            // 修复：手机端右侧栏(mmenu)暗黑模式
-            // mmenu 会通过 JS 动态写入 background 内联样式，CSS !important 无法覆盖。
-            // 方案：监听 mmenu 打开事件 + body.dark 变化，用 JS 强制覆盖内联样式。
+            // 修复：手机端右侧栏(mmenu) 暗黑模式 — 核武器方案
+            // mmenu 通过 JS 动态写入 background 内联样式，CSS !important 无法覆盖。
+            // 方案：对 #menu-right 内 *所有元素* 按语义分层批量强制覆盖。
             // ============================================================
+
+            // 颜色定义
+            var DARK = {
+                panel:      '#121212',
+                widget:     '#1d1d1d',
+                tabContent: '#1d1d1d',
+                tabHeader:  '#252525',
+                listItem:   'transparent',
+                text:       '#bbbbbb',
+                textMuted:  '#888888',
+                border:     '#333333',
+                authorStats:'#222222',
+                statNum:    '#eeeeee'
+            };
+            var LIGHT = {
+                panel:      '#f5f5f5',
+                widget:     '#ffffff',
+                tabContent: '#ffffff',
+                tabHeader:  '#ffffff',
+                listItem:   'transparent',
+                text:       '#333333',
+                textMuted:  '#666666',
+                border:     '#dddddd',
+                authorStats:'#fafafa',
+                statNum:    '#333333'
+            };
+
             function applyMmenuDarkFix() {
                 var isDark = document.body.classList.contains('dark');
-                var bgPanel  = isDark ? '#121212' : '#f5f5f5';
-                var bgWidget = isDark ? '#1d1d1d' : '#ffffff';
+                var C = isDark ? DARK : LIGHT;
+                var mr = document.getElementById('menu-right');
+                if (!mr) return;
 
-                // 面板本身
-                var panels = document.querySelectorAll('#menu-right, #menu-right .mm-panel, #menu-right .mm-panels > .mm-panel');
-                panels.forEach(function(el) {
-                    el.style.setProperty('background', bgPanel, 'important');
+                // 1. 面板层（mmenu 注入背景的地方）
+                [mr].concat(Array.from(mr.querySelectorAll('.mm-panel, .mm-panels, .mm-panels > .mm-panel, .mm-wrapper')))
+                    .forEach(function(el) {
+                        el.style.setProperty('background', C.panel, 'important');
+                        el.style.setProperty('background-color', C.panel, 'important');
+                    });
+
+                // 2. sidebar 容器
+                mr.querySelectorAll('.sidebar').forEach(function(el) {
+                    el.style.setProperty('background', C.panel, 'important');
+                    el.style.setProperty('background-color', C.panel, 'important');
                 });
 
-                // sidebar 容器
-                var sidebars = document.querySelectorAll('#menu-right .sidebar');
-                sidebars.forEach(function(el) {
-                    el.style.setProperty('background', bgPanel, 'important');
+                // 3. widget 卡片
+                mr.querySelectorAll('.widget').forEach(function(el) {
+                    el.style.setProperty('background', C.widget, 'important');
+                    el.style.setProperty('background-color', C.widget, 'important');
+                    el.style.setProperty('color', C.text, 'important');
+                    el.style.setProperty('border-color', C.border, 'important');
                 });
 
-                // widget 卡片
-                var widgets = document.querySelectorAll('#menu-right .widget');
-                widgets.forEach(function(el) {
-                    el.style.setProperty('background', bgWidget, 'important');
-                    el.style.setProperty('color', isDark ? '#bbbbbb' : '#333333', 'important');
-                    el.style.setProperty('border-color', isDark ? '#333333' : '#dddddd', 'important');
+                // 4. widget 内所有直接子容器（tab-content, widget-body 等）
+                mr.querySelectorAll('.widget-body, .tab-content, .tabtitle, .tabcontent').forEach(function(el) {
+                    el.style.setProperty('background', C.tabContent, 'important');
+                    el.style.setProperty('background-color', C.tabContent, 'important');
+                    el.style.setProperty('color', C.text, 'important');
+                });
+
+                // 5. tab 导航栏
+                mr.querySelectorAll('.tabnav, .widget-tabs, .widget-tab-nav').forEach(function(el) {
+                    el.style.setProperty('background', C.tabHeader, 'important');
+                    el.style.setProperty('background-color', C.tabHeader, 'important');
+                });
+
+                // 6. 列表条目 (li, a)
+                mr.querySelectorAll('.tab-content ul li, .mm-listitem').forEach(function(el) {
+                    el.style.setProperty('background', C.listItem, 'important');
+                    el.style.setProperty('background-color', C.listItem, 'important');
+                    el.style.setProperty('border-bottom-color', C.border, 'important');
+                    el.style.setProperty('color', C.text, 'important');
+                });
+                mr.querySelectorAll('.tab-content ul li a, .mm-listitem a').forEach(function(el) {
+                    el.style.setProperty('color', C.text, 'important');
+                    el.style.setProperty('background', 'transparent', 'important');
+                });
+
+                // 7. 作者卡片统计区
+                mr.querySelectorAll('.author-stats').forEach(function(el) {
+                    el.style.setProperty('background', C.authorStats, 'important');
+                    el.style.setProperty('background-color', C.authorStats, 'important');
+                    el.style.setProperty('border-top-color', C.border, 'important');
+                });
+                mr.querySelectorAll('.stat-number').forEach(function(el) {
+                    el.style.setProperty('color', C.statNum, 'important');
+                });
+                mr.querySelectorAll('.stat-label, .author-description').forEach(function(el) {
+                    el.style.setProperty('color', C.textMuted, 'important');
+                });
+
+                // 8. 标题与链接
+                mr.querySelectorAll('h1, h2, h3, h4').forEach(function(el) {
+                    el.style.setProperty('color', isDark ? '#eeeeee' : '#333333', 'important');
                 });
             }
 
-            // mmenu 打开时触发
+            // mmenu 事件监听
             var menuRight = document.getElementById('menu-right');
             if (menuRight) {
-                // mmenu 4.x/5.x 用自定义事件，也兼容 class 变化
                 menuRight.addEventListener('mm-open', applyMmenuDarkFix);
                 menuRight.addEventListener('mm-opened', applyMmenuDarkFix);
-                // 兜底：MutationObserver 监听 class 变化（mmenu 打开时会加 mm-opened 等 class）
+
+                // MutationObserver 监听 #menu-right 自身 class/style 变化
                 new MutationObserver(function(mutations) {
                     mutations.forEach(function(m) {
                         if (m.attributeName === 'class' || m.attributeName === 'style') {
@@ -178,9 +249,14 @@
                         }
                     });
                 }).observe(menuRight, { attributes: true });
+
+                // 监听 #menu-right 内部子树变化（mmenu 动态插入节点时也触发）
+                new MutationObserver(function() {
+                    applyMmenuDarkFix();
+                }).observe(menuRight, { childList: true, subtree: true });
             }
 
-            // 暗黑模式切换时也立刻修正（body.dark 变化）
+            // 暗黑模式切换时同步修正
             new MutationObserver(function(mutations) {
                 mutations.forEach(function(m) {
                     if (m.attributeName === 'class') {
@@ -189,7 +265,7 @@
                 });
             }).observe(document.body, { attributes: true });
 
-            // 页面加载时立即执行一次（保证刷新后状态正确）
+            // 页面加载立即执行
             applyMmenuDarkFix();
         });
     </script>
