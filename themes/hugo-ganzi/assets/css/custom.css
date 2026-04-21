@@ -422,23 +422,23 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   }
 }
 
-/* --- 10. 右侧mmenu强制继承桌面端侧边栏样式 --- */
+/* --- 10. 右侧mmenu强制明亮模式，不跟随暗黑 --- */
 @media screen and (max-width: 991px) {
 
-  /* 让 mmenu 面板背景透明，由内部 sidebar widget 自己控制颜色 */
+  /* mmenu 面板背景强制白色 */
   #menu-right.mm-menu,
   #menu-right,
   #menu-right .mm-panel,
   #menu-right .mm-panels > .mm-panel {
-    background: transparent !important;
+    background: #fff !important;
   }
 
-  /* 隐藏 mmenu 自带的 navbar 标题栏（"侧边栏"那行）*/
+  /* 隐藏 mmenu 自带 navbar 标题栏 */
   #menu-right .mm-navbar {
     display: none !important;
   }
 
-  /* 让内部 sidebar 完全撑开显示 */
+  /* sidebar 完全撑开 */
   #menu-right .sidebar {
     display: block !important;
     width: 100% !important;
@@ -446,11 +446,24 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     float: none !important;
   }
 
-  /* mmenu 面板的整体背景跟 body 背景一致 */
-  #menu-right.mm-menu {
-    background: #fff !important;
+  /* 强制右侧栏所有文字、背景回到明亮模式颜色 */
+  #menu-right,
+  #menu-right * {
+    background-color: revert !important;
+    color: revert !important;
   }
-  body.dark #menu-right.mm-menu {
-    background: #121212 !important;
-  }
+
+  /* 覆盖 body.dark 对右侧栏内元素的影响 */
+  #menu-right .widget { background: #fff !important; color: #333 !important; border-color: #ddd !important; }
+  #menu-right .widget h3,
+  #menu-right .widget .widget-title { color: #333 !important; }
+  #menu-right .tab-content ul li { border-bottom-color: #eee !important; }
+  #menu-right .tab-content ul li a { color: #333 !important; }
+  #menu-right .tabnav li { color: #555 !important; }
+  #menu-right .tabnav li.selected { color: #ed5565 !important; }
+  #menu-right .about-author .author-stats { background: #fafafa !important; }
+  #menu-right .about-author .stat-number { color: #333 !important; }
+  #menu-right h1, #menu-right h2, #menu-right h3 { color: #333 !important; }
+  #menu-right a { color: #333 !important; }
+  #menu-right a:hover { color: #ed5565 !important; }
 }
