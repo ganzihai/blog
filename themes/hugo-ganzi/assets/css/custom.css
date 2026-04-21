@@ -422,46 +422,60 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   }
 }
 
-/* --- 10. 右侧mmenu暗黑模式完整覆盖 --- */
+/* --- 10. 右侧mmenu强制明亮模式（不跟随暗黑）--- */
 @media screen and (max-width: 991px) {
 
-  /* 暗黑模式下 mmenu 整体背景 */
-  body.dark #menu-right.mm-menu,
-  body.dark #menu-right {
-    background: #1a1a1a !important;
-    color: #ccc !important;
+  /* 强制明亮背景，不管是否暗黑模式 */
+  #menu-right.mm-menu,
+  #menu-right {
+    background: #fff !important;
+    color: #333 !important;
   }
 
-  /* navbar 标题栏（"侧边栏"那一行）*/
-  body.dark #menu-right .mm-navbar {
-    background: #222 !important;
-    border-bottom: 1px solid #333 !important;
+  #menu-right .mm-navbar {
+    background: #f5f5f5 !important;
+    border-bottom: 1px solid #ddd !important;
   }
-  body.dark #menu-right .mm-navbar__title,
-  body.dark #menu-right .mm-navbar a {
-    color: #ccc !important;
-  }
-
-  /* 面板背景 */
-  body.dark #menu-right .mm-panel,
-  body.dark #menu-right .mm-panels > .mm-panel {
-    background: #1a1a1a !important;
+  #menu-right .mm-navbar__title,
+  #menu-right .mm-navbar a {
+    color: #333 !important;
   }
 
-  /* 列表项 */
-  body.dark #menu-right .mm-listitem__text,
-  body.dark #menu-right .mm-listitem a {
-    color: #ccc !important;
-  }
-  body.dark #menu-right .mm-listitem {
-    border-bottom-color: #2a2a2a !important;
-  }
-  body.dark #menu-right .mm-listitem:after {
-    border-color: #2a2a2a !important;
+  #menu-right .mm-panel,
+  #menu-right .mm-panels > .mm-panel {
+    background: #fff !important;
   }
 
-  /* 遮罩层 */
-  body.dark .mm-wrapper__blocker {
-    background: rgba(0,0,0,0.7) !important;
+  #menu-right .mm-listitem__text,
+  #menu-right .mm-listitem a {
+    color: #333 !important;
+  }
+  #menu-right .mm-listitem {
+    border-bottom-color: #eee !important;
+  }
+  #menu-right .mm-listitem:after {
+    border-color: #eee !important;
+  }
+
+  /* 右侧栏内的 widget 强制明亮 */
+  #menu-right .sidebar,
+  #menu-right .widget,
+  #menu-right .widget * {
+    background: transparent !important;
+    color: #333 !important;
+    border-color: #eee !important;
+  }
+  #menu-right .tab-content ul li {
+    border-bottom-color: #eee !important;
+  }
+  #menu-right .tab-content ul li a {
+    color: #333 !important;
+  }
+  #menu-right .tabnav li {
+    color: #333 !important;
+  }
+  #menu-right .tabnav li.selected {
+    color: #ed5565 !important;
+    border-bottom-color: #ed5565 !important;
   }
 }
