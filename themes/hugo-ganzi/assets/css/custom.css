@@ -223,10 +223,8 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     width: 24px !important;
     height: 24px !important;
 }
-
 /* --- 7. 桌面端完全隔离 mmenu 副作用 --- */
 @media screen and (min-width: 992px) {
-  /* 强制还原页面布局 */
   .mm-page.mm-slideout {
     width: 100% !important;
     transform: none !important;
@@ -242,7 +240,6 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   html.mm-opening body {
     overflow: auto !important;
   }
-  /* 关键：彻底禁用遮罩层的点击拦截 */
   #mm-blocker,
   .mm-wrapper__blocker,
   .mm-blocker,
@@ -253,14 +250,12 @@ body.dark { background: #121212 !important; color: #bbb !important; }
     opacity: 0 !important;
     z-index: -1 !important;
   }
-  /* 桌面端右侧面板推到屏幕外，不影响布局 */
   nav#menu-right {
     position: fixed !important;
     right: -9999px !important;
     visibility: hidden !important;
     pointer-events: none !important;
   }
-  /* 导航栏确保在最顶层可点击 */
   .navigation {
     position: relative !important;
     z-index: 99999 !important;
@@ -268,6 +263,12 @@ body.dark { background: #121212 !important; color: #bbb !important; }
   }
   .navigation * {
     pointer-events: auto !important;
+  }
+
+  /* ↓ 新增这两行 ↓ */
+  #left-drawer,
+  #left-drawer-overlay {
+    display: none !important;
   }
 }
 /* --- 8. 手机端顶栏（仅 max-width:991px 生效，桌面端完全不受影响）--- */
