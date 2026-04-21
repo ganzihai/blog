@@ -20,7 +20,9 @@
 a:link, a:visited{color:#ed5565;text-decoration:none;}
 a:hover{color:#da4453;text-decoration:underline;}
 .clear{clear:both;}
-.newicon{color:#ed5565;animation:move 3s linear infinite;}
+.newicon,.new-badge{color:#ed5565;animation:move 3s linear infinite;}
+.new{display:inline-flex;align-items:center;vertical-align:middle;margin-left:0.375rem;}
+.new-badge{width:2.25rem;height:1rem;display:inline-block;}
 @keyframes move{
 	0%{
         transform:translate(-2px)
