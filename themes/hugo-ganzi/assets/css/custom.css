@@ -883,30 +883,40 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .instructions-wrap {
   line-height: 1.8;
 }
-/* 头部图标相对于 .website 容器绝对定位，右边缘对齐容器右边缘 */
+/* 头部图标绝对定位，右边缘对齐 */
 .website {
     position: relative;
+    overflow: visible !important;
+}
+
+.header {
+    position: relative;
+    overflow: visible !important;
+    z-index: 100;   /* 建立堆叠上下文，但不需要过高 */
 }
 
 .headicon {
     position: absolute;
     top: 50%;
-    right: 40px;                /* 距离右侧边缘 40px，可按需调整 */
-    transform: translateY(-5%); /* 垂直微调，可按需调整 */
+    right: 40px;                    /* 距离右侧边缘 40px，可自行调整 */
+    transform: translateY(-5%);     /* 垂直微调 */
     margin: 0;
     float: none;
-    z-index: 10;               /* 提高层级，防止波纹被遮挡 */
+    z-index: 100000;               /* 极高优先级，确保不被导航栏遮挡 */
+    overflow: visible !important;
 }
 
-/* 确保图标本身的层级足够高 */
+/* 图标自身层级更高 */
 .weiicon {
     position: relative;
-    z-index: 11;
+    z-index: 100001;
+    overflow: visible !important;
 }
 
-/* 确保波纹伪元素不被父级裁剪 */
-.headicon,
-.website {
+/* 确保所有相关父容器不裁剪波纹 */
+.website,
+.header,
+.headicon {
     overflow: visible !important;
 }
 
