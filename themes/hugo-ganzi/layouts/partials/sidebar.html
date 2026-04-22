@@ -60,7 +60,7 @@
 
     <!-- 部件3：彩色标签云 (样式已移至 custom.css) -->
     <div class="widget">
-        <div class="widget-tags" style="padding: 15px; text-align: center;">
+        <div class="widget-tags" style="padding: 15px; text-align: left;">
             {{ range $index, $term := .Site.Taxonomies.tags.Alphabetical }}<a href="{{ .Page.Permalink }}" class="tag-cloud-link tag-link-{{ (mod $index 10) }}">{{ .Page.Title }}</a>{{ end }}
         </div>
     </div>
