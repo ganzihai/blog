@@ -883,3 +883,14 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .instructions-wrap {
   line-height: 1.8;
 }
+/* 调整头部图标位置：左移，使其右边缘与侧边栏右边缘对齐 */
+.headicon {
+    margin-right: 20px;      /* 根据需要微调，数值越小越靠左 */
+    position: relative;
+    right: 0;
+}
+
+/* 确保 hover 时图片平滑放大（.flip 已有缩放效果，此处增强稳健性） */
+.flip:hover .weiicon {
+    transform: scale(1.15);
+}
