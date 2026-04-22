@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    hugo-ganzi 鏍稿績缁熶竴鏍峰紡琛?(楂樹紭鍏堢骇淇鐗?
    ============================================================ */
 
@@ -60,17 +60,57 @@
     font-size: 14px !important;
     text-decoration: none !important;
     font-weight: 500;
+    position: relative;
+    transition: transform 0.2s, border-radius 0.2s, padding 0.2s, box-shadow 0.2s, opacity 0.2s;
 }
-.tag-cloud-link:nth-child(9n)   { color: #2b98fd !important; background-color: rgba(43,152,253,0.1); }
-.tag-cloud-link:nth-child(9n+1) { color: #bd1048 !important; background-color: rgba(188,16,72,0.1); }
-.tag-cloud-link:nth-child(9n+2) { color: #4455de !important; background-color: rgba(68,85,222,0.1); }
-.tag-cloud-link:nth-child(9n+3) { color: #ff5900 !important; background-color: rgba(255,89,0,0.1); }
-.tag-cloud-link:nth-child(9n+4) { color: #277920 !important; background-color: rgba(39,121,32,0.1); }
-.tag-cloud-link:nth-child(9n+5) { color: #d931c4 !important; background-color: rgba(217,49,196,0.1); }
-.tag-cloud-link:nth-child(9n+6) { color: #14c01f !important; background-color: rgba(20,192,31,0.1); }
-.tag-cloud-link:nth-child(9n+7) { color: #ac7e24 !important; background-color: rgba(172,126,36,0.1); }
-.tag-cloud-link:nth-child(9n+8) { color: #f65e87 !important; background-color: rgba(246,94,135,0.1); }
-.tag-cloud-link:hover { opacity: 0.8; transition: opacity 0.2s; }
+.tag-cloud-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-80%, -50%);
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-right: 12px solid var(--tag-bg, rgba(0,0,0,0.1));
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+}
+.tag-cloud-link::after {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.08) inset;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+.tag-cloud-link:nth-child(9n)   { --tag-color: #2b98fd; --tag-bg: rgba(43,152,253,0.1); color: var(--tag-color) !important; background-color: var(--tag-bg); }
+.tag-cloud-link:nth-child(9n+1) { --tag-color: #bd1048; --tag-bg: rgba(188,16,72,0.1); color: var(--tag-color) !important; background-color: var(--tag-bg); }
+.tag-cloud-link:nth-child(9n+2) { --tag-color: #4455de; --tag-bg: rgba(68,85,222,0.1); color: var(--tag-color) !important; background-color: var(--tag-bg); }
+.tag-cloud-link:nth-child(9n+3) { --tag-color: #ff5900; --tag-bg: rgba(255,89,0,0.1); color: var(--tag-color) !important; background-color: var(--tag-bg); }
+.tag-cloud-link:nth-child(9n+4) { --tag-color: #277920; --tag-bg: rgba(39,121,32,0.1); color: var(--tag-color) !important; background-color: var(--tag-bg); }
+.tag-cloud-link:nth-child(9n+5) { --tag-color: #d931c4; --tag-bg: rgba(217,49,196,0.1); color: var(--tag-color) !important; background-color: var(--tag-bg); }
+.tag-cloud-link:nth-child(9n+6) { --tag-color: #14c01f; --tag-bg: rgba(20,192,31,0.1); color: var(--tag-color) !important; background-color: var(--tag-bg); }
+.tag-cloud-link:nth-child(9n+7) { --tag-color: #ac7e24; --tag-bg: rgba(172,126,36,0.1); color: var(--tag-color) !important; background-color: var(--tag-bg); }
+.tag-cloud-link:nth-child(9n+8) { --tag-color: #f65e87; --tag-bg: rgba(246,94,135,0.1); color: var(--tag-color) !important; background-color: var(--tag-bg); }
+.tag-cloud-link:hover {
+    opacity: 1;
+    transform: translateX(2px);
+    border-radius: 0 4px 4px 0 !important;
+    padding-left: 14px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.tag-cloud-link:hover::before { opacity: 1; transform: translate(-100%, -50%); }
+.tag-cloud-link:hover::after { opacity: 1; }
 
 /* --- 5. 褰掓。涓庡弸閾鹃〉闈㈢粓鏋侀€傞厤 --- */
 .article { overflow: visible !important; }
@@ -880,5 +920,4 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .instructions-wrap {
   line-height: 1.8;
 }
-
 
