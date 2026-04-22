@@ -883,14 +883,29 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .instructions-wrap {
   line-height: 1.8;
 }
-/* 调整头部图标位置：左移，使其右边缘与侧边栏右边缘对齐 */
-.headicon {
-    margin-right: 20px;      /* 根据需要微调，数值越小越靠左 */
+
+/* 让 .website 作为定位参考 */
+.website {
     position: relative;
-    right: 0;
 }
 
-/* 确保 hover 时图片平滑放大（.flip 已有缩放效果，此处增强稳健性） */
+/* 图标默认绝对定位，位置由 JS 动态设置 */
+.headicon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    float: none;
+}
+
+/* 移动端隐藏图标（与原主题一致） */
+@media (max-width: 991px) {
+    .headicon {
+        display: none;
+    }
+}
+
+/* 鼠标悬停平滑放大（确保 .flip 或 .weiicon 有 transition） */
 .flip:hover .weiicon {
     transform: scale(1.15);
 }
