@@ -12,7 +12,7 @@
 .dark .navigation{background:#1c1c1c;}
 .dark .roll-top,.dark .roll-dark{background:#555;}
 .dark .roll-top:hover,.dark .roll-dark:hover{background:#777;}
-.dark .rollmodeicon:before{content:"\e602";font-size:1.325rem;}
+.dark .rollmodeicon:before{content:"\e769";font-size:1.325rem;}
 .dark .mainmenu a:link, .dark .mainmenu a:visited{color:#909090;}
 .dark .mainmenu a:hover{color:#aaa;background:#292929;}
 .dark .mainmenu li li{background:#292929;border-top:1px solid #181818;}

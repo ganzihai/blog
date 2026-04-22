@@ -282,7 +282,7 @@ input,textarea{appearance:none;-moz-appearance:none;-webkit-appearance:none;}
 .roll-dark{margin-bottom:0.75rem;}
 .roll-top:hover, .roll-dark:hover{background:#767676;opacity:0.5;}
 .rollmodeicon{display:flex;justify-content:center;}
-.rollmodeicon:before{content:"\e60e";color:#fff;font-size:1.25rem;line-height:2.25rem;}
+.rollmodeicon:before{content:"\e76b";color:#fff;font-size:1.25rem;line-height:2.25rem;}
 .roll a{text-decoration:none;}
 /* 赞助 */
 .shang{margin:0 auto;position:relative;width:4.25rem;padding:0.625rem;}
