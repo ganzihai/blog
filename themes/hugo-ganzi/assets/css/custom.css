@@ -883,51 +883,51 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .instructions-wrap {
   line-height: 1.8;
 }
-/* 头部图标绝对定位，右边缘对齐 */
-.website {
-    position: relative;
-    overflow: visible !important;
-}
-
-.header {
-    position: relative;
-    overflow: visible !important;
-    z-index: 100;   /* 建立堆叠上下文，但不需要过高 */
-}
-
-.headicon {
-    position: absolute;
-    top: 50%;
-    right: 40px;                    /* 距离右侧边缘 40px，可自行调整 */
-    transform: translateY(-5%);     /* 垂直微调 */
+/* ========== 固定图标样式（永远在最上层，不被遮挡） ========== */
+.headicon-fixed {
+    position: fixed;
+    top: 120px;          /* 垂直位置，根据头部高度调整（可自行微调） */
+    right: 40px;         /* 距离右侧边缘的距离 */
+    z-index: 999999;     /* 极高优先级，确保不被任何元素遮挡 */
     margin: 0;
     float: none;
-    z-index: 100000;               /* 极高优先级，确保不被导航栏遮挡 */
     overflow: visible !important;
 }
 
-/* 图标自身层级更高 */
-.weiicon {
+.headicon-fixed .flip {
+    display: block;
+    width: 3.25rem;
+    height: 3.25rem;
+    transition: all 0.9s ease;
+    z-index: 1;
+    text-align: center;
+    box-sizing: border-box;
     position: relative;
-    z-index: 100001;
-    overflow: visible !important;
 }
 
-/* 确保所有相关父容器不裁剪波纹 */
-.website,
-.header,
-.headicon {
+.headicon-fixed .flip:hover {
+    transform: scale(1.15);
+}
+
+.headicon-fixed .weiicon {
+    position: relative;
+    z-index: 1000000;
     overflow: visible !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 /* 移动端隐藏图标 */
 @media (max-width: 991px) {
-    .headicon {
+    .headicon-fixed {
         display: none;
     }
 }
 
-/* 鼠标悬停平滑放大 */
-.flip:hover .weiicon {
+/* 鼠标悬停时图片本身也放大（与 .flip 配合，可选） */
+.headicon-fixed .flip:hover .weiicon {
     transform: scale(1.15);
 }
