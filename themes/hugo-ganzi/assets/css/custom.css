@@ -892,7 +892,7 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .headicon {
     position: absolute;
     top: 50%;
-    right: 0;                /* 右边缘与 .website 容器右边缘对齐 */
+    right: 40px;                /* 右边缘与 .website 容器右边缘对齐 */
     transform: translateY(-5%);
     margin: 0;
     float: none;
@@ -908,4 +908,34 @@ body:not(.dark) .link-card:hover .link-card-inner {
 /* 鼠标悬停平滑放大（确保生效） */
 .flip:hover .weiicon {
     transform: scale(1.15);
+}
+/* 增强波纹效果：提高起始透明度，并强制独立于父元素透明度 */
+.weiicon:hover:before,
+.weiicon:hover:after {
+    opacity: 1 !important;           /* 强制伪元素完全不透明 */
+    border-color: #d8b3b3;           /* 波纹颜色（可改为更明显的颜色，如 #ed5565） */
+}
+
+/* 调整波纹动画的透明度变化，使其更明显 */
+@keyframes ripple {
+    0% {
+        transform: scale(1.2);
+        opacity: 0.8;                /* 起始更明显 */
+    }
+    25% {
+        transform: scale(1.6);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(2);
+        opacity: 0.4;
+    }
+    75% {
+        transform: scale(2.4);
+        opacity: 0.2;
+    }
+    100% {
+        transform: scale(2.8);
+        opacity: 0;
+    }
 }
