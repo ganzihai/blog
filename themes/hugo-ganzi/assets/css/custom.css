@@ -40,12 +40,12 @@
 
 /* --- 4. 渚ц竟鏍忓強褰╄壊鏍囩 --- */
 .sidebar .widget { border-radius: 8px !important; overflow: hidden !important; }
-.sidebar .widget .tab-content { padding: 15px !important; }
+.sidebar .widget .tab-content { padding: 5px 15px !important; }
 .sidebar .widget .tab-content ul li { height: 40px; display: flex; align-items: center; border-bottom: 1px dashed #eee; font-size: 16px; overflow: hidden; }
 .sidebar .widget .tab-content ul li a { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; color: inherit; width: 100%; display: block; }
 
 /* 浣滆€呭崱鐗囩粺璁?*/
-.about-author .author-stats { display: flex !important; border-top: 1px solid #f2f2f2 !important; margin-top: 12px !important; background: #fafafa !important; width: 100% !important; border-radius: 0 0 8px 8px; }
+.about-author .author-stats { display: flex !important; border-top: 1px solid #f2f2f2 !important; margin-top: 5px !important; background: #fafafa !important; width: 100% !important; border-radius: 0 0 8px 8px; }
 .about-author .stat-item { text-align: center !important; flex: 1 !important; padding: 10px 0 !important; }
 .about-author .stat-number { display: block !important; font-size: 18px !important; font-weight: bold !important; color: #333 !important; }
 .dark .about-author .author-stats { background: #222 !important; border-top-color: #333 !important; }
