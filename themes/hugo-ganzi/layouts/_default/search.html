@@ -64,8 +64,8 @@
                 html += '<div class="search-result-title"><a href="' + item.url + '">' + titleHl + '</a></div>';
                 if (summary) html += '<div class="search-result-summary">' + summaryHl + '</div>';
                 html += '<div class="search-result-meta">';
-                if (date) html += '<span>&#xe689; ' + date + '</span>';
-                if (cats) html += '<span>&#xe658; ' + cats + '</span>';
+                if (date) html += '<span><i class="iconfont posticon">&#xe689;</i> ' + date + '</span>';
+                if (cats) html += '<span><i class="iconfont posticon">&#xe658;</i> ' + cats + '</span>';
                 html += '</div></div>';
             });
             resultsEl.innerHTML = html;
