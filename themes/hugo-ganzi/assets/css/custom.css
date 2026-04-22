@@ -32,11 +32,105 @@
 .rss-icon:hover { background-position: 0 -28px !important; }
 
 /* --- 3. 浠ｇ爜鍧楀鍒?(One Dark 鍒嗗眰缁撴瀯) --- */
-.highlight { position: relative; margin: 30px 0 !important; border-radius: 8px; overflow: hidden; background: #21252b !important; border: 1px solid #181a1f; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
-.highlight pre { margin: 38px 0 0 0 !important; padding: 20px !important; background: #282c34 !important; border-top: 1px solid #181a1f !important; color: #abb2bf !important; }
-.highlight code { background: transparent !important; border: none !important; }
-.highlight::before { content: ""; position: absolute; top: 13px; left: 15px; width: 12px; height: 12px; border-radius: 50%; background: #fc625d; box-shadow: 20px 0 0 #fdbc40, 40px 0 0 #35cd4b; z-index: 10; }
-.copy-btn { position: absolute; top: 8px; right: 12px; padding: 2px 10px; font-size: 11px; color: #5c6370; background: rgba(255,255,255,0.05); border: 1px solid #3e4451; border-radius: 4px; cursor: pointer; z-index: 11; }
+.highlight {
+    position: relative;
+    margin: 30px 0!important;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #eee!important;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 15px 35px rgba(0,0,0,.3);
+}
+
+.highlight pre {
+    margin: 38px 0 0!important;
+    padding: 20px!important;
+    background: #e0e0e0!important;
+    border-top: 1px solid #ddd!important;
+    color: #abb2bf!important
+}
+
+.highlight code {
+    background: 0 0!important;
+    border: none!important
+}
+
+.highlight::before {
+    content: "";
+    position: absolute;
+    top: 13px;
+    left: 15px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fc625d;
+    box-shadow: 20px 0 #fdbc40,40px 0 #35cd4b;
+    z-index: 10
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    padding: 2px 10px;
+    font-size: 11px;
+    color: #da4453;
+    background: rgba(255,255,255,5%);
+    border: 1px solid #da4453;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 11
+}
+
+.dark .highlight {
+    position: relative;
+    margin: 30px 0!important;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #21252b!important;
+    border: 1px solid #181a1f;
+    box-shadow: 0 15px 35px rgba(0,0,0,.3);
+}
+
+.dark .highlight pre {
+    margin: 38px 0 0!important;
+    padding: 20px!important;
+    background: #282c34!important;
+    border-top: 1px solid #181a1f!important;
+    color: #abb2bf!important
+}
+
+.dark .highlight code {
+    background: 0 0!important;
+    border: none!important
+}
+
+.dark .highlight::before {
+    content: "";
+    position: absolute;
+    top: 13px;
+    left: 15px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fc625d;
+    box-shadow: 20px 0 #fdbc40,40px 0 #35cd4b;
+    z-index: 10
+}
+
+.dark .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    padding: 2px 10px;
+    font-size: 11px;
+    color: #5c6370;
+    background: rgba(255,255,255,5%);
+    border: 1px solid #3e4451;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 11
+}
 
 /* --- 4. 渚ц竟鏍忓強褰╄壊鏍囩 --- */
 .sidebar .widget { border-radius: 8px !important; overflow: hidden !important; }
