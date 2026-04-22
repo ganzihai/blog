@@ -777,7 +777,7 @@ body.modal-open {
 
 .flinks-page-title {
   text-align: center !important;
-  margin: 35px 0 !important;
+  margin: 35px 0 0 !important;
   font-size: 30px !important;
   font-weight: bold !important;
   display: block !important;
@@ -788,7 +788,7 @@ body.modal-open {
 
 .dark .flinks-page-title {
   text-align: center !important;
-  margin: 35px 0 !important;
+  margin: 35px 0 0 !important;
   font-size: 30px !important;
   font-weight: bold !important;
   display: block !important;
