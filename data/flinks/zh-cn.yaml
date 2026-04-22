@@ -6,21 +6,21 @@
   FLinksList:
     - name: 杆子博客    
       desc: 海量博客基地！
-      avatar: /imgs/icons/apple_touch_icon_next.png
+      avatar: /apple-touch-icon.png
       link: https://blog.zznuo.com
       timeout: 2
       visible: true
 
     - name: 杆子日志
       desc: 日常零散收纳。
-      avatar: /imgs/icons/apple_touch_icon_next.png
+      avatar: /apple-touch-icon.png
       link: https://hugo-next.eu.org
       timeout: 2
       visible: true
 
     - name: 杆子仓库
       desc: 再平凡的人也有属于他的梦想！
-      avatar: /imgs/icons/apple_touch_icon_next.png
+      avatar: /apple-touch-icon.png
       link: https://github.com/ganzihai
       timeout: 2
       visible: true
@@ -31,19 +31,19 @@
   FLinksList:
     - name: 影视转存
       desc: 一键转存影视资源
-      avatar: /imgs/icons/apple_touch_icon_next.png
+      avatar: /apple-touch-icon.png
       link: https://cs.zznuo.com
       timeout: 2
       visible: true
     - name: 夸克转存
       desc: 自动转存夸克影视
-      avatar: /imgs/icons/apple_touch_icon_next.png
+      avatar: /apple-touch-icon.png
       link: https://kk.zznuo.com
       timeout: 2
       visible: true
     - name: 天翼转存
       desc: 自动转存天翼影视
-      avatar: /imgs/icons/apple_touch_icon_next.png
+      avatar: /apple-touch-icon.png
       link: https://189.zznuo.com
       timeout: 2
       visible: true
