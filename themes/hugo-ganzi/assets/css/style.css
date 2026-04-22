@@ -738,6 +738,12 @@ input,textarea,button{outline:none;}
     background: #f4f4f4;
     padding: 2px 4px;
     border-radius: 3px;
+    color: #000000;
+}
+.dark .article-content code {
+    background: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 3px;
     color: #c7254e;
 }
 
