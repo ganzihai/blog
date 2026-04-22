@@ -9,9 +9,11 @@
 */
 @font-face {
   font-family: 'iconfont';  /* Project id 4078196 */
-  src: url('//at.alicdn.com/t/c/font_4078196_2wo3mgizstm.woff2?t=1684978195521') format('woff2'),
-       url('//at.alicdn.com/t/c/font_4078196_2wo3mgizstm.woff?t=1684978195521') format('woff'),
-       url('//at.alicdn.com/t/c/font_4078196_2wo3mgizstm.ttf?t=1684978195521') format('truetype');
+  src: url('iconfont/iconfont.eot'); /* IE9 */ 
+  src: url('iconfont/iconfont.eot#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('iconfont/iconfont.woff2') format('woff2'),
+       url('iconfont/iconfont.woff') format('woff'),
+       url('iconfont/iconfont.ttf') format('truetype');
 }
 .iconfont{font-family:"iconfont" !important;font-size:14px;font-style:normal;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding-right:3px;display:inline-block;}
 *{border:0;margin:0;padding:0;}
