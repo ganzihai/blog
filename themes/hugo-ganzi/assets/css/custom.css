@@ -909,3 +909,20 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .flip:hover .weiicon {
     transform: scale(1.15);
 }
+/* 提高图标容器的层级，防止波纹被遮挡 */
+.headicon {
+    z-index: 10;           /* 确保高于其他内容 */
+    position: relative;    /* 或者已有的 absolute 也可以 */
+}
+
+/* 确保图标本身的层级足够高 */
+.weiicon {
+    position: relative;
+    z-index: 11;
+}
+
+/* 确保波纹伪元素不被父级裁剪 */
+.headicon,
+.website {
+    overflow: visible !important;   /* 防止波纹被裁剪 */
+}
