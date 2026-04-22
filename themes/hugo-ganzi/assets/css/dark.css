@@ -44,7 +44,6 @@
 /* .dark .main .article .article-content code{background-color:#353535;color:#c391b4;} */
 .dark .main .article .article-content ol li{background-color:#323232;}
 .dark .main .article .article-content ul li{background-color:#323232;}
-.dark .main .article .article-content h1, .dark .main .article .article-content h2, .dark .main .article .article-content h3, .dark .main .article .article-content h4, .dark .main .article .article-content h5, .dark .main .article .article-content h6{box-shadow:inset 0 -8px 0 0 #505050;}
 .dark .main .article .article-content .titlebar{background:linear-gradient(to right, #2b1419, #3c1f29);border-left:0.25rem solid #a02834;box-shadow:none;}
 .dark .main .article .article-content h5 li{background-color:transparent;}
 .dark .main .article .article-content input{border:2px solid #3f3f3f;background:#292929;}
