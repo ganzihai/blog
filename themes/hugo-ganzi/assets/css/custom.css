@@ -883,51 +883,29 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .instructions-wrap {
   line-height: 1.8;
 }
-/* ========== 固定图标样式（永远在最上层，不被遮挡） ========== */
-.headicon-fixed {
-    position: fixed;
-    top: 120px;          /* 垂直位置，根据头部高度调整（可自行微调） */
-    right: 40px;         /* 距离右侧边缘的距离 */
-    z-index: 999999;     /* 极高优先级，确保不被任何元素遮挡 */
+
+/* 头部图标相对于 .website 容器绝对定位，右边缘对齐容器右边缘 */
+.website {
+    position: relative;
+}
+
+.headicon {
+    position: absolute;
+    top: 50%;
+    right: 40px;                /* 右边缘与 .website 容器右边缘对齐 */
+    transform: translateY(-5%);
     margin: 0;
     float: none;
-    overflow: visible !important;
 }
 
-.headicon-fixed .flip {
-    display: block;
-    width: 3.25rem;
-    height: 3.25rem;
-    transition: all 0.9s ease;
-    z-index: 1;
-    text-align: center;
-    box-sizing: border-box;
-    position: relative;
-}
-
-.headicon-fixed .flip:hover {
-    transform: scale(1.15);
-}
-
-.headicon-fixed .weiicon {
-    position: relative;
-    z-index: 1000000;
-    overflow: visible !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-
-/* 移动端隐藏图标 */
+/* 移动端隐藏图标（保持不变） */
 @media (max-width: 991px) {
-    .headicon-fixed {
+    .headicon {
         display: none;
     }
 }
 
-/* 鼠标悬停时图片本身也放大（与 .flip 配合，可选） */
-.headicon-fixed .flip:hover .weiicon {
+/* 鼠标悬停平滑放大（确保生效） */
+.flip:hover .weiicon {
     transform: scale(1.15);
 }
