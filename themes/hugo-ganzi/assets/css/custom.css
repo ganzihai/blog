@@ -884,7 +884,7 @@ body:not(.dark) .link-card:hover .link-card-inner {
   line-height: 1.8;
 }
 
-/* 头部图标固定右对齐，与侧边栏右边缘大致平齐 */
+/* 头部图标相对于 .website 容器绝对定位，右边缘对齐容器右边缘 */
 .website {
     position: relative;
 }
@@ -892,12 +892,10 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .headicon {
     position: absolute;
     top: 50%;
+    right: 0;                /* 右边缘与 .website 容器右边缘对齐 */
     transform: translateY(-50%);
     margin: 0;
     float: none;
-    /* 关键：使用 right 属性固定距离右侧的距离，不依赖侧边栏计算 */
-    right: calc( (100% - 71rem) / 2 + 1.5rem );
-    /* 其中 71rem 为 .container 的最大宽度，1.5rem 为侧边栏与右侧的间隙（可微调） */
 }
 
 /* 移动端隐藏图标（保持不变） */
@@ -907,24 +905,7 @@ body:not(.dark) .link-card:hover .link-card-inner {
     }
 }
 
-/* 不同分辨率下调整 right 值，使图标与侧边栏右边缘对齐（根据您的媒体查询调整） */
-@media screen and (min-width: 992px) and (max-width: 1199px) {
-    .headicon {
-        right: calc( (100% - 71rem) / 2 + 1rem );
-    }
-}
-@media screen and (min-width: 1200px) and (max-width: 1579px) {
-    .headicon {
-        right: calc( (100% - 73rem) / 2 + 1rem );
-    }
-}
-@media screen and (min-width: 1580px) {
-    .headicon {
-        right: calc( (100% - 78rem) / 2 + 1rem );
-    }
-}
-
-/* 鼠标悬停平滑放大（已存在，确保生效） */
+/* 鼠标悬停平滑放大（确保生效） */
 .flip:hover .weiicon {
     transform: scale(1.15);
 }
