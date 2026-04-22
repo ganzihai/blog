@@ -2,7 +2,7 @@
     <div class="crumb">
         <div class="expand">
             <span class="close-sidebar" title="隐藏侧边栏"><i class="iconfont expandicon">&#xe60b;</i></span>
-            <span class="show-sidebar" style="display:none;" title="显示侧边栏"><i class="iconfont expandicon">&#xe606;</i></span>
+            <span class="show-sidebar is-hidden" title="显示侧边栏"><i class="iconfont expandicon">&#xe606;</i></span>
         </div>
         当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; 
         {{ range .Params.categories }}
@@ -33,7 +33,7 @@
             {{ .Content }}
         </div>
         <div class="article-tags">
-            <i class="iconfont posticon" style="padding-right:8px;">&#xe843;</i>
+            <i class="iconfont posticon posticon-tags">&#xe843;</i>
             <span itemprop="keywords">
                 {{ range .Params.tags }}
                 <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" rel="tag">{{ . }}</a>
@@ -44,50 +44,32 @@
     </div>
 
     {{ if .Site.Params.rewardSets.enable }}
-    <div class="article article-shang-wrap" style="text-align:center;padding:20px 0 10px;">
-        <div style="display:inline-block;">
+    <div class="article article-shang-wrap">
+        <div class="reward-btn-wrap">
             <span class="zanzhu-btn"><a id="rewardOpenBtn" title="赞助本站" href="javascript:;" onfocus="this.blur()">赏</a></span>
         </div>
     </div>
 
-    <div id="rewardBg" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9998;"></div>
-    <div id="rewardBox" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:10px;padding:28px 32px 24px;z-index:9999;text-align:center;width:90%;max-width:420px;box-shadow:0 12px 40px rgba(0,0,0,0.25);box-sizing:border-box;">
-        <button id="rewardCloseBtn" style="position:absolute;top:10px;right:14px;font-size:24px;line-height:1;cursor:pointer;background:none;border:none;color:#aaa;padding:0;" title="关闭">×</button>
-        <div style="font-size:17px;font-weight:bold;margin-bottom:18px;color:#f0a500;">打赏支持</div>
-        <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;">
+    <div id="rewardBg"></div>
+    <div id="rewardBox">
+        <button id="rewardCloseBtn" title="关闭">×</button>
+        <div class="reward-title">打赏支持</div>
+        <div class="reward-qrcode-group">
             {{ with .Site.Params.rewardSets.reward.alipay }}
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-                <img alt="支付宝打赏" src="{{ . }}" width="140" height="140" loading="lazy" style="border:1px solid #eee;border-radius:6px;max-width:140px;height:auto;">
-                <span style="font-size:13px;color:#0062ff;font-weight:bold;">支付宝打赏</span>
+            <div class="reward-qrcode-item">
+                <img alt="支付宝打赏" src="{{ . }}" width="140" height="140" loading="lazy" class="reward-qrcode-image">
+                <span class="reward-qrcode-label reward-qrcode-label-alipay">支付宝打赏</span>
             </div>
             {{ end }}
             {{ with .Site.Params.rewardSets.reward.wechatpay }}
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-                <img alt="微信打赏" src="{{ . }}" width="140" height="140" loading="lazy" style="border:1px solid #eee;border-radius:6px;max-width:140px;height:auto;">
-                <span style="font-size:13px;color:#22ac38;font-weight:bold;">微信打赏</span>
+            <div class="reward-qrcode-item">
+                <img alt="微信打赏" src="{{ . }}" width="140" height="140" loading="lazy" class="reward-qrcode-image">
+                <span class="reward-qrcode-label reward-qrcode-label-wechat">微信打赏</span>
             </div>
             {{ end }}
         </div>
-        <p style="margin-top:16px;color:#999;font-size:13px;">「请 GANZI 喝杯咖啡作为鼓励」~</p>
+        <p class="reward-tip">「请 GANZI 喝杯咖啡作为鼓励」~</p>
     </div>
-
-    <style>
-    .zanzhu-btn a {
-        display: inline-block;
-        width: 64px; height: 64px; line-height: 64px;
-        border-radius: 50%;
-        border: 2px solid #f0a500;
-        color: #f0a500; font-size: 22px; font-weight: bold;
-        text-decoration: none; cursor: pointer;
-        transition: all 0.25s ease;
-        background: #fefefe;
-        box-shadow: 1px 2px 3px rgba(0,0,0,.2);
-    }
-    .zanzhu-btn a:hover, .zanzhu-btn a:active {
-        background: #f0a500; color: #fff; border-color: #f0a500;
-        text-decoration: none;
-    }
-    </style>
 
     <script>
     (function(){
@@ -95,8 +77,8 @@
         var bg       = document.getElementById('rewardBg');
         var box      = document.getElementById('rewardBox');
         var closeBtn = document.getElementById('rewardCloseBtn');
-        function open()  { bg.style.display='block'; box.style.display='block'; document.body.style.overflow='hidden'; }
-        function close() { bg.style.display='none';  box.style.display='none';  document.body.style.overflow=''; }
+        function open()  { bg.classList.add('is-open'); box.classList.add('is-open'); document.body.classList.add('modal-open'); }
+        function close() { bg.classList.remove('is-open'); box.classList.remove('is-open'); document.body.classList.remove('modal-open'); }
         if(openBtn)  openBtn.addEventListener('click', open);
         if(bg)       bg.addEventListener('click', close);
         if(closeBtn) closeBtn.addEventListener('click', close);
@@ -134,15 +116,4 @@
         </div>
     </div>
 
-<style>
-@media screen and (min-width:992px) {
-    .main .article .article-related li:nth-child(odd) {
-        margin-right: 2rem;
-    }
-    .main .article .article-related li:nth-child(odd),
-    .main .article .article-related li:nth-child(even) {
-        box-sizing: border-box;
-    }
-}
-</style>
 {{ end }}

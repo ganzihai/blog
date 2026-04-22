@@ -2,7 +2,7 @@
 <div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; {{ .Title }}</div>
 
 <div class="article">
-    <h1 class="article-title" itemprop="headline" style="margin-bottom: 40px; font-size: 26px;">文章归档</h1>
+    <h1 class="article-title archives-main-title" itemprop="headline">文章归档</h1>
     
     <div class="archives-statistics">
         <div class="archives-info">博客统计信息</div>
@@ -21,27 +21,27 @@
 
     <div class="archives-content">
         <div class="car-container">
-            <div style="margin-bottom: 30px; display: flex; align-items: center;">
+            <div class="archives-toolbar">
                 <select id="archive-selector" onchange="if(this.value) location.hash=this.value">
                     <option value="">全部年份</option>
                     {{ range (.Site.RegularPages.GroupByDate "2006") }}
                     <option value="#year-{{ .Key }}">{{ .Key }}年</option>
                     {{ end }}
                 </select>
-                <a href="javascript:void(0)" class="car-toggler" id="archives-btn" style="margin-left: 25px; color:#ed5565; font-size:16px; text-decoration:none; font-weight:bold;">展开所有月份</a>
+                <a href="javascript:void(0)" class="car-toggler archives-toggle-btn" id="archives-btn">展开所有月份</a>
             </div>
             
             <div class="car-list">
                 {{ range (.Site.RegularPages.GroupByDate "2006") }}
                 <div class="car-year" id="year-{{ .Key }}">
-                    <h3 class="cy-title">{{ .Key }}年 <span style="font-size:14px; font-weight:normal; color:#999;">（{{ len .Pages }} 篇文章）</span></h3>
-                    <ul class="car-mon-list" style="list-style: none; padding: 0;">
+                    <h3 class="cy-title">{{ .Key }}年 <span class="cy-meta">（{{ len .Pages }} 篇文章）</span></h3>
+                    <ul class="car-mon-list list-reset">
                         {{ range $index, $value := (.Pages.GroupByDate "1 月") }}
                         <li>
                             <span class="car-yearmonth" onclick="toggleMonth(this)">
-                                <span class="car-toggle-icon">{{ if eq $index 0 }}-{{ else }}+{{ end }}</span> {{ .Key }} <span style="color:#999; font-weight:normal; font-size:14px; margin-left:10px;">({{ len .Pages }} 篇文章)</span>
+                                <span class="car-toggle-icon">{{ if eq $index 0 }}-{{ else }}+{{ end }}</span> {{ .Key }} <span class="car-month-meta">({{ len .Pages }} 篇文章)</span>
                             </span>
-                            <ul class="car-monthlisting" style="{{ if ne $index 0 }}display:none;{{ end }}">
+                            <ul class="car-monthlisting{{ if ne $index 0 }} is-collapsed{{ end }}">
                                 {{ range .Pages }}
                                 <li>
                                     <span class="car-days">{{ .Date.Format "02日" }}</span>
@@ -64,13 +64,8 @@
 function toggleMonth(el) {
     const list = el.nextElementSibling;
     const icon = el.querySelector('.car-toggle-icon');
-    if (list.style.display === 'none') {
-        list.style.display = 'block';
-        icon.innerText = '-';
-    } else {
-        list.style.display = 'none';
-        icon.innerText = '+';
-    }
+    const isCollapsed = list.classList.toggle('is-collapsed');
+    icon.innerText = isCollapsed ? '+' : '-';
 }
 document.addEventListener('DOMContentLoaded', function() {
     const btn = document.getElementById('archives-btn');
@@ -80,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const lists = document.querySelectorAll('.car-monthlisting');
         const icons = document.querySelectorAll('.car-toggle-icon');
         isAllOpen = !isAllOpen;
-        lists.forEach(l => l.style.display = isAllOpen ? 'block' : 'none');
+        lists.forEach(l => l.classList.toggle('is-collapsed', !isAllOpen));
         icons.forEach(i => i.innerText = isAllOpen ? '-' : '+');
         this.innerText = isAllOpen ? '折叠所有月份' : '展开所有月份';
     });

@@ -1,3 +1,20 @@
+{{ $sidebarPosts := where site.RegularPages "Section" "post" }}
+{{ if eq (len $sidebarPosts) 0 }}
+    {{ $sidebarPosts = site.RegularPages }}
+{{ end }}
+
+{{ $latestPosts := first 10 (sort $sidebarPosts "Date" "desc") }}
+{{ $tutorialPosts := where $sidebarPosts "Params.categories" "intersect" (slice "教程") }}
+{{ $hotPosts := first 10 (shuffle $tutorialPosts) }}
+
+{{ $nonTutorialPosts := slice }}
+{{ range $sidebarPosts }}
+    {{ if not (in (.Params.categories | default (slice)) "教程") }}
+        {{ $nonTutorialPosts = $nonTutorialPosts | append . }}
+    {{ end }}
+{{ end }}
+{{ $randomPosts := first 10 (shuffle $nonTutorialPosts) }}
+
 <div class="sidebar">
     <!-- 部件1：选项卡 (样式已移至 custom.css) -->
     <div class="widget">
@@ -10,9 +27,15 @@
         </div>
         <div class="clear"></div>
         <div class="tab-content">
-            <ul style="display:none;">{{ range first 10 .Site.RegularPages }}<li><a href="{{ .Permalink }}">{{ .Title }}</a></li>{{ end }}</ul>
-            <ul class="active">{{ range first 10 (shuffle .Site.RegularPages) }}<li><a href="{{ .Permalink }}">{{ .Title }}</a></li>{{ end }}</ul>
-            <ul style="display:none;">{{ range first 10 (shuffle .Site.RegularPages) }}<li><a href="{{ .Permalink }}">{{ .Title }}</a></li>{{ end }}</ul>
+            <ul style="display:none;">
+                {{ range $latestPosts }}<li><a href="{{ .Permalink }}">{{ .Title }}</a></li>{{ else }}<li>暂无文章</li>{{ end }}
+            </ul>
+            <ul class="active">
+                {{ range $hotPosts }}<li><a href="{{ .Permalink }}">{{ .Title }}</a></li>{{ else }}<li>暂无文章</li>{{ end }}
+            </ul>
+            <ul style="display:none;">
+                {{ range $randomPosts }}<li><a href="{{ .Permalink }}">{{ .Title }}</a></li>{{ else }}<li>暂无文章</li>{{ end }}
+            </ul>
         </div>
     </div>
 

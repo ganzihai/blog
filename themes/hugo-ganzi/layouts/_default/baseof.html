@@ -13,23 +13,20 @@
 
     {{ with resources.Get "css/style.css" }}{{ $style := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $style.RelPermalink }}">{{ end }}
     {{ with resources.Get "css/dark.css" }}{{ $dark := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $dark.RelPermalink }}">{{ end }}
-    {{ with resources.Get "css/jquery.mmenu.css" }}{{ $mmenu := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $mmenu.RelPermalink }}">{{ end }}
     {{ with resources.Get "css/custom.css" }}{{ $custom := . | minify | fingerprint }}<link rel="stylesheet" href="{{ $custom.RelPermalink }}">{{ end }}
 
     {{ with resources.Get "js/jquery.min.js" }}{{ $js := . | fingerprint }}<script type="text/javascript" src="{{ $js.RelPermalink }}"></script>{{ end }}
-    {{ with resources.Get "js/mmenu.js" }}{{ $js := . | fingerprint }}<script type="text/javascript" src="{{ $js.RelPermalink }}"></script>{{ end }}
     {{ with resources.Get "js/dark.min.js" }}{{ $js := . | fingerprint }}<script type="text/javascript" src="{{ $js.RelPermalink }}"></script>{{ end }}
     {{ with resources.Get "js/weisay.js" }}{{ $js := . | fingerprint }}<script type="text/javascript" src="{{ $js.RelPermalink }}"></script>{{ end }}
 </head>
 <body>
-    <!-- 手机端顶栏：仅在 max-width:991px 显示 -->
+    <!-- 手机端顶栏 -->
     <div class="mobile-header">
-        <!-- 左侧导航：href="#" 避免 mmenu 自动接管，由 JS 手动控制 -->
         <a href="#" id="mobile-menu-btn" class="mobile-nav-btn" aria-label="打开导航菜单">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </a>
         <a class="mobile-site-title" href="/">{{ .Site.Title }}</a>
-        <a href="#menu-right" id="mobile-sidebar-btn" class="mobile-nav-btn" aria-label="打开侧边栏">
+        <a href="#" id="mobile-sidebar-btn" class="mobile-nav-btn" aria-label="打开侧边栏">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
         </a>
     </div>
@@ -92,7 +89,7 @@
     <!-- 左侧抽屉遮罩 -->
     <div id="left-drawer-overlay"></div>
 
-    <!-- 左侧抽屉：导航菜单（纯CSS，不依赖mmenu） -->
+    <!-- 左侧抽屉：导航菜单 -->
     <div id="left-drawer">
         <div class="left-drawer-header">
             <span class="left-drawer-title">导航</span>
@@ -100,21 +97,38 @@
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
         </div>
+        <div class="left-drawer-search-wrap">
+            <form class="left-drawer-search-form" method="get" action="/search/">
+                <input class="left-drawer-search-input" required type="text" name="q" placeholder="搜索文章">
+                <button class="left-drawer-search-submit iconfont" type="submit">&#xe652;</button>
+            </form>
+        </div>
         <ul class="left-drawer-nav">
             <li><a href="/">首页</a></li>
             <li><a href="/categories/%E6%95%99%E7%A8%8B">教程</a></li>
             <li><a href="/categories/%E7%BD%91%E7%BB%9C">网络</a></li>
             <li><a href="/categories/%E8%BD%AF%E4%BB%B6">软件</a></li>
             <li><a href="/categories/%E7%94%9F%E6%B4%BB">生活</a></li>
-            <li><a href="/archives/">归档</a></li>
+            <li class="left-drawer-secondary-start"><a href="/archives/">归档</a></li>
             <li><a href="/flinks.html">链接</a></li>
         </ul>
     </div>
 
-    <!-- 右侧滑出：侧边栏内容 -->
-    <nav id="menu-right">
-        {{ partial "sidebar.html" . }}
-    </nav>
+    <!-- 右侧抽屉遮罩 -->
+    <div id="right-drawer-overlay"></div>
+
+    <!-- 右侧抽屉：侧边栏内容（纯CSS，不依赖mmenu） -->
+    <div id="right-drawer">
+        <div class="right-drawer-header">
+            <button id="right-drawer-close" aria-label="关闭侧边栏">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <span class="right-drawer-title">侧边栏</span>
+        </div>
+        <div class="right-drawer-body">
+            {{ partial "sidebar.html" . }}
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -131,6 +145,52 @@
                     });
                 });
                 container.appendChild(button);
+            });
+
+            // 左侧抽屉
+            var leftDrawer = document.getElementById('left-drawer');
+            var leftOverlay = document.getElementById('left-drawer-overlay');
+            var leftBtn    = document.getElementById('mobile-menu-btn');
+            var leftClose  = document.getElementById('left-drawer-close');
+            function syncBodyDrawerLock() {
+                var opened = (leftDrawer && leftDrawer.classList.contains('is-open')) ||
+                             (rightDrawer && rightDrawer.classList.contains('is-open'));
+                document.body.classList.toggle('drawer-open', opened);
+            }
+            function openLeft(e) {
+                if(e) e.preventDefault();
+                if(rightDrawer) rightDrawer.classList.remove('is-open');
+                if(rightOverlay) rightOverlay.classList.remove('is-open');
+                if(leftDrawer) leftDrawer.classList.add('is-open');
+                if(leftOverlay) leftOverlay.classList.add('is-open');
+                syncBodyDrawerLock();
+            }
+            function closeLeft() { leftDrawer.classList.remove('is-open'); leftOverlay.classList.remove('is-open'); syncBodyDrawerLock(); }
+            if(leftBtn)    leftBtn.addEventListener('click', openLeft);
+            if(leftClose)  leftClose.addEventListener('click', closeLeft);
+            if(leftOverlay) leftOverlay.addEventListener('click', closeLeft);
+
+            // 右侧抽屉
+            var rightDrawer  = document.getElementById('right-drawer');
+            var rightOverlay = document.getElementById('right-drawer-overlay');
+            var rightBtn     = document.getElementById('mobile-sidebar-btn');
+            var rightClose   = document.getElementById('right-drawer-close');
+            function openRight(e) {
+                if(e) e.preventDefault();
+                if(leftDrawer) leftDrawer.classList.remove('is-open');
+                if(leftOverlay) leftOverlay.classList.remove('is-open');
+                if(rightDrawer) rightDrawer.classList.add('is-open');
+                if(rightOverlay) rightOverlay.classList.add('is-open');
+                syncBodyDrawerLock();
+            }
+            function closeRight() { rightDrawer.classList.remove('is-open'); rightOverlay.classList.remove('is-open'); syncBodyDrawerLock(); }
+            if(rightBtn)    rightBtn.addEventListener('click', openRight);
+            if(rightClose)  rightClose.addEventListener('click', closeRight);
+            if(rightOverlay) rightOverlay.addEventListener('click', closeRight);
+
+            // ESC 关闭两侧抽屉
+            document.addEventListener('keydown', function(e) {
+                if(e.key === 'Escape') { closeLeft(); closeRight(); }
             });
         });
     </script>

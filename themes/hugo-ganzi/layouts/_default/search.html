@@ -2,53 +2,13 @@
 <div class="crumb">当前位置： <a title="返回首页" href="{{ .Site.BaseURL }}">首页</a> &gt; 搜索结果</div>
 
 <div class="article">
-    <div class="article-content" style="padding: 20px;">
+    <div class="article-content search-article-content">
         <div id="search-container">
-            <div id="search-status" style="color:#888; font-size:14px; margin-bottom:20px;"></div>
+            <div id="search-status" class="search-status"></div>
             <div id="search-results"></div>
         </div>
     </div>
 </div>
-
-<style>
-.search-result-item {
-    border-bottom: 1px solid #f0f0f0;
-    padding: 16px 0;
-}
-.search-result-item:last-child { border-bottom: none; }
-.search-result-title {
-    font-size: 17px;
-    font-weight: bold;
-    margin-bottom: 6px;
-}
-.search-result-title a {
-    color: #333 !important;
-    text-decoration: none;
-}
-.search-result-title a:hover { color: #ed5565 !important; }
-.search-result-summary {
-    font-size: 14px;
-    color: #777;
-    line-height: 1.7;
-    margin-bottom: 6px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-.search-result-meta {
-    font-size: 13px;
-    color: #aaa;
-}
-.search-result-meta span { margin-right: 12px; }
-.search-highlight { color: #ed5565; font-weight: bold; }
-.search-empty {
-    text-align: center;
-    padding: 60px 0;
-    color: #aaa;
-    font-size: 15px;
-}
-</style>
 
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
 <script>
