@@ -545,20 +545,20 @@ body.modal-open {
 }
 
 #rewardBox {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  border-radius: 10px;
-  padding: 28px 32px 24px;
-  z-index: 9999;
-  text-align: center;
-  width: 90%;
-  max-width: 420px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-  box-sizing: border-box;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: #fff;
+    border-radius: 10px;
+    padding: 28px 10px 54px;
+    z-index: 9999;
+    text-align: center;
+    width: 90%;
+    max-width: 520px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.25);
+    box-sizing: border-box
 }
 
 #rewardBox.is-open {

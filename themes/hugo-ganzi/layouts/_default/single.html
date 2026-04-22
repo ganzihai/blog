@@ -51,18 +51,18 @@
     </div>
 
     <div id="rewardBg"></div>
-    <div id="rewardBox">
+    <div id="rewardBox" class="shang-body">
         <button id="rewardCloseBtn" title="关闭">×</button>
         <div class="reward-title">打赏支持</div>
         <div class="reward-qrcode-group">
             {{ with .Site.Params.rewardSets.reward.alipay }}
-            <div class="reward-qrcode-item">
+            <div class="reward-qrcode-item shang-zfb shang-qrcode">
                 <img alt="支付宝打赏" src="{{ . }}" width="140" height="140" loading="lazy" class="reward-qrcode-image">
                 <span class="reward-qrcode-label reward-qrcode-label-alipay">支付宝打赏</span>
             </div>
             {{ end }}
             {{ with .Site.Params.rewardSets.reward.wechatpay }}
-            <div class="reward-qrcode-item">
+            <div class="reward-qrcode-item shang-wx shang-qrcode">
                 <img alt="微信打赏" src="{{ . }}" width="140" height="140" loading="lazy" class="reward-qrcode-image">
                 <span class="reward-qrcode-label reward-qrcode-label-wechat">微信打赏</span>
             </div>
