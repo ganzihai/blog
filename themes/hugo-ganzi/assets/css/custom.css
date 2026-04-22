@@ -883,7 +883,6 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .instructions-wrap {
   line-height: 1.8;
 }
-
 /* 头部图标相对于 .website 容器绝对定位，右边缘对齐容器右边缘 */
 .website {
     position: relative;
@@ -892,27 +891,11 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .headicon {
     position: absolute;
     top: 50%;
-    right: 40px;                /* 右边缘与 .website 容器右边缘对齐 */
-    transform: translateY(-5%);
+    right: 40px;                /* 距离右侧边缘 40px，可按需调整 */
+    transform: translateY(-5%); /* 垂直微调，可按需调整 */
     margin: 0;
     float: none;
-}
-
-/* 移动端隐藏图标（保持不变） */
-@media (max-width: 991px) {
-    .headicon {
-        display: none;
-    }
-}
-
-/* 鼠标悬停平滑放大（确保生效） */
-.flip:hover .weiicon {
-    transform: scale(1.15);
-}
-/* 提高图标容器的层级，防止波纹被遮挡 */
-.headicon {
-    z-index: 10;           /* 确保高于其他内容 */
-    position: relative;    /* 或者已有的 absolute 也可以 */
+    z-index: 10;               /* 提高层级，防止波纹被遮挡 */
 }
 
 /* 确保图标本身的层级足够高 */
@@ -924,5 +907,17 @@ body:not(.dark) .link-card:hover .link-card-inner {
 /* 确保波纹伪元素不被父级裁剪 */
 .headicon,
 .website {
-    overflow: visible !important;   /* 防止波纹被裁剪 */
+    overflow: visible !important;
+}
+
+/* 移动端隐藏图标 */
+@media (max-width: 991px) {
+    .headicon {
+        display: none;
+    }
+}
+
+/* 鼠标悬停平滑放大 */
+.flip:hover .weiicon {
+    transform: scale(1.15);
 }
