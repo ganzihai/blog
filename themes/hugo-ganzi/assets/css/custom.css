@@ -893,7 +893,7 @@ body:not(.dark) .link-card:hover .link-card-inner {
     position: absolute;
     top: 50%;
     right: 0;                /* 右边缘与 .website 容器右边缘对齐 */
-    transform: translateY(-50%);
+    transform: translateY(-70%);
     margin: 0;
     float: none;
 }
