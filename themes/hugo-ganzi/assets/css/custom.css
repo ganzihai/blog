@@ -778,7 +778,7 @@ body.modal-open {
 .flinks-page-title {
   text-align: center !important;
   margin: 35px 0 !important;
-  font-size: 24px !important;
+  font-size: 30px !important;
   font-weight: bold !important;
   display: block !important;
   box-shadow: none !important;
@@ -787,14 +787,14 @@ body.modal-open {
 }
 
 .dark .flinks-page-title {
-    text-align: center!important;
-    margin: 35px 0 0 !important;
-    font-size: 30px!important;
-    font-weight: 700!important;
-    display: block!important;
-    box-shadow: none!important;
-    width: 100%!important;
-    color: #fff
+  text-align: center !important;
+  margin: 35px 0 !important;
+  font-size: 30px !important;
+  font-weight: bold !important;
+  display: block !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  color: #fff;
 }
 
 .link-card {
