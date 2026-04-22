@@ -121,6 +121,38 @@
 .dark .link-name { color: #eeeeee !important; }
 .dark .link-desc { color: #999999 !important; }
 
+/* 手机端友情链接卡片：图标在上，文字在下（不影响桌面端） */
+@media screen and (max-width: 991px) {
+  .flinks-container .link-card-item {
+    width: calc(50% - 16px);
+  }
+
+  .flinks-container .link-card-item .link-card-inner {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center;
+    padding: 12px 10px;
+    min-height: 138px;
+  }
+
+  .flinks-container .link-card-item .link-avatar {
+    margin-right: 0 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .flinks-container .link-card-item .link-info {
+    width: 100%;
+    align-items: center !important;
+  }
+
+  .flinks-container .link-card-item .link-name,
+  .flinks-container .link-card-item .link-desc {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .divider-line { text-align: center; margin: 50px 0 40px; border-top: 1px dashed #ddd; position: relative; }
 .divider-line span { background: #fff; padding: 0 15px; position: relative; top: -11px; color: #bbb; }
 .dark .divider-line span { background: #1d1d1d !important; }
@@ -848,6 +880,5 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .instructions-wrap {
   line-height: 1.8;
 }
-
 
 
