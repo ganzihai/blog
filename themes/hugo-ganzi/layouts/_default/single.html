@@ -27,6 +27,12 @@
                     <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}" rel="category tag">{{ . }}</a>
                     {{ end }}
                 </span>
+                {{ if .File.Path }}
+                <span class="edit info-icon">
+                    <i class="iconfont posticon">&#xe62a;</i>
+                    <a href="https://github.com/ganzihai/blog/edit/main/content/{{ .File.Path }}" target="_blank" rel="noopener noreferrer">编辑</a>
+                </span>
+                {{ end }}
             </div>
         </div>
         <div class="article-content" itemprop="articleBody">
