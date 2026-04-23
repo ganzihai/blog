@@ -12,15 +12,7 @@
 .dark .tab-content ul li { border-bottom-color: #2a2a2a !important; color: #bbb !important; }
 .dark .tab-content ul li a { color: #bbb !important; }
 
-/* --- 1.5. 澶撮儴鍖哄煙 (Header) 淇 --- */
-.header {
-    overflow: visible !important;
-    position: relative !important;
-    z-index: 1 !important;
-    padding-bottom: 2rem !important;
-}
-
-/* --- 2. 椤堕儴鏉?(Top Bar) 鍨傜洿缁灞腑閿畾 --- */
+/* --- 2. 椤堕儴鏉?(Top Bar) 鍨傜洿缁濆灞呬腑閿佸畾 --- */
 .top-bar { height: 45px !important; line-height: 45px !important; background: #434a54 !important; overflow: visible !important; }
 .top-bar .container { 
     display: flex !important; justify-content: space-between !important; align-items: center !important; 
@@ -1022,16 +1014,6 @@ body:not(.dark) .link-card:hover .link-card-inner {
     transform: translateY(-5%);
     margin: 0;
     float: none;
-    z-index: 100;
-}
-
-/* 提升波纹层级，防止被导航栏遮挡 */
-.headicon .weiicon {
-    z-index: 2;
-}
-.headicon .weiicon:hover::before,
-.headicon .weiicon:hover::after {
-    z-index: -1;
 }
 
 /* 移动端隐藏图标（保持不变） */
