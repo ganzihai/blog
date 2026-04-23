@@ -12,32 +12,17 @@
 .dark .tab-content ul li { border-bottom-color: #2a2a2a !important; color: #bbb !important; }
 .dark .tab-content ul li a { color: #bbb !important; }
 
-/* --- 1.5. 椤堕儴 LOGO 鍥烘▊灞傦紙鑴辩 header/navigation 闄愬锛?--- */
-.logo-fixed-layer {
-    position: fixed;
-    top: 50px;              /* 与顶部 top-bar 高度对齐 */
-    right: 80px;            /* 与右侧边栏保持距离 */
-    z-index: 99999;         /* 最高层级，浮在所有内容之上 */
-    pointer-events: none;   /* 容器本身不阻挡点击 */
-}
-.logo-fixed-layer .flip,
-.logo-fixed-layer .weiicon {
-    pointer-events: auto;   /* 内部元素可交互 */
-}
-.logo-fixed-layer .flip {
-    display: inline-block;
+/* --- 1.5. 澶撮儴鍖哄煙 (Header) 淇 --- */
+.header {
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 9999 !important;
 }
 
-/* 移动端隐藏固定层（与原来保持一致） */
-@media (max-width: 991px) {
-    .logo-fixed-layer {
-        display: none !important;
-    }
-}
-
-/* 隐藏原 .headicon（桌面端使用固定层替代） */
-.headicon.desktop-logo {
-    display: none !important;
+/* 确保导航栏在 header 下方层级 */
+.navigation {
+    position: relative !important;
+    z-index: 1 !important;
 }
 
 /* --- 2. 椤堕儴鏉?(Top Bar) 鍨傜洿缁灞腑閿畾 --- */
@@ -1045,15 +1030,12 @@ body:not(.dark) .link-card:hover .link-card-inner {
     z-index: 100;
 }
 
-/* 提升波纹层级，防止被导航栏遮挡（原 headicon + 固定层） */
-.headicon .weiicon,
-.logo-fixed-layer .weiicon {
+/* 提升波纹层级，防止被导航栏遮挡 */
+.headicon .weiicon {
     z-index: 2;
 }
 .headicon .weiicon:hover::before,
-.headicon .weiicon:hover::after,
-.logo-fixed-layer .weiicon:hover::before,
-.logo-fixed-layer .weiicon:hover::after {
+.headicon .weiicon:hover::after {
     z-index: -1;
 }
 
