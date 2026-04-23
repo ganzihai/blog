@@ -12,17 +12,12 @@
 .dark .tab-content ul li { border-bottom-color: #2a2a2a !important; color: #bbb !important; }
 .dark .tab-content ul li a { color: #bbb !important; }
 
-/* --- 1.5. 澶撮儴鍖哄煙 (Header) 淇 --- */
+/* --- 1.5. 澶撮儴鍖哄煙 (Header) 淇 --- */
 .header {
     overflow: visible !important;
     position: relative !important;
-    z-index: 9999 !important;
-}
-
-/* 确保导航栏在 header 下方层级 */
-.navigation {
-    position: relative !important;
     z-index: 1 !important;
+    padding-bottom: 2rem !important;
 }
 
 /* --- 2. 椤堕儴鏉?(Top Bar) 鍨傜洿缁灞腑閿畾 --- */
