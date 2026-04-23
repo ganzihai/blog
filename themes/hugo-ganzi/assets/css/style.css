@@ -201,10 +201,9 @@ input,textarea{appearance:none;-moz-appearance:none;-webkit-appearance:none;}
 .main .article .article-content table th,.main .article .article-content table td{padding:0.375rem 0.625rem;border:1px solid #ccc;}
 .main .article .article-content table th{background-color:#f8f8f8;}
 .main .article .article-content table td.td-middle{text-align:center;}
-.main .article .article-content blockquote{padding:0.625rem 1rem;background-color:#f8f8f8;border-left:0.5rem solid #ddd;margin:1rem 0 1rem 0.625rem;position:relative;display:inline-block;}
-.main .article .article-content blockquote::before{content:"\201C";font-family:Georgia, serif;font-size:3.25rem;font-weight:bold;color:#b1b1b1;position:absolute;left:0.625rem;top:0.375rem;}
+.main .article .article-content blockquote{padding:0.3rem;background-color:#f8f8f8;border-left:0.5rem solid #ddd;margin:1rem 0 1rem 0.625rem;position:relative;display:inline-block;}
 .main .article .article-content blockquote::after{content:"";}
-.main .article .article-content blockquote p{text-indent:0;padding-left:2rem;line-height:2rem;color:#222;}
+.main .article .article-content blockquote p{text-indent:0;padding-left:1rem;line-height:2rem;color:#222;}
 .main .article .article-content p embed{margin-left:-2em;}
 .main .article .article-content p textarea{border:1px #ccc solid;margin-left:-2em;}
 .main .article .article-content p cite{font-size:0.875rem;margin-top:1.5rem;display:block;color:#777;}
