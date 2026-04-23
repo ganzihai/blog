@@ -1,48 +1,84 @@
 ```
-# Minified JavaScript files
-*.min.js
+# Hugo build lock file
+.hugo_build.lock
 
-# Build artifacts
-dist/
-build/
-*.o
-*.obj
-*.out
-
-# Dependencies
+# Node.js dependencies
 node_modules/
-vendor/
 
-# Logs and temp files
+# Build output directories
+public/
+resources/
+
+# Package lock file
+package-lock.json
+
+# Environment files
+.env
+.env.local
+.env.
+
+# Logs
 *.log
+
+# Temporary files
 *.tmp
 *.swp
 
-# Editors
+# IDE files
 .vscode/
 .idea/
-*.swp
-*.swo
 
-# Environment
-.env
-.env.local
-.env.*
-
-# Python specific
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
+# OS files
+.DS_Store
+Thumbs.db
 
 # Coverage reports
 coverage/
 htmlcov/
 .coverage
 
-# OS generated files
-.DS_Store
-Thumbs.db
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# MyPy cache
+.mypy_cache/
+
+# Pytest cache
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+
+# Dist and build artifacts
+dist/
+build/
+target/
+
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```

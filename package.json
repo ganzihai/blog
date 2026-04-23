@@ -1,0 +1,18 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "hugo --destination ./public",
+    "purgecss": "purgecss --config purgecss.config.js",
+    "optimize": "npm run build && npm run purgecss"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "purgecss": "^8.0.0"
+  }
+}
