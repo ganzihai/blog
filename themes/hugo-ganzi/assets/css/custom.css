@@ -151,7 +151,6 @@
     border-radius: 4px !important;
     font-size: 14px !important;
     text-decoration: none !important;
-    font-weight: 500;
     transition: border-radius 0.2s;
 }
 .tag-cloud-link:nth-child(9n)   { color: #2b98fd !important; background-color: rgba(43,152,253,0.1); }
