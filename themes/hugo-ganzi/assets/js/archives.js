@@ -15,13 +15,23 @@
 
     document.addEventListener('DOMContentLoaded', function(){
         // 月份折叠切换
-        document.querySelectorAll('.car-collapse .car-yearmonth').forEach(function(el){
+        document.querySelectorAll('.car-yearmonth').forEach(function(el){
             el.addEventListener('click', function(){
-                var nextUl = this.nextElementSibling;
-                if(nextUl && nextUl.tagName === 'UL'){
-                    var isVisible = nextUl.style.display !== 'none';
-                    nextUl.style.display = isVisible ? 'none' : 'block';
-                    setsplicon(this.querySelector('.car-toggle-icon'));
+                var ul = this.nextElementSibling;
+                if(ul && ul.classList.contains('car-monthlisting')){
+                    ul.classList.toggle('is-collapsed');
+                    var icon = this.querySelector('.car-toggle-icon');
+                    if(icon){
+                        if(ul.classList.contains('is-collapsed')){
+                            icon.innerHTML = '+';
+                            icon.classList.remove('car-minus');
+                            icon.classList.add('car-plus');
+                        } else {
+                            icon.innerHTML = '-';
+                            icon.classList.remove('car-plus');
+                            icon.classList.add('car-minus');
+                        }
+                    }
                 }
             });
         });
@@ -32,11 +42,23 @@
             toggleBtn.addEventListener('click', function(e){
                 e.preventDefault();
                 var isAllOpen = this.textContent === '折叠所有月份';
-                document.querySelectorAll('.car-collapse .car-monthlisting').forEach(function(ul){
-                    ul.style.display = isAllOpen ? 'none' : 'block';
+                document.querySelectorAll('.car-monthlisting').forEach(function(ul){
+                    if(isAllOpen){
+                        ul.classList.add('is-collapsed');
+                    } else {
+                        ul.classList.remove('is-collapsed');
+                    }
                 });
-                document.querySelectorAll('.car-collapse .car-toggle-icon').forEach(function(icon){
-                    setsplicon(icon, isAllOpen ? '-' : '+');
+                document.querySelectorAll('.car-toggle-icon').forEach(function(icon){
+                    if(isAllOpen){
+                        icon.innerHTML = '+';
+                        icon.classList.remove('car-minus');
+                        icon.classList.add('car-plus');
+                    } else {
+                        icon.innerHTML = '-';
+                        icon.classList.remove('car-plus');
+                        icon.classList.add('car-minus');
+                    }
                 });
                 this.textContent = isAllOpen ? '展开所有月份' : '折叠所有月份';
             });
