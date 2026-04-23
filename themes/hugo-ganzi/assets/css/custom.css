@@ -165,7 +165,7 @@
 }
 
 /* --- 5. 褰掓。涓庡弸閾鹃〉闈㈢粓鏋侀€傞厤 --- */
-.article { overflow: visible !important; }
+.article { overflow: hidden !important; }
 
 .archives-statistics {
     border: 1px solid #ddd; border-radius: 4px; padding: 30px 20px 25px;
