@@ -190,7 +190,7 @@
 
 .page-main-title {
   text-align: center !important;
-  margin: 25px 0 !important;
+  margin: 25px 0 0!important;
   font-size: 18px !important;
   font-weight: bold !important;
   display: block !important;
@@ -258,7 +258,7 @@
   }
 }
 
-.divider-line { text-align: center; margin: 50px 0 40px; border-top: 1px dashed #ddd; position: relative; }
+.divider-line { text-align: center; margin: 30px 0 0px; border-top: 1px dashed #ddd; position: relative; }
 .divider-line span { background: #fff; padding: 0 15px; position: relative; top: -11px; color: #bbb; }
 .dark .divider-line span { background: #1d1d1d !important; }
 
