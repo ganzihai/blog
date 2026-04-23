@@ -8,14 +8,14 @@
         <div class="archives-info">博客统计信息</div>
         <ul>
             <li>
-                {{ $since := time (.Site.Params.since | default "2023-05-20") }}
+                {{ $since := time (.Site.Params.since | default "2013-01-04") }}
                 {{ $age := div (sub now.Unix $since.Unix) 86400 }}
                 <p class="archives-counts">{{ $age }}+</p>
                 <p class="archives-title">运行天数</p>
             </li>
-            <li><p class="archives-counts">{{ len .Site.Taxonomies.categories }}+</p><p class="archives-title">分类</p></li>
+            <li><p class="archives-counts">{{ .Site.RegularPages | sum "WordCount" }}+</p><p class="archives-title">总字数</p></li>
             <li><p class="archives-counts">{{ len .Site.RegularPages }}+</p><p class="archives-title">文章</p></li>
-            <li><p class="archives-counts">1+</p><p class="archives-title">评论</p></li>
+            <li><p class="archives-counts">{{ len .Site.Taxonomies.categories }}+</p><p class="archives-title">分类</p></li>
         </ul>
     </div>
 

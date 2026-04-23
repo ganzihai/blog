@@ -51,8 +51,10 @@
                 <div class="author-description" style="font-size: 14px; color: #666; padding: 0 10px 1px;">{{ .Site.Params.description }}</div>
                 <div class="author-stats">
                     <div class="stat-item"><span class="stat-number">{{ len .Site.RegularPages }}</span><span class="stat-label">文章</span></div>
-                    <div class="stat-item stat-item-divider"><span class="stat-number">1</span><span class="stat-label">评论</span></div>
                     <div class="stat-item stat-item-divider"><span class="stat-number">{{ len .Site.Taxonomies.categories }}</span><span class="stat-label">分类</span></div>
+                    {{ $activeDays := slice }}
+                    {{ range .Site.RegularPages }}{{ $activeDays = $activeDays | append .PublishDate.Format "2006-01-02" }}{{ end }}
+                    <div class="stat-item stat-item-divider"><span class="stat-number">{{ $activeDays | uniq | len }}</span><span class="stat-label">活跃</span></div>
                 </div>
             </div>
         </div>
