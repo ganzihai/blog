@@ -1029,3 +1029,105 @@ body:not(.dark) .link-card:hover .link-card-inner {
 .flip:hover .weiicon {
     transform: scale(1.15);
 }
+
+/* ============================================================
+   Chroma 代码文字高亮 - 仅修改文字颜色，不影响容器样式
+   ============================================================ */
+
+/* 亮色模式 - GitHub 风格文字高亮 */
+.highlight .chroma .c,
+.highlight .chroma .c1,
+.highlight .chroma .cm,
+.highlight .chroma .ch { color: #6e7781; font-style: italic }
+.highlight .chroma .k,
+.highlight .chroma .kc,
+.highlight .chroma .kd,
+.highlight .chroma .kn,
+.highlight .chroma .kp,
+.highlight .chroma .kr,
+.highlight .chroma .kt { color: #cf222e }
+.highlight .chroma .nc,
+.highlight .chroma .ne,
+.highlight .chroma .nf,
+.highlight .chroma .fm { color: #8250df }
+.highlight .chroma .nv,
+.highlight .chroma .vc,
+.highlight .chroma .vg,
+.highlight .chroma .vi,
+.highlight .chroma .vm { color: #953800 }
+.highlight .chroma .s,
+.highlight .chroma .s1,
+.highlight .chroma .s2,
+.highlight .chroma .sa,
+.highlight .chroma .sb,
+.highlight .chroma .sc,
+.highlight .chroma .dl,
+.highlight .chroma .sd,
+.highlight .chroma .se,
+.highlight .chroma .sh,
+.highlight .chroma .si,
+.highlight .chroma .sx,
+.highlight .chroma .sr,
+.highlight .chroma .ss { color: #0a3069 }
+.highlight .chroma .m,
+.highlight .chroma .mb,
+.highlight .chroma .mf,
+.highlight .chroma .mh,
+.highlight .chroma .mi,
+.highlight .chroma .il,
+.highlight .chroma .mo { color: #0550ae }
+.highlight .chroma .o,
+.highlight .chroma .ow { color: #0550ae }
+.highlight .chroma .nt { color: #0550ae }
+.highlight .chroma .nd { color: #8250df }
+.highlight .chroma .p { color: #24292f }
+.highlight .chroma .n { color: #24292f }
+
+/* 深色模式 - One Dark 风格文字高亮 */
+.dark .highlight .chroma .c,
+.dark .highlight .chroma .c1,
+.dark .highlight .chroma .cm,
+.dark .highlight .chroma .ch { color: #7f848e; font-style: italic }
+.dark .highlight .chroma .k,
+.dark .highlight .chroma .kc,
+.dark .highlight .chroma .kd,
+.dark .highlight .chroma .kn,
+.dark .highlight .chroma .kp,
+.dark .highlight .chroma .kr,
+.dark .highlight .chroma .kt { color: #ff7b72 }
+.dark .highlight .chroma .nc,
+.dark .highlight .chroma .ne,
+.dark .highlight .chroma .nf,
+.dark .highlight .chroma .fm { color: #dcdcaa }
+.dark .highlight .chroma .nv,
+.dark .highlight .chroma .vc,
+.dark .highlight .chroma .vg,
+.dark .highlight .chroma .vi,
+.dark .highlight .chroma .vm { color: #e5c07b }
+.dark .highlight .chroma .s,
+.dark .highlight .chroma .s1,
+.dark .highlight .chroma .s2,
+.dark .highlight .chroma .sa,
+.dark .highlight .chroma .sb,
+.dark .highlight .chroma .sc,
+.dark .highlight .chroma .dl,
+.dark .highlight .chroma .sd,
+.dark .highlight .chroma .se,
+.dark .highlight .chroma .sh,
+.dark .highlight .chroma .si,
+.dark .highlight .chroma .sx,
+.dark .highlight .chroma .sr,
+.dark .highlight .chroma .ss { color: #98c379 }
+.dark .highlight .chroma .m,
+.dark .highlight .chroma .mb,
+.dark .highlight .chroma .mf,
+.dark .highlight .chroma .mh,
+.dark .highlight .chroma .mi,
+.dark .highlight .chroma .il,
+.dark .highlight .chroma .mo { color: #d19a66 }
+.dark .highlight .chroma .o,
+.dark .highlight .chroma .ow { color: #56b6c2 }
+.dark .highlight .chroma .nt { color: #7aa2f7 }
+.dark .highlight .chroma .nd { color: #c678dd }
+.dark .highlight .chroma .p { color: #abb2bf }
+.dark .highlight .chroma .n { color: #abb2bf }
