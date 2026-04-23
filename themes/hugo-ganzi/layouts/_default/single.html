@@ -27,6 +27,12 @@
                     <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}" rel="category tag">{{ . }}</a>
                     {{ end }}
                 </span>
+                <span class="word-count info-icon">
+                    <i class="iconfont posticon">&#xefb8;</i>本文{{ .WordCount }} 字
+                </span>
+                <span class="reading-time info-icon">
+                    <i class="iconfont posticon">&#xe63a;</i> {{ .ReadingTime }} 分钟
+                </span>
                 {{ if .File.Path }}
                 <span class="edit info-icon">
                     <i class="iconfont posticon">&#xe608;</i>
