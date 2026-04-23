@@ -60,25 +60,5 @@
     </div>
 </div>
 
-<script>
-function toggleMonth(el) {
-    const list = el.nextElementSibling;
-    const icon = el.querySelector('.car-toggle-icon');
-    const isCollapsed = list.classList.toggle('is-collapsed');
-    icon.innerText = isCollapsed ? '+' : '-';
-}
-document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('archives-btn');
-    if (!btn) return;
-    let isAllOpen = false;
-    btn.addEventListener('click', function() {
-        const lists = document.querySelectorAll('.car-monthlisting');
-        const icons = document.querySelectorAll('.car-toggle-icon');
-        isAllOpen = !isAllOpen;
-        lists.forEach(l => l.classList.toggle('is-collapsed', !isAllOpen));
-        icons.forEach(i => i.innerText = isAllOpen ? '-' : '+');
-        this.innerText = isAllOpen ? '折叠所有月份' : '展开所有月份';
-    });
-});
-</script>
+{{ with resources.Get "js/archives.js" }}{{ $js := . | fingerprint }}<script type="text/javascript" src="{{ $js.RelPermalink }}"></script>{{ end }}
 {{ end }}
