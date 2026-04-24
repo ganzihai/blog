@@ -678,7 +678,7 @@ input {
 .main .article .article-content blockquote {
     padding: .3rem;
     background-color: #f8f8f8;
-    border-left: .5rem solid #ddd;
+    border-left: .3rem solid #ddd;
     margin: 1rem 0 1rem .625rem;
     position: relative;
     display: inline-block
