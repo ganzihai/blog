@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.aliyun.com/esa/pages/config.json",
   "installCommand": "wget -qO- 'https://github.com/gohugoio/hugo/releases/download/v0.160.1/hugo_extended_0.160.1_Linux-64bit.tar.gz' | tar -xz && mv hugo /usr/local/bin/hugo",
-  "buildCommand": "cd $WORKSPACE && hugo --gc --minify",
+  "buildCommand": "git submodule update --init --recursive && hugo --gc --minify",
   "assets": {
-    "directory": "$WORKSPACE/public"
+    "directory": "./public"
   }
 }
