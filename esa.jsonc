@@ -1,7 +1,0 @@
-{
-  "$schema": "https://schema.aliyun.com/esa/pages/config.json",
-  "buildCommand": "wget -qO- 'https://github.com/gohugoio/hugo/releases/download/v0.125.5/hugo_extended_0.125.5_Linux-64bit.tar.gz' | tar -xz && chmod +x hugo && git submodule update --init --recursive && ./hugo --gc --minify",
-  "assets": {
-    "directory": "./public"
-  }
-}
