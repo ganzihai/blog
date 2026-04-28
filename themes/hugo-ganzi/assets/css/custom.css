@@ -1586,7 +1586,8 @@ body.drawer-open,body.modal-open {
 .car-monthlisting li {
     display: flex;
     align-items: center;
-    overflow: hidden
+    overflow: hidden;
+    margin: 8px 0
 }
 
 .car-monthlisting li a {
