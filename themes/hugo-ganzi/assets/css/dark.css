@@ -155,29 +155,51 @@
     background-size: auto 100%
 }
 
-.dark .main .article .article-content table th,.dark .main .article .article-content table td {
-    border: 1px solid #3f3f3f
+.dark .main .article .article-content a {
+    border-bottom-color: #555;
+    color: #ccc
+}
+
+.dark .main .article .article-content a:hover {
+    border-bottom-color: #eee;
+    color: #eee
+}
+
+.dark .main .article .article-content table th,
+.dark .main .article .article-content table td {
+    border: 1px solid #444;
+    border-bottom: 3px solid #444
+}
+
+.dark .main .article .article-content table td {
+    border-bottom-width: 1px
 }
 
 .dark .main .article .article-content table th {
-    background-color: #323232
+    background-color: transparent
+}
+
+.dark .main .article .article-content table tbody tr:nth-of-type(odd) {
+    background: #282828
+}
+
+.dark .main .article .article-content table tbody tr:hover {
+    background: #363636
 }
 
 .dark .main .article .article-content blockquote {
-    background-color: #323232;
-    border-left: 8px solid #4e4e4e
-}
-
-.dark .main .article .article-content blockquote p {
+    background-color: transparent;
+    border-left: 4px solid #444;
     color: #bbb
 }
 
-.dark .main .article .article-content ol li {
-    background-color: #323232
+.dark .main .article .article-content blockquote p {
+    color: inherit
 }
 
+.dark .main .article .article-content ol li,
 .dark .main .article .article-content ul li {
-    background-color: #323232
+    background-color: transparent
 }
 
 .dark .main .article .article-content h5 li {
