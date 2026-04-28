@@ -1449,15 +1449,15 @@ input,button {
 }
 
 .article-content code {
-    background: #f4f4f4;
+    background: #eeeeee;
     padding: 2px 4px;
     border-radius: 3px;
     color: #000
 }
 
 .dark .article-content code {
-    background: #f4f4f4;
+    background: #444444;
     padding: 2px 4px;
     border-radius: 3px;
-    color: #c7254e
+    color: #bbb
 }
