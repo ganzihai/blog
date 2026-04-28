@@ -396,6 +396,7 @@
 }
 
 .car-days {
+    flex-shrink: 0;
     color: #777;
     margin-right: 15px;
     font-size: 13px;
@@ -1580,6 +1581,19 @@ body.drawer-open,body.modal-open {
 
 .car-monthlisting.is-collapsed {
     display: none
+}
+
+.car-monthlisting li {
+    display: flex;
+    align-items: center;
+    overflow: hidden
+}
+
+.car-monthlisting li a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1
 }
 
 .instructions-wrap {
