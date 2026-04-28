@@ -10,14 +10,15 @@
             <li>
                 {{ $since := time (.Site.Params.since | default "2013-01-04") }}
                 {{ $age := div (sub now.Unix $since.Unix) 86400 }}
-                <p class="archives-counts">{{ $age }}+</p>
+                <p class="archives-counts">{{ $age }}</p>
                 <p class="archives-title">运行天数</p>
             </li>
             {{ $totalWords := 0 }}
             {{ range .Site.RegularPages }}{{ $totalWords = add $totalWords .WordCount }}{{ end }}
-            <li><p class="archives-counts">{{ $totalWords }}+</p><p class="archives-title">总字数</p></li>
-            <li><p class="archives-counts">{{ len .Site.RegularPages }}+</p><p class="archives-title">文章</p></li>
-            <li><p class="archives-counts">{{ len .Site.Taxonomies.categories }}+</p><p class="archives-title">分类</p></li>
+            {{ $wan := div $totalWords 10000 }}
+            <li><p class="archives-counts">{{ $wan }}</p><p class="archives-title">万字数</p></li>
+            <li><p class="archives-counts">{{ len .Site.RegularPages }}</p><p class="archives-title">文章</p></li>
+            <li><p class="archives-counts">{{ len .Site.Taxonomies.categories }}</p><p class="archives-title">分类</p></li>
         </ul>
     </div>
 
