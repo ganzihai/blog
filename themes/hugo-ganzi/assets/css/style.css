@@ -410,7 +410,7 @@ input {
     height: 2rem;
     background-color: #fff;
     border-radius: .375rem;
-    margin: .415rem .625rem 0 0;
+    margin: .415rem 0 0 0;
     border: 2px #ccc solid
 }
 
