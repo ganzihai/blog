@@ -1451,13 +1451,13 @@ input,button {
 .article-content code {
     background: #eeeeee;
     padding: 2px 4px;
-    border-radius: 3px;
+    border-radius: 4px!important;
     color: #000
 }
 
 .dark .article-content code {
     background: #444444;
     padding: 2px 4px;
-    border-radius: 3px;
+    border-radius: 4px!important;
     color: #bbb
 }
