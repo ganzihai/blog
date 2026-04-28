@@ -1698,3 +1698,12 @@ body.drawer-open,body.modal-open {
 .dark .highlight .chroma .n {
     color: #abb2bf
 }
+
+.dark .footer {
+    background-color: #1d1d1d;
+    height: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
