@@ -1062,7 +1062,7 @@ a.car-toggler {
 }
 
 .car-list li ul {
-    padding-left: 2rem
+    padding-left: .2rem
 }
 
 select#archive-selector {
