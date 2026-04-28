@@ -746,9 +746,19 @@ input {
     word-wrap: break-word
 }
 
+.main .article .article-content a.link-card-item,
+.main .article .article-content a.link-card {
+    border-bottom: none
+}
+
 .main .article .article-content a:hover {
     border-bottom-color: #222;
     color: #222
+}
+
+.main .article .article-content a.link-card-item:hover,
+.main .article .article-content a.link-card:hover {
+    border-bottom: none
 }
 
 .main .article .article-content h1,
