@@ -106,7 +106,7 @@
 
 .highlight pre {
     margin: 38px 0 0!important;
-    padding: 20px!important;
+    padding: 12px!important;
     background: #f3f5f6!important;
     border-top: 1px solid #ddd!important
 }
@@ -168,7 +168,7 @@
 
 .dark .highlight pre {
     margin: 38px 0 0!important;
-    padding: 20px!important;
+    padding: 12px!important;
     background: #282c34!important;
     border-top: 1px solid #181a1f!important
 }
