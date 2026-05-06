@@ -29,21 +29,21 @@
 - FLinksTitle: 杆子天地
   FLinksDesc: 来自杆子的精彩呈现！
   FLinksList:
+    - name: 影视在线
+      desc: 在线观看影视资源
+      avatar: /apple-touch-icon.png
+      link: https://v.zznuo.com
+      timeout: 2
+      visible: true
     - name: 影视转存
-      desc: 一键转存影视资源
+      desc: 一键转存所有网盘
       avatar: /apple-touch-icon.png
       link: https://cs.zznuo.com
       timeout: 2
       visible: true
     - name: 夸克转存
-      desc: 自动转存夸克影视
+      desc: 定时转存夸克影视
       avatar: /apple-touch-icon.png
       link: https://kk.zznuo.com
-      timeout: 2
-      visible: true
-    - name: 天翼转存
-      desc: 自动转存天翼影视
-      avatar: /apple-touch-icon.png
-      link: https://189.zznuo.com
       timeout: 2
       visible: true
