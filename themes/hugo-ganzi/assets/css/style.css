@@ -486,7 +486,8 @@ input {
     float: left;
     margin: .325rem 1rem .325rem 0;
     width: 10.99rem;
-    height: 7.85rem
+    height: 7.85rem;
+    overflow: hidden
 }
 
 .thumbnail img {
@@ -494,7 +495,9 @@ input {
     z-index: 3;
     border-radius: .375rem;
     width: 10.99rem;
-    height: 7.85rem
+    height: 7.85rem;
+    object-fit: cover;
+    object-position: center
 }
 
 .main .post-content {
@@ -1256,12 +1259,15 @@ select#archive-selector {
     .thumbnail {
         margin-right: .675rem;
         width: 7.7rem;
-        height: 5.5rem
+        height: 5.5rem;
+        overflow: hidden
     }
 
     .thumbnail img {
         width: 7.7rem;
-        height: 5.5rem
+        height: 5.5rem;
+        object-fit: cover;
+        object-position: center
     }
 
     .main .post .post-content p {
